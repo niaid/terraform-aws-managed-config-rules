@@ -10,7 +10,7 @@ variable "rules_to_include" {
 variable "rule_overrides" {
   description = "Override the configuration for any managed rule"
   default     = {}
-  type        = map(any)
+  type        = any
 }
 
 variable "rule_packs" {
