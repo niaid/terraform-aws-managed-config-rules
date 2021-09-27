@@ -17,7 +17,7 @@ output "all_rule_descriptions" {
   description = "A list of maps for Config Rules and their descriptions"
 
   value = [
-    for rule, attr in local.managed_rules :
+    for rule, attr in local.final_managed_rules :
     {
       name        = rule
       severity    = attr["severity"]
