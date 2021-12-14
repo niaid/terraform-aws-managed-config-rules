@@ -19,10 +19,9 @@ variable "rule_packs" {
   type        = list(string)
 }
 
-# in cases where rules from other packs overalap and
-# lets say we want to exlude all overalap rules from a pack.. this feature should address that
-# Example usecase is where securityhub deploys CIS Level1 and 2 Rules and lets say
-# we want to exlcude all these rules from NIST pack
+# In cases where rules from other packs overlap and let's say we want to exclude all overlap rules from a pack.. 
+# this feature should address that. Example use case is where securityhub deploys CIS Level1 and 2 Rules and 
+# lets say we want to exclude all these rules from NIST pack
 variable "rule_packs_rules_to_exclude" {
   description = "A list of Rule Packs (based off AWS Conformance Packs) from which overlap rules to exclude"
   default     = []
