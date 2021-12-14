@@ -13,6 +13,12 @@ module "managed_rules" {
     "Operational-Best-Practices-for-NIST-800-53-rev-4",
   ]
 
+  rule_packs_rules_to_exclude = [
+    "Operational-Best-Practices-for-CIS-AWS-v1.4-Level1",
+    "Operational-Best-Practices-for-CIS-AWS-v1.4-Level2",
+  ]
+
+
   # Extra rules not included in the Packs you want to deploy
   rules_to_include = [
     "dax-encryption-enabled",

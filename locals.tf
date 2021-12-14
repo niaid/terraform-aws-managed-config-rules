@@ -6,6 +6,11 @@ locals {
     local.pack_file["packs"][pack]
   ]
 
+  rule_packs_rules_to_exclude = [
+    for pack in var.rule_packs_rules_to_exclude :
+    local.pack_file["packs"][pack]
+  ]
+
   rules_collected = sort(
     distinct(
       flatten(
@@ -17,9 +22,20 @@ locals {
     )
   )
 
+  rules_exclude_collected = sort(
+    distinct(
+      flatten(
+        concat(
+          var.rules_to_exclude,
+          local.rule_packs_rules_to_exclude
+        )
+      )
+    )
+  )
+
   final_rules = [
     for rule in local.rules_collected :
-    rule if !contains(var.rules_to_exclude, rule)
+    rule if !contains(local.rules_exclude_collected, rule)
   ]
 
   final_managed_rules = merge(local.managed_rules, var.rule_overrides)
