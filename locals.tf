@@ -6,8 +6,8 @@ locals {
     local.pack_file["packs"][pack]
   ]
 
-  rule_packs_rules_to_exclude = [
-    for pack in var.rule_packs_rules_to_exclude :
+  rule_packs_to_exclude = [
+    for pack in var.rule_packs_to_exclude :
     local.pack_file["packs"][pack]
   ]
 
@@ -27,7 +27,7 @@ locals {
       flatten(
         concat(
           var.rules_to_exclude,
-          local.rule_packs_rules_to_exclude
+          local.rule_packs_to_exclude
         )
       )
     )
