@@ -1,4 +1,5 @@
 AWS-Control-Tower-Detective-Guardrails
+Operational-Best-Practices-For-NIST-800-181
 Operational-Best-Practices-for-ABS-CCIGv2-Material
 Operational-Best-Practices-for-ABS-CCIGv2-Standard
 Operational-Best-Practices-for-ACSC-Essential8
@@ -41,6 +42,7 @@ Operational-Best-Practices-for-Database-Services
 Operational-Best-Practices-for-Datalakes-and-Analytics-Services
 Operational-Best-Practices-for-DevOps
 Operational-Best-Practices-for-EC2
+Operational-Best-Practices-for-ENISA-Cybersecurity-Guide
 Operational-Best-Practices-for-Encryption-and-Keys
 Operational-Best-Practices-for-FDA-21CFR-Part-11
 Operational-Best-Practices-for-FFIEC
