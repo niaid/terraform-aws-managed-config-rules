@@ -5,7 +5,7 @@ require 'yaml'
 require 'nokogiri'
 require 'open-uri'
 
-# Rules that we have, but are named differently than AWS (we use the identified)
+# Rules that we have, but are named differently than AWS (we use the identifier)
 renamed_rules = [
   "cloudtrail-enabled",
   "ec2-instance-managed-by-systems-manager",
@@ -24,7 +24,7 @@ doc.css("li").each do |item|
   aws_rules << item.text
 end
 
-#init      = `terraform init`
+init      = `terraform init`
 keys      = `echo "keys((local.managed_rules))" | terraform console`
 our_rules = JSON.parse("#{keys[0..-5]}]")
 
