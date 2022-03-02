@@ -408,8 +408,10 @@ variable "ec2_volume_inuse_check_parameters" {
 
 variable "ecs_task_definition_user_for_host_mode_check_parameters" {
   description = "Input parameters for the ecs-task-definition-user-for-host-mode-check rule"
-  default     = null
-  type        = map(string)
+  default = {
+    SkipInactiveTaskDefinitions = "true"
+  }
+  type = map(string)
 }
 
 variable "efs_encrypted_check_parameters" {
