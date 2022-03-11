@@ -158,6 +158,12 @@ locals {
       severity             = "Medium"
     }
 
+    autoscaling-multiple-az = {
+      description      = "Checks if the Auto Scaling group spans multiple Availability Zones. The rule is NON_COMPLIANT if the Auto Scaling group does not span multiple Availability Zones. "
+      input_parameters = var.autoscaling_multiple_az_parameters
+      severity         = "Medium"
+    }
+
     backup-plan-min-frequency-and-min-retention-check = {
       description      = "Checks if a backup plan has a backup rule that satisfies the required frequency and retention period. The rule is NON_COMPLIANT if recovery points are not created at least as often as the specified frequency or expire before the specified period."
       input_parameters = var.backup_plan_min_frequency_and_min_retention_check_parameters
@@ -313,16 +319,59 @@ locals {
       severity    = "Medium"
     }
 
+    codebuild-project-artifact-encryption = {
+      description          = "Checks if an AWS CodeBuild project has encryption enabled for all of its artifacts. The rule is NON_COMPLIANT if 'encryptionDisabled' is set to 'true' for any primary or secondary (if present) artifact configurations."
+      resource_types_scope = ["AWS::CodeBuild::Project"]
+      severity             = "Medium"
+    }
+
+    codebuild-project-environment-privileged-check = {
+      description          = "Checks if an AWS CodeBuild project environment has privileged mode enabled. The rule is NON_COMPLIANT for a CodeBuild project if 'privilegedMode' is set to 'true' "
+      input_parameters     = var.codebuild_project_environment_privileged_check_parameters
+      resource_types_scope = ["AWS::CodeBuild::Project"]
+      severity             = "Medium"
+    }
+
     codebuild-project-envvar-awscred-check = {
       description          = "Checks whether the project contains environment variables AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY. The rule is NON_COMPLIANT when the project environment variables contains plaintext credentials."
       resource_types_scope = ["AWS::CodeBuild::Project"]
       severity             = "Critical"
     }
 
+    codebuild-project-logging-enabled = {
+      description          = "Checks if an AWS CodeBuild project environment has at least one log option enabled. The rule is NON_COMPLIANT if 'logsConfig' is not present or the status of all present log configurations is set to 'DISABLED'."
+      input_parameters     = var.codebuild_project_logging_enabled_parameters
+      resource_types_scope = ["AWS::CodeBuild::Project"]
+      severity             = "Medium"
+    }
+
+    codebuild-project-s3-logs-encrypted = {
+      description          = "Checks if a AWS CodeBuild project configured with Amazon S3 Logs has encryption enabled for its logs. The rule is NON_COMPLIANT if 'encryptionDisabled' is set to 'true' in a S3LogsConfig of a CodeBuild project."
+      input_parameters     = var.codebuild_project_s3_logs_encrypted_parameters
+      resource_types_scope = ["AWS::CodeBuild::Project"]
+      severity             = "Medium"
+    }
+
     codebuild-project-source-repo-url-check = {
       description          = "Checks whether the GitHub or Bitbucket source repository URL contains either personal access tokens or user name and password. The rule is complaint with the usage of OAuth to grant authorization for accessing GitHub repositories."
       resource_types_scope = ["AWS::CodeBuild::Project"]
       severity             = "Critical"
+    }
+
+    codedeploy-auto-rollback-monitor-enabled = {
+      description = "Checks if the deployment group is configured with automatic deployment rollback and deployment monitoring with alarms attached. The rule is NON_COMPLIANT if AutoRollbackConfiguration or AlarmConfiguration has not been configured or is not enabled."
+      severity    = "Medium"
+    }
+
+    codedeploy-ec2-minimum-healthy-hosts-configured = {
+      description      = "Checks if the deployment group for EC2/On-Premises Compute Platform is configured with a minimum healthy hosts fleet percentage or host count greater than or equal to the input threshold. The rule is NON_COMPLIANT if either is below the threshold"
+      input_parameters = var.codedeploy_ec2_minimum_healthy_hosts_configured_parameters
+      severity         = "Medium"
+    }
+
+    codedeploy-lambda-allatonce-traffic-shift-disabled = {
+      description = "Checks if the deployment group for Lambda Compute Platform is not using the default deployment configuration. The rule is NON_COMPLIANT if the deployment group is using the deployment configuration 'CodeDeployDefault.LambdaAllAtOnce'."
+      severity    = "Medium"
     }
 
     codepipeline-deployment-count-check = {
@@ -530,6 +579,12 @@ locals {
       severity             = "Low"
     }
 
+    ec2-security-group-attached-to-eni-periodic = {
+      description          = "Checks if non-default security groups are attached to Elastic network interfaces (ENIs). The rule is NON_COMPLIANT if the security group is not associated with an elastic network interface (ENI)."
+      resource_types_scope = ["AWS::EC2::SecurityGroup"]
+      severity             = "Low"
+    }
+
     ec2-stopped-instance = {
       description      = "Checks if there are instances stopped for more than the allowed number of days. The instance is NON_COMPLIANT if the state of the ec2 instance has been stopped for longer than the allowed number of days."
       input_parameters = var.ec2_managedinstance_platform_check_parameters
@@ -540,6 +595,47 @@ locals {
       description      = "Checks if EBS volumes are attached to EC2 instances. Optionally checks if EBS volumes are marked for deletion when an instance is terminated."
       input_parameters = var.ec2_volume_inuse_check_parameters
       severity         = "Low"
+    }
+
+    ecr-private-image-scanning-enabled = {
+      description = "Checks if a private Amazon Elastic Container Registry (ECR) repository has image scanning enabled. The rule is NON_COMPLIANT if image scanning is not enabled for the private ECR repository."
+      severity    = "Medium"
+    }
+
+    ecr-private-tag-immutability-enabled = {
+      description = "Checks if a private Amazon Elastic Container Registry (ECR) repository has tag immutability enabled. This rule is NON_COMPLIANT if tag immutability is not enabled for the private ECR repository."
+      severity    = "Medium"
+    }
+
+    ecs-containers-nonprivileged = {
+      description = "Checks if the privileged parameter in the container definition of ECSTaskDefinitions is set to 'true' The rule is NON_COMPLIANT if the privileged parameter is 'true'"
+      severity    = "Medium"
+    }
+
+    ecs-containers-readonly-access = {
+      description = "Checks if Amazon Elastic Container Service (Amazon ECS) Containers only have read-only access to its root filesystems. The rule is NON_COMPLIANT if the readonlyRootFilesystem parameter in the container definition of ECSTaskDefinitions is set to 'false'"
+      severity    = "Medium"
+    }
+
+    ecs-no-environment-secrets = {
+      description      = "Checks if secrets are passed as container environment variables. The rule is NON_COMPLIANT if 1 or more environment variable key matches a key listed in the 'secretKeys' parameter (excluding environmental variables)."
+      input_parameters = var.ecs_no_environment_secrets_parameters
+      severity         = "Critical"
+    }
+
+    ecs-task-definition-memory-hard-limit = {
+      description = "Checks if Amazon Elastic Container Service (ECS) task definitions have a set memory limit for its container definitions. The rule is NON_COMPLIANT for a task definition if the 'memory' parameter is absent for one container definition."
+      severity    = "Medium"
+    }
+
+    ecs-task-definition-nonroot-user = {
+      description = "Checks if ECSTaskDefinitions specify a user for Amazon Elastic Container Service (Amazon ECS) EC2 launch type containers to run on. The rule is NON_COMPLIANT if the 'user' parameter is not present or set to 'root'."
+      severity    = "High"
+    }
+
+    ecs-task-definition-pid-mode-check = {
+      description = "Checks if ECSTaskDefinitions are configured to share a host's process namespace with its Amazon Elastic Container Service (Amazon ECS) containers. The rule is NON_COMPLIANT if the pidMode parameter is set to 'host'."
+      severity    = "High"
     }
 
     ecs-task-definition-user-for-host-mode-check = {
@@ -568,6 +664,18 @@ locals {
     eip-attached = {
       description = "Checks if all Elastic IP addresses that are allocated to an AWS account are attached to EC2 instances or in-use elastic network interfaces (ENIs)."
       severity    = "Low"
+    }
+
+    eks-cluster-oldest-supported-version = {
+      description      = "Checks if an Amazon Elastic Kubernetes Service (EKS) cluster is running the oldest supported version. The rule is NON_COMPLIANT if an EKS cluster is running oldest supported version (equal to the parameter 'oldestVersionSupported')."
+      input_parameters = var.eks_cluster_oldest_supported_version_parameters
+      severity         = "Medium"
+    }
+
+    eks-cluster-supported-version = {
+      description      = "Checks if an Amazon Elastic Kubernetes Service (EKS) cluster is running a supported Kubernetes version. This rule is NON_COMPLIANT if an EKS cluster is running an unsupported version (less than the parameter 'oldestVersionSupported')."
+      input_parameters = var.eks_cluster_supported_version_parameters
+      severity         = "Medium"
     }
 
     eks-endpoint-no-public-access = {
@@ -855,6 +963,13 @@ locals {
       severity             = "Low"
     }
 
+    lambda-vpc-multi-az-check = {
+      description          = "Checks if Lambda has more than 1 availability zone associated. The rule is NON_COMPLIANT if only 1 availability zone is associated with the Lambda or the number of AZs associated is less than number specified in the optional parameter."
+      input_parameters     = var.lambda_vpc_multi_az_check_parameters
+      resource_types_scope = ["AWS::Lambda::Function"]
+      severity             = "Medium"
+    }
+
     mfa-enabled-for-iam-console-access = {
       description = "Checks whether AWS Multi-Factor Authentication (MFA) is enabled for all AWS Identity and Access Management (IAM) users that use a console password. The rule is compliant if MFA is enabled. "
       severity    = "Medium"
@@ -866,16 +981,75 @@ locals {
       severity         = "Critical"
     }
 
+    nacl-no-unrestricted-ssh-rdp = {
+      description = "Checks if default ports for SSH/RDP ingress traffic for network access control lists (NACLs) is unrestricted. The rule is NON_COMPLIANT if a NACL inbound entry allows a source CIDR block of '0.0.0.0/0' or '::/0' for ports 22 or 3389."
+      severity    = "High"
+    }
+
+    netfw-stateless-rule-group-not-empty = {
+      description = "Checks if a Stateless Network Firewall Rule Group contains rules. The rule is NON_COMPLIANT if there are no rules in a Stateless Network Firewall Rule Group."
+      severity    = "Medium"
+    }
+
     no-unrestricted-route-to-igw = {
       description      = "Checks if there are public routes in the route table to an Internet Gateway (IGW). The rule is NON_COMPLIANT if a route to an IGW has a destination CIDR block of '0.0.0.0/0' or '::/0' or if a destination CIDR block does not match the rule parameter."
       input_parameters = var.no_unrestricted_route_to_igw_parameters
       severity         = "Medium"
     }
 
+    opensearch-access-control-enabled = {
+      description = "Checks if Amazon OpenSearch Service domains have fine-grained access control enabled. The rule is NON_COMPLIANT if AdvancedSecurityOptions is not enabled for the OpenSearch Service domain."
+      severity    = "High"
+    }
+
+    opensearch-audit-logging-enabled = {
+      description      = "Checks if Amazon OpenSearch Service domains have audit logging enabled. The rule is NON_COMPLIANT if an OpenSearch Service domain does not have audit logging enabled."
+      input_parameters = var.opensearch_audit_logging_enabled_parameters
+      severity         = "Medium"
+    }
+
+    opensearch-data-node-fault-tolerance = {
+      description = "Checks if Amazon OpenSearch Service domains are configured with at least three data nodes and zoneAwarenessEnabled is true. The rule is NON_COMPLIANT for an OpenSearch domain if 'instanceCount' is less than 3 or 'zoneAwarenessEnabled' is set to 'false'."
+      severity    = "Medium"
+    }
+
+    opensearch-encrypted-at-rest = {
+      description = "Checks if Amazon OpenSearch Service domains have encryption at rest configuration enabled. The rule is NON_COMPLIANT if EncryptionAtRestOptions field is not enabled."
+      severity    = "High"
+    }
+
+    opensearch-https-required = {
+      description      = "Checks whether connections to OpenSearch domains are using HTTPS. The rule is NON_COMPLIANT if the Amazon OpenSearch domain 'EnforceHTTPS' is not 'true' or is 'true' and 'TLSSecurityPolicy' is not in 'tlsPolicies'."
+      input_parameters = var.opensearch_https_required_parameters
+      severity         = "High"
+    }
+
+    opensearch-in-vpc-only = {
+      description = "Checks if Amazon OpenSearch Service domains are in an Amazon Virtual Private Cloud (VPC). The rule is NON_COMPLIANT if an OpenSearch Service domain endpoint is public."
+      severity    = "High"
+    }
+
+    opensearch-logs-to-cloudwatch = {
+      description      = "Checks if Amazon OpenSearch Service domains are configured to send logs to Amazon CloudWatch Logs. The rule is NON_COMPLIANT if logging is not configured."
+      input_parameters = var.opensearch_logs_to_cloudwatch_parameters
+      severity         = "Medium"
+    }
+
+    opensearch-node-to-node-encryption-check = {
+      description = "Check that Amazon OpenSearch Service nodes are encrypted end to end. The rule is NON_COMPLIANT if the node-to-node encryption is not enabled on the domain"
+      severity    = "High"
+    }
+
     rds-automatic-minor-version-upgrade-enabled = {
       description          = "Checks if Amazon Relational Database Service (RDS) database instances are configured for automatic minor version upgrades. The rule is NON_COMPLIANT if the value of 'autoMinorVersionUpgrade' is false."
       resource_types_scope = ["AWS::RDS::DBInstance"]
       severity             = "High"
+    }
+
+    rds-cluster-default-admin-check = {
+      description      = "Checks if an Amazon Relational Database Service (Amazon RDS) database cluster has changed the admin username from its default value. The rule is NON_COMPLIANT if the admin username is set to the default value."
+      input_parameters = var.rds_cluster_default_admin_check_parameters
+      severity         = "Medium"
     }
 
     rds-cluster-deletion-protection-enabled = {
@@ -893,6 +1067,11 @@ locals {
       severity    = "Medium"
     }
 
+    rds-db-security-group-not-allowed = {
+      description = "Checks if there are any Amazon Relational Database Service (RDS) DB security groups that are not the default DB security group. The rule is NON_COMPLIANT is there are any DB security groups that are not the default DB security group."
+      severity    = "Medium"
+    }
+
     rds-enhanced-monitoring-enabled = {
       description          = "Checks whether enhanced monitoring is enabled for Amazon Relational Database Service (Amazon RDS) instances."
       input_parameters     = var.rds_enhanced_monitoring_enabled_parameters
@@ -903,6 +1082,12 @@ locals {
     rds-in-backup-plan = {
       description = "Checks whether Amazon RDS database is present in back plans of AWS Backup. The rule is NON_COMPLIANT if Amazon RDS databases are not included in any AWS Backup plan."
       severity    = "Medium"
+    }
+
+    rds-instance-default-admin-check = {
+      description      = "Checks if an Amazon Relational Database Service (Amazon RDS) database has changed the admin username from its default value. This rule will only run on RDS database instances. The rule is NON_COMPLIANT if the admin username is set to the default value"
+      input_parameters = var.rds_instance_default_admin_check_parameters
+      severity         = "Medium"
     }
 
     rds-instance-deletion-protection-enabled = {
@@ -987,6 +1172,13 @@ locals {
       severity             = "Critical"
     }
 
+    redshift-default-admin-check = {
+      description          = "Checks if an Amazon Redshift cluster has changed the admin username from its default value. The rule is NON_COMPLIANT if the admin username for a Redshift cluster is set to “awsuser” or if the username does not match what is listed in parameter."
+      input_parameters     = var.redshift_default_admin_check_parameters
+      resource_types_scope = ["AWS::Redshift::Cluster"]
+      severity             = "Medium"
+    }
+
     redshift-enhanced-vpc-routing-enabled = {
       description = "Checks if Amazon Redshift cluster has 'enhancedVpcRouting' enabled. The rule is NON_COMPLIANT if 'enhancedVpcRouting' is not enabled or if the configuration.enhancedVpcRouting field is 'false'."
       severity    = "High"
@@ -1062,6 +1254,12 @@ locals {
       description      = "Checks if the required public access block settings are configured from account level."
       input_parameters = var.s3_account_level_public_access_blocks_periodic_parameters
       severity         = "Medium"
+    }
+
+    s3-bucket-acl-prohibited = {
+      description          = "Checks if Amazon Simple Storage Service (Amazon S3) Buckets allow user permissions through access control lists (ACLs). The rule is NON_COMPLIANT if ACLs are configured for user access in Amazon S3 Buckets."
+      resource_types_scope = ["AWS::S3::Bucket"]
+      severity             = "Medium"
     }
 
     s3-bucket-blacklisted-actions-prohibited = {
@@ -1150,6 +1348,13 @@ locals {
       severity             = "Medium"
     }
 
+    s3-version-lifecycle-policy-check = {
+      description          = "Checks if Amazon Simple Storage Service (Amazon S3) version enabled buckets have lifecycle policy configured. The rule is NON_COMPLIANT if Amazon S3 lifecycle policy is not enabled."
+      input_parameters     = var.s3_version_lifecycle_policy_check_parameters
+      resource_types_scope = ["AWS::S3::Bucket"]
+      severity             = "Medium"
+    }
+
     sagemaker-endpoint-configuration-kms-key-configured = {
       description      = "Checks whether AWS Key Management Service (KMS) key is configured for an Amazon SageMaker endpoint configuration. The rule is NON_COMPLIANT if 'KmsKeyId' is not specified for the Amazon SageMaker endpoint configuration."
       input_parameters = var.sagemaker_endpoint_configuration_kms_key_configured_parameters
@@ -1179,13 +1384,13 @@ locals {
     }
 
     secretsmanager-secret-periodic-rotation = {
-      description      = "Checks if AWS Secrets Manager secrets have been rotated in the past specified number of days. The rule is NON_COMPLIANT if a secret has not been rotated for more than ‘maxDaysSinceRotation’ number of days. The default value is 90 days."
+      description      = "Checks if AWS Secrets Manager secrets have been rotated in the past specified number of days. The rule is NON_COMPLIANT if a secret has not been rotated for more than 'maxDaysSinceRotation' number of days. The default value is 90 days."
       input_parameters = var.secretsmanager_secret_periodic_rotation_parameters
       severity         = "Medium"
     }
 
     secretsmanager-secret-unused = {
-      description      = "Checks if AWS Secrets Manager secrets have been accessed within a specified number of days. The rule is NON_COMPLIANT if a secret has not been accessed in ‘unusedForDays’ number of days. The default value is 90 days."
+      description      = "Checks if AWS Secrets Manager secrets have been accessed within a specified number of days. The rule is NON_COMPLIANT if a secret has not been accessed in 'unusedForDays' number of days. The default value is 90 days."
       input_parameters = var.secretsmanager_secret_unused_parameters
       severity         = "Medium"
     }
@@ -1270,6 +1475,11 @@ locals {
       description      = "Checks if logging is enabled on AWS Web Application Firewall (WAF) classic global web ACLs. This rule is NON_COMPLIANT for a global web ACL, if it does not have logging enabled."
       input_parameters = var.waf_classic_logging_enabled_parameters
       severity         = "Medium"
+    }
+
+    waf-global-webacl-not-empty = {
+      description = "Checks whether a WAF Global Web ACL contains any WAF rules or rule groups. This rule is NON_COMPLIANT if a Web ACL does not contain any WAF rule or rule group."
+      severity    = "Medium"
     }
   }
 }

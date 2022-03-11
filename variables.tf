@@ -19,8 +19,8 @@ variable "rule_packs" {
   type        = list(string)
 }
 
-# In cases where rules from other packs overlap and let's say we want to exclude all overlap rules from a pack.. 
-# this feature should address that. Example use case is where securityhub deploys CIS Level1 and 2 Rules and 
+# In cases where rules from other packs overlap and let's say we want to exclude all overlap rules from a pack..
+# this feature should address that. Example use case is where securityhub deploys CIS Level1 and 2 Rules and
 # lets say we want to exclude all these rules from NIST pack
 variable "rule_packs_to_exclude" {
   description = "A list of Rule Packs (based off AWS Conformance Packs) from which overlap rules to exclude"
@@ -162,6 +162,12 @@ variable "aurora_resources_protected_by_backup_plan_parameters" {
   type        = map(string)
 }
 
+variable "autoscaling_multiple_az_parameters" {
+  description = "Input parameters for the autoscaling-multiple-az rule"
+  default     = null
+  type        = map(string)
+}
+
 variable "backup_plan_min_frequency_and_min_retention_check_parameters" {
   description = "Input parameters for the backup-plan-min-frequency-and-min-retention-check rule"
 
@@ -271,6 +277,37 @@ variable "cloud_trail_enabled_parameters" {
   type        = map(string)
 }
 
+variable "codebuild_project_environment_privileged_check_parameters" {
+  description = "Input parameters for the codebuild-project-environment-privileged-check rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "codebuild_project_logging_enabled_parameters" {
+  description = "Input parameters for the codebuild-project-logging-enabled rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "codebuild_project_s3_logs_encrypted_parameters" {
+  description = "Input parameters for the codebuild-project-s3-logs-encrypted rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "codedeploy_ec2_minimum_healthy_hosts_configured_parameters" {
+  description = "Input parameters for the codedeploy-ec2-minimum-healthy-hosts-configured rule"
+
+  type = object({
+    minimumHealthyHostsFleetPercent = string
+    minimumHealthyHostsHostCount    = string
+  })
+
+  default = {
+    minimumHealthyHostsFleetPercent = "66"
+    minimumHealthyHostsHostCount    = "1"
+  }
+}
 variable "codepipeline_deployment_count_check_parameters" {
   description = "Input parameters for the codepipeline-deployment-count-check rule"
   default     = null
@@ -406,6 +443,15 @@ variable "ec2_volume_inuse_check_parameters" {
   type        = map(string)
 }
 
+variable "ecs_no_environment_secrets_parameters" {
+  description = "Input parameters for the ecs-no-environment-secrets rule"
+  default     = null
+
+  type = object({
+    secretKeys = string
+  })
+}
+
 variable "ecs_task_definition_user_for_host_mode_check_parameters" {
   description = "Input parameters for the ecs-task-definition-user-for-host-mode-check rule"
   default     = null
@@ -422,6 +468,24 @@ variable "efs_resources_protected_by_backup_plan_parameters" {
   description = "Input parameters for the efs-resources-protected-by-backup-plan rule"
   default     = null
   type        = map(string)
+}
+
+variable "eks_cluster_oldest_supported_version_parameters" {
+  description = "Input parameters for the eks-cluster-oldest-supported-version rule"
+  default     = null
+
+  type = object({
+    oldestVersionSupported = string
+  })
+}
+
+variable "eks_cluster_supported_version_parameters" {
+  description = "Input parameters for the eks-cluster-supported-version rule"
+  default     = null
+
+  type = object({
+    oldestVersionSupported = string
+  })
 }
 
 variable "eks_secrets_encrypted_parameters" {
@@ -646,6 +710,12 @@ variable "lambda_inside_vpc_parameters" {
   type        = map(string)
 }
 
+variable "lambda_vpc_multi_az_check_parameters" {
+  description = "Input parameters for the lambda-vpc-multi-az-check rule"
+  default     = null
+  type        = map(string)
+}
+
 variable "multi_region_cloud_trail_enabled_parameters" {
   description = "Input parameters for the multi-region-cloud-trail-enabled rule"
   default     = null
@@ -653,13 +723,43 @@ variable "multi_region_cloud_trail_enabled_parameters" {
 }
 
 variable "no_unrestricted_route_to_igw_parameters" {
-  description = "Input parameters for the no-unrestricted-route-to-igw  rule"
+  description = "Input parameters for the no-unrestricted-route-to-igw rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "opensearch_audit_logging_enabled_parameters" {
+  description = "Input parameters for the opensearch-audit-logging-enabled rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "opensearch_https_required_parameters" {
+  description = "Input parameters for the opensearch-https-required rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "opensearch_logs_to_cloudwatch_parameters" {
+  description = "Input parameters for the opensearch-logs-to-cloudwatch rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "rds_cluster_default_admin_check_parameters" {
+  description = "Input parameters for the rds-cluster-default-admin-check rule"
   default     = null
   type        = map(string)
 }
 
 variable "rds_enhanced_monitoring_enabled_parameters" {
   description = "Input parameters for the rds-enhanced-monitoring-enabled rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "rds_instance_default_admin_check_parameters" {
+  description = "Input parameters for the rds-instance-default-admin-check rule"
   default     = null
   type        = map(string)
 }
@@ -713,6 +813,12 @@ variable "redshift_cluster_kms_enabled_parameters" {
 
 variable "redshift_cluster_maintenancesettings_check_parameters" {
   description = "Input parameters for the redshift-cluster-maintenancesettings-check rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "redshift_default_admin_check_parameters" {
+  description = "Input parameters for the redshift-default-admin-check rule"
   default     = null
   type        = map(string)
 }
@@ -791,6 +897,12 @@ variable "s3_bucket_versioning_enabled_parameters" {
 
 variable "s3_default_encryption_kms_parameters" {
   description = "Input parameters for the s3-default-encryption-kms rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "s3_version_lifecycle_policy_check_parameters" {
+  description = "Input parameters for the s3-version-lifecycle-policy-check rule"
   default     = null
   type        = map(string)
 }
