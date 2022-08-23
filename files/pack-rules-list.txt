@@ -18,6 +18,7 @@ Operational-Best-Practices-for-Amazon-S3
 Operational-Best-Practices-for-Asset-Management
 Operational-Best-Practices-for-BCP-and-DR
 Operational-Best-Practices-for-BNM-RMiT
+Operational-Best-Practices-for-CCCS-Medium
 Operational-Best-Practices-for-CCN-ENS-High
 Operational-Best-Practices-for-CCN-ENS-Low
 Operational-Best-Practices-for-CCN-ENS-Medium
@@ -48,6 +49,8 @@ Operational-Best-Practices-for-FDA-21CFR-Part-11
 Operational-Best-Practices-for-FFIEC
 Operational-Best-Practices-for-FedRAMP-Low
 Operational-Best-Practices-for-FedRAMP
+Operational-Best-Practices-for-Gramm-Leach-Bliley-Act
+Operational-Best-Practices-for-GxP-EU-Annex-11
 Operational-Best-Practices-for-HIPAA-Security
 Operational-Best-Practices-for-KISMS
 Operational-Best-Practices-for-Load-Balancing
@@ -59,7 +62,7 @@ Operational-Best-Practices-for-Monitoring
 Operational-Best-Practices-for-NBC-TRMG
 Operational-Best-Practices-for-NCSC-CAF
 Operational-Best-Practices-for-NCSC-CloudSec-Principles
-Operational-Best-Practices-for-NERC-CIP
+Operational-Best-Practices-for-NERC-CIP-BCSI
 Operational-Best-Practices-for-NIST-1800-25
 Operational-Best-Practices-for-NIST-800-171
 Operational-Best-Practices-for-NIST-800-172
@@ -77,3 +80,17 @@ Operational-Best-Practices-for-RBI-MasterDirection
 Operational-Best-Practices-for-Security-Services
 Operational-Best-Practices-for-Serverless
 Operational-Best-Practices-for-Storage-Services
+Security-Best-Practices-for-AWS-WAF
+Security-Best-Practices-for-Amazon-OpenSearch-Service
+Security-Best-Practices-for-AutoScaling
+Security-Best-Practices-for-CloudFront
+Security-Best-Practices-for-CloudTrail
+Security-Best-Practices-for-CodeBuild
+Security-Best-Practices-for-ECS
+Security-Best-Practices-for-EFS
+Security-Best-Practices-for-EKS
+Security-Best-Practices-for-Lambda
+Security-Best-Practices-for-Network-Firewall
+Security-Best-Practices-for-RDS
+Security-Best-Practices-for-Redshift
+Security-Best-Practices-for-Secrets-Manager
