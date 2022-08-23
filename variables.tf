@@ -89,6 +89,16 @@ variable "acm_certificate_expiration_check_parameters" {
   })
 }
 
+variable "alb_desync_mode_check_parameters" {
+  description = "Input Parameters for the alb-desync-mode-check rule"
+
+  default = null
+
+  type = object({
+    desyncMode = string
+  })
+}
+
 variable "alb_waf_enabled_parameters" {
   description = "Input Parameters for the alb-waf-enabled rule."
   default     = null
@@ -148,6 +158,12 @@ variable "approved_amis_by_tag_parameters" {
   type = object({
     amisByTagKeyAndValue = string
   })
+}
+
+variable "aurora_last_backup_recovery_point_created_parameters" {
+  description = "Input parameters for the aurora-last-backup-recovery-point-created rule"
+  default     = null
+  type        = map(string)
 }
 
 variable "aurora_mysql_backtracking_enabled_parameters" {

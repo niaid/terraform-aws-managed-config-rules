@@ -65,6 +65,12 @@ locals {
       severity             = "Medium"
     }
 
+    alb-desync-mode-check = {
+      description          = "Checks if an Application Load Balancer (ALB) is configured with a user defined desync mitigation mode. The rule is NON_COMPLIANT if ALB desync mitigation mode does not match with the user defined desync mitigation mode."
+      input_parameters     = var.alb_desync_mode_check_parameters
+      severity             = "Medium"
+    }
+
     alb-http-drop-invalid-header-enabled = {
       description          = "Checks if rule evaluates AWS Application Load Balancers (ALB) to ensure they are configured to drop http headers. The rule is NON_COMPLIANT if the value of routing.http.drop_invalid_header_fields.enabled is set to false."
       resource_types_scope = ["AWS::ElasticLoadBalancingV2::LoadBalancer"]
@@ -131,6 +137,12 @@ locals {
     approved-amis-by-tag = {
       description      = "Checks if running instances are using specified AMIs. Specify a list of approved AMI IDs. Running instances with AMIs that are not on this list are NON_COMPLIANT."
       input_parameters = var.approved_amis_by_tag_parameters
+      severity         = "Medium"
+    }
+
+    aurora-last-backup-recovery-point-created = {
+      description      = "Checks if a recovery point was created for Amazon Aurora DB clusters. The rule is NON_COMPLIANT if the Amazon Relational Database Service (Amazon RDS) DB Cluster does not have a corresponding recovery point created"
+      input_parameters = var.aurora_last_backup_recovery_point_created_parameters
       severity         = "Medium"
     }
 
