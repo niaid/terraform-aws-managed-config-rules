@@ -37,6 +37,7 @@ Operational-Best-Practices-for-CMMC-Level-2
 Operational-Best-Practices-for-CMMC-Level-3
 Operational-Best-Practices-for-CMMC-Level-4
 Operational-Best-Practices-for-CMMC-Level-5
+Operational-Best-Practices-for-CloudWatch
 Operational-Best-Practices-for-Compute-Services
 Operational-Best-Practices-for-Data-Resiliency
 Operational-Best-Practices-for-Database-Services
@@ -49,9 +50,11 @@ Operational-Best-Practices-for-FDA-21CFR-Part-11
 Operational-Best-Practices-for-FFIEC
 Operational-Best-Practices-for-FedRAMP-Low
 Operational-Best-Practices-for-FedRAMP
+Operational-Best-Practices-for-Germany-C5
 Operational-Best-Practices-for-Gramm-Leach-Bliley-Act
 Operational-Best-Practices-for-GxP-EU-Annex-11
 Operational-Best-Practices-for-HIPAA-Security
+Operational-Best-Practices-for-IRS-1075
 Operational-Best-Practices-for-KISMS
 Operational-Best-Practices-for-Load-Balancing
 Operational-Best-Practices-for-Logging

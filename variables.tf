@@ -218,6 +218,24 @@ variable "backup_recovery_point_minimum_retention_check_parameters" {
   })
 }
 
+variable "clb_desync_mode_check_parameters" {
+  description = "Input Parameters for the clb-desync-mode-check rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "clb_multiple_az_parameters" {
+  description = "Input Parameters for the clb-multiple-az rule"
+
+  default = {
+    minAvailabilityZones = "2"
+  }
+
+  type = object({
+    minAvailabilityZones = string
+  })
+}
+
 variable "cloudformation_stack_drift_detection_check_parameters" {
   description = "Input parameters for the cloudformation-stack-drift-detection-check rule"
   default     = null
@@ -375,6 +393,12 @@ variable "dynamodb_autoscaling_enabled_parameters" {
   type        = map(string)
 }
 
+variable "dynamodb_last_backup_recovery_point_created_parameters" {
+  description = "Input parameters for the dynamodb-last-backup-recovery-point-created rule"
+  default     = null
+  type        = map(string)
+}
+
 variable "dynamodb_resources_protected_by_backup_plan_parameters" {
   description = "Input parameters for the dynamodb-resources-protected-by-backup-plan rule"
   default     = null
@@ -399,6 +423,12 @@ variable "ebs_resources_protected_by_backup_plan_parameters" {
   type        = map(string)
 }
 
+variable "ebs_last_backup_recovery_point_created_parameters" {
+  description = "Input parameters for the ebs-last-backup-recovery-point-created rule"
+  default     = null
+  type        = map(string)
+}
+
 variable "ec2_instance_multiple_eni_check_parameters" {
   description = "Input parameters for the ec2-instance-multiple-eni-check rule"
   default     = null
@@ -407,6 +437,12 @@ variable "ec2_instance_multiple_eni_check_parameters" {
 
 variable "ec2_instance_profile_attached_parameters" {
   description = "Input parameters for the ec2-instance-profile-attached rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "ec2_last_backup_recovery_point_created_parameters" {
+  description = "Input parameters for the ec2-last-backup-recovery-point-created rule"
   default     = null
   type        = map(string)
 }
@@ -453,6 +489,18 @@ variable "ec2_stopped_instance_parameters" {
   })
 }
 
+variable "ec2_token_hop_limit_check_parameters" {
+  description = "Input parameters for the ec2-token-hop-limit-check rule"
+
+  default = {
+    tokenHopLimit = "1"
+  }
+
+  type = object({
+    tokenHopLimit = string
+  })
+}
+
 variable "ec2_volume_inuse_check_parameters" {
   description = "Input parameters for the ec2-volume-inuse-check rule"
   default     = null
@@ -474,8 +522,26 @@ variable "ecs_task_definition_user_for_host_mode_check_parameters" {
   type        = map(string)
 }
 
+variable "efs_access_point_enforce_root_directory_parameters" {
+  description = "Input parameters for the efs-access-point-enforce-root-directory rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "efs_access_point_enforce_user_identity_parameters" {
+  description = "Input parameters for the efs-access-point-enforce-user-identity rule"
+  default     = null
+  type        = map(string)
+}
+
 variable "efs_encrypted_check_parameters" {
   description = "Input parameters for the efs-encrypted-check rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "efs_last_backup_recovery_point_created_parameters" {
+  description = "Input parameters for the efs-last-backup-recovery-point-created rule"
   default     = null
   type        = map(string)
 }
@@ -540,6 +606,12 @@ variable "elbv2_acm_certificate_required_parameters" {
   type        = map(string)
 }
 
+variable "elbv2_multiple_az_parameters" {
+  description = "Input parameters for the elbv2-multiple-az rule"
+  default     = null
+  type        = map(string)
+}
+
 variable "elb_custom_security_policy_ssl_check_parameters" {
   description = "Input parameters for the elb-custom-security-policy-ssl-check rule"
   default     = null
@@ -584,6 +656,12 @@ variable "fms_webacl_resource_policy_check_parameters" {
 
 variable "fms_webacl_rulegroup_association_check_parameters" {
   description = "Input parameters for the fms-webacl-rulegroup-association-check rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "fsx_last_backup_recovery_point_created_parameters" {
+  description = "Input parameters for the fsx-last-backup-recovery-point-created rule"
   default     = null
   type        = map(string)
 }
@@ -738,6 +816,18 @@ variable "multi_region_cloud_trail_enabled_parameters" {
   type        = map(string)
 }
 
+variable "netfw_policy_default_action_fragment_packets_parameters" {
+  description = "Input parameters for the netfw-policy-default-action-fragment-packets rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "netfw_policy_default_action_full_packets_parameters" {
+  description = "Input parameters for the netfw-policy-default-action-full-packets rule"
+  default     = null
+  type        = map(string)
+}
+
 variable "no_unrestricted_route_to_igw_parameters" {
   description = "Input parameters for the no-unrestricted-route-to-igw rule"
   default     = null
@@ -786,6 +876,12 @@ variable "rds_instance_deletion_protection_enabled_parameters" {
   type        = map(string)
 }
 
+variable "rds_last_backup_recovery_point_created_parameters" {
+  description = "Input parameters for the rds-last-backup-recovery-point-created rule"
+  default     = null
+  type        = map(string)
+}
+
 variable "rds_logging_enabled_parameters" {
   description = "Input parameters for the rds-logging-enabled rule"
   default     = null
@@ -800,6 +896,12 @@ variable "rds_resources_protected_by_backup_plan_parameters" {
 
 variable "rds_storage_encrypted_parameters" {
   description = "Input parameters for the rds-storage-encrypted rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "redshift_audit_logging_enabled_parameters" {
+  description = "Input parameters for the redshift-audit-logging-enabled rule"
   default     = null
   type        = map(string)
 }
@@ -835,6 +937,12 @@ variable "redshift_cluster_maintenancesettings_check_parameters" {
 
 variable "redshift_default_admin_check_parameters" {
   description = "Input parameters for the redshift-default-admin-check rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "redshift_default_db_name_check_parameters" {
+  description = "Input parameters for the redshift-default-db-name-check rule"
   default     = null
   type        = map(string)
 }
@@ -917,6 +1025,30 @@ variable "s3_default_encryption_kms_parameters" {
   type        = map(string)
 }
 
+variable "s3_event_notifications_enabled_parameters" {
+  description = "Input parameters for the s3-event-notifications-enabled rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "s3_last_backup_recovery_point_created_parameters" {
+  description = "Input parameters for the s3-last-backup-recovery-point-created rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "s3_lifecycle_policy_check_parameters" {
+  description = "Input parameters for the s3-lifecycle-policy-check rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "s3_resources_protected_by_backup_plan_parameters" {
+  description = "Input parameters for the s3-resources-protected-by-backup-plan rule"
+  default     = null
+  type        = map(string)
+}
+
 variable "s3_version_lifecycle_policy_check_parameters" {
   description = "Input parameters for the s3-version-lifecycle-policy-check rule"
   default     = null
@@ -986,8 +1118,32 @@ variable "sns_encrypted_kms_parameters" {
   type        = map(string)
 }
 
+variable "storagegateway_last_backup_recovery_point_created_parameters" {
+  description = "Input parameters for the storagegateway-last-backup-recovery-point-created rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "virtualmachine_last_backup_recovery_point_created_parameters" {
+  description = "Input parameters for the virtualmachine-last-backup-recovery-point-created rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "virtualmachine_resources_protected_by_backup_plan_parameters" {
+  description = "Input parameters for the virtualmachine-resources-protected-by-backup-plan rule"
+  default     = null
+  type        = map(string)
+}
+
 variable "vpc_flow_logs_enabled_parameters" {
   description = "Input parameters for the vpc-flow-logs-enabled rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "vpc_peering_dns_resolution_check_parameters" {
+  description = "Input parameters for the vpc-peering-dns-resolution-check rule"
   default     = null
   type        = map(string)
 }

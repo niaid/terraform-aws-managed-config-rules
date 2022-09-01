@@ -66,9 +66,9 @@ locals {
     }
 
     alb-desync-mode-check = {
-      description          = "Checks if an Application Load Balancer (ALB) is configured with a user defined desync mitigation mode. The rule is NON_COMPLIANT if ALB desync mitigation mode does not match with the user defined desync mitigation mode."
-      input_parameters     = var.alb_desync_mode_check_parameters
-      severity             = "Medium"
+      description      = "Checks if an Application Load Balancer (ALB) is configured with a user defined desync mitigation mode. The rule is NON_COMPLIANT if ALB desync mitigation mode does not match with the user defined desync mitigation mode."
+      input_parameters = var.alb_desync_mode_check_parameters
+      severity         = "Medium"
     }
 
     alb-http-drop-invalid-header-enabled = {
@@ -158,9 +158,27 @@ locals {
       severity         = "Medium"
     }
 
+    autoscaling-capacity-rebalancing = {
+      description          = "Checks if Capacity Rebalancing is enabled for Amazon EC2 Auto Scaling groups that use multiple instance types. The rule is NON_COMPLIANT if capacity Rebalancing is not enabled."
+      resource_types_scope = ["AWS::AutoScaling::AutoScalingGroup"]
+      severity             = "Low"
+    }
+
     autoscaling-group-elb-healthcheck-required = {
       description          = "Checks whether your Auto Scaling groups that are associated with a load balancer are using Elastic Load Balancing health checks."
       resource_types_scope = ["AWS::AutoScaling::AutoScalingGroup"]
+      severity             = "Low"
+    }
+
+    autoscaling-launchconfig-requires-imdsv2 = {
+      description          = "Checks whether only IMDSv2 is enabled. This rule is NON_COMPLIANT if the Metadata version is not included in the launch configuration or if both Metadata V1 and V2 are enabled."
+      resource_types_scope = ["AWS::AutoScaling::LaunchConfiguration"]
+      severity             = "Low"
+    }
+
+    autoscaling-launch-config-hop-limit = {
+      description          = "Checks the number of network hops that the metadata token can travel. This rule is NON_COMPLIANT if the Metadata response hop limit is greater than 1."
+      resource_types_scope = ["AWS::AutoScaling::LaunchConfiguration"]
       severity             = "Low"
     }
 
@@ -170,10 +188,20 @@ locals {
       severity             = "Medium"
     }
 
+    autoscaling-launch-template = {
+      description = "Checks if an Amazon Elastic Compute Cloud (EC2) Auto Scaling group is created from an EC2 launch template. The rule is NON_COMPLIANT if the scaling group is not created from an EC2 launch template."
+      severity    = "Low"
+    }
+
     autoscaling-multiple-az = {
       description      = "Checks if the Auto Scaling group spans multiple Availability Zones. The rule is NON_COMPLIANT if the Auto Scaling group does not span multiple Availability Zones. "
       input_parameters = var.autoscaling_multiple_az_parameters
       severity         = "Medium"
+    }
+
+    autoscaling-multiple-instance-types = {
+      description = "Checks if an Amazon Elastic Compute Cloud (Amazon EC2) Auto Scaling group uses multiple instance types. This rule is NON_COMPLIANT if the Amazon EC2 Auto Scaling group has only one instance type defined."
+      severity    = "Low"
     }
 
     backup-plan-min-frequency-and-min-retention-check = {
@@ -203,6 +231,18 @@ locals {
       description          = "Checks if an AWS Elastic Beanstalk environment is configured for enhanced health reporting. The rule is COMPLIANT if the environment is configured for enhanced health reporting. The rule is NON_COMPLIANT if basic health reporting only."
       resource_types_scope = ["AWS::ElasticBeanstalk::Environment"]
       severity             = "Low"
+    }
+
+    clb-desync-mode-check = {
+      description      = "Checks if Classic Load Balancers (CLB) are configured with a user defined Desync mitigation mode. The rule is NON_COMPLIANT if CLB Desync mitigation mode does not match with user defined Desync mitigation mode."
+      input_parameters = var.clb_desync_mode_check_parameters
+      severity         = "Medium"
+    }
+
+    clb-multiple-az = {
+      description      = "Checks if a Classic Load Balancer spans multiple Availability Zones (AZs). The rule is NON_COMPLIANT if a Classic Load Balancer spans less than 2 AZs or does not span number of AZs mentioned in the minAvailabilityZones parameter (if provided)."
+      input_parameters = var.clb_multiple_az_parameters
+      severity         = "Medium"
     }
 
     cloudformation-stack-drift-detection-check = {
@@ -239,6 +279,11 @@ locals {
       severity    = "Critical"
     }
 
+    cloudfront-no-deprecated-ssl-protocols = {
+      description = "Checks if CloudFront distributions are using deprecated SSL protocols for HTTPS communication between CloudFront edge locations and custom origins. This rule is NON_COMPLIANT for a CloudFront distribution if any 'OriginSslProtocols' includes 'SSLv3'."
+      severity    = "High"
+    }
+
     cloudfront-origin-access-identity-enabled = {
       description = "Checks if Amazon CloudFront distribution with S3 Origin type has Origin Access Identity (OAI) configured. The rule is NON_COMPLIANT if the CloudFront distribution is backed by S3 and any of S3 Origin type is not OAI configured."
       severity    = "Medium"
@@ -252,6 +297,11 @@ locals {
     cloudfront-sni-enabled = {
       description = "Checks if Amazon CloudFront distributions are using a custom SSL certificate and are configured to use SNI to serve HTTPS requests. This rule is NON_COMPLIANT if a custom SSL certificate is associated but the SSL support method is a dedicated IP address."
       severity    = "Medium"
+    }
+
+    cloudfront-traffic-to-origin-encrypted = {
+      description = "Checks if Amazon CloudFront distributions are encrypting traffic to custom origins. The rule is NON_COMPLIANT if ‘OriginProtocolPolicy’ is ‘http-only’ or if ‘OriginProtocolPolicy’ is ‘match-viewer’ and ‘ViewerProtocolPolicy’ is ‘allow-all’."
+      severity    = "Critical"
     }
 
     cloudfront-viewer-policy-https = {
@@ -276,14 +326,9 @@ locals {
       severity             = "Medium"
     }
 
-    cloud-trail-cloud-watch-logs-enabled = {
-      description = "Checks whether AWS CloudTrail trails are configured to send logs to Amazon CloudWatch logs. The trail is non-compliant if the CloudWatchLogsLogGroupArn property of the trail is empty."
-      severity    = "Low"
-    }
-
-    cloud-trail-encryption-enabled = {
-      description = "Checks whether AWS CloudTrail is configured to use the server side encryption (SSE) AWS Key Management Service (AWS KMS) customer master key (CMK) encryption. The rule is compliant if the KmsKeyId is defined."
-      severity    = "Medium"
+    cloudwatch-alarm-action-enabled-check = {
+      description = "Checks if Amazon CloudWatch alarms actions are in enabled state. The rule is NON_COMPLIANT if the CloudWatch alarms actions are not in enabled state."
+      severity    = "High"
     }
 
     cloud-trail-enabled = {
@@ -447,6 +492,13 @@ locals {
       severity    = "Medium"
     }
 
+    dynamodb-last-backup-recovery-point-created = {
+      description          = "Checks if a recovery point was created for Amazon DynamoDB Tables within the specified period. The rule is NON_COMPLIANT if the DynamoDB Table does not have a corresponding recovery point created within the specified time period."
+      resource_types_scope = ["AWS::DynamoDB::Table"]
+      input_parameters     = var.dynamodb_last_backup_recovery_point_created_parameters
+      severity             = "Medium"
+    }
+
     dynamodb-pitr-enabled = {
       description          = "Checks that point in time recovery (PITR) is enabled for Amazon DynamoDB tables. The rule is NON_COMPLIANT if point in time recovery is not enabled for Amazon DynamoDB tables."
       resource_types_scope = ["AWS::DynamoDB::Table"]
@@ -482,6 +534,12 @@ locals {
     ebs-in-backup-plan = {
       description = "Check if Amazon Elastic Block Store (Amazon EBS) volumes are added in backup plans of AWS Backup. The rule is NON_COMPLIANT if Amazon EBS volumes are not included in backup plans."
       severity    = "Medium"
+    }
+
+    ebs-last-backup-recovery-point-created = {
+      description      = "Checks if a recovery point was created for Amazon Elastic Block Store (Amazon EBS). The rule is NON_COMPLIANT if the Amazon EBS volume does not have a corresponding recovery point created within the specified time period."
+      input_parameters = var.ebs_last_backup_recovery_point_created_parameters
+      severity         = "Medium"
     }
 
     ebs-optimized-instance = {
@@ -550,6 +608,12 @@ locals {
       severity         = "Medium"
     }
 
+    ec2-last-backup-recovery-point-created = {
+      description      = "Checks if a recovery point was created for Amazon Elastic Compute Cloud (Amazon EC2) instances. The rule is NON_COMPLIANT if the Amazon EC2 instance does not have a corresponding recovery point created within the specified time period."
+      input_parameters = var.ec2_last_backup_recovery_point_created_parameters
+      severity         = "Medium"
+    }
+
     ec2-managedinstance-applications-required = {
       description      = "Checks if all of the specified applications are installed on the instance. Optionally, specify the minimum acceptable version. You can also specify the platform to apply the rule only to instances running that platform."
       input_parameters = var.ec2_managedinstance_applications_required_parameters
@@ -579,6 +643,18 @@ locals {
       severity         = "Medium"
     }
 
+    ec2-no-amazon-key-pair = {
+      description          = "Checks if running Amazon Elastic Compute Cloud (EC2) instances are launched using amazon key pairs. The rule is NON_COMPLIANT if a running EC2 instance is launched with a key pair."
+      resource_types_scope = ["AWS::EC2::Instance"]
+      severity             = "Low"
+    }
+
+    ec2-paravirtual-instance-check = {
+      description          = "Checks if the virtualization type of an EC2 instance is paravirtual. This rule is NON_COMPLIANT for an EC2 instance if 'virtualizationType' is set to 'paravirtual'."
+      resource_types_scope = ["AWS::EC2::Instance"]
+      severity             = "Low"
+    }
+
     ec2-resources-protected-by-backup-plan = {
       description      = "Checks if Amazon Elastic Compute Cloud (Amazon EC2) instances are protected by a backup plan. The rule is NON_COMPLIANT if the Amazon EC2 instance is not covered by a backup plan."
       input_parameters = var.ec2_resources_protected_by_backup_plan_parameters
@@ -603,6 +679,19 @@ locals {
       severity         = "Low"
     }
 
+    ec2-token-hop-limit-check = {
+      description          = "Checks if an Amazon Elastic Compute Cloud (EC2) instance metadata has a specified token hop limit that is below the desired limit. The rule is NON_COMPLIANT for an instance if it has a hop limit value above the intended limit."
+      input_parameters     = var.ec2_token_hop_limit_check_parameters
+      resource_types_scope = ["AWS::EC2::Instance"]
+      severity             = "Low"
+    }
+
+    ec2-transit-gateway-auto-vpc-attach-disabled = {
+      description          = "Checks if Amazon Elastic Compute Cloud (Amazon EC2) Transit Gateways have 'AutoAcceptSharedAttachments' enabled. The rule is NON_COMPLIANT for a Transit Gateway if 'AutoAcceptSharedAttachments' is set to 'enable'."
+      resource_types_scope = ["AWS::EC2::TransitGateway"]
+      severity             = "Low"
+    }
+
     ec2-volume-inuse-check = {
       description      = "Checks if EBS volumes are attached to EC2 instances. Optionally checks if EBS volumes are marked for deletion when an instance is terminated."
       input_parameters = var.ec2_volume_inuse_check_parameters
@@ -614,8 +703,18 @@ locals {
       severity    = "Medium"
     }
 
+    ecr-private-lifecycle-policy-configured = {
+      description = "Checks if a private Amazon Elastic Container Registry (ECR) repository has at least one lifecycle policy configured. The rule is NON_COMPLIANT if no lifecycle policy is configured for the ECR private repository."
+      severity    = "Medium"
+    }
+
     ecr-private-tag-immutability-enabled = {
       description = "Checks if a private Amazon Elastic Container Registry (ECR) repository has tag immutability enabled. This rule is NON_COMPLIANT if tag immutability is not enabled for the private ECR repository."
+      severity    = "Medium"
+    }
+
+    ecs-awsvpc-networking-enabled = {
+      description = "Checks if the networking mode for active ECSTaskDefinitions is set to ‘awsvpc’. This rule is NON_COMPLIANT if active ECSTaskDefinitions is not set to ‘awsvpc’."
       severity    = "Medium"
     }
 
@@ -629,10 +728,25 @@ locals {
       severity    = "Medium"
     }
 
+    ecs-container-insights-enabled = {
+      description = "Checks if Amazon Elastic Container Service clusters have container insights enabled. The rule is NON_COMPLIANT if container insights are not enabled."
+      severity    = "Medium"
+    }
+
+    ecs-fargate-latest-platform-version = {
+      description = "Checks if Amazon Elastic Container Service (ECS) Fargate Services is running on the latest Fargate platform version. The rule is NON_COMPLIANT if ECS Service platformVersion not set to LATEST."
+      severity    = "Low"
+    }
+
     ecs-no-environment-secrets = {
       description      = "Checks if secrets are passed as container environment variables. The rule is NON_COMPLIANT if 1 or more environment variable key matches a key listed in the 'secretKeys' parameter (excluding environmental variables)."
       input_parameters = var.ecs_no_environment_secrets_parameters
       severity         = "Critical"
+    }
+
+    ecs-task-definition-log-configuration = {
+      description = "Checks if logConfiguration is set on active ECS Task Definitions. This rule is NON_COMPLIANT if an active ECSTaskDefinition does not have the logConfiguration defined or the value for logConfiguration is null in at least one container definition."
+      severity    = "Medium"
     }
 
     ecs-task-definition-memory-hard-limit = {
@@ -656,6 +770,18 @@ locals {
       severity         = "High"
     }
 
+    efs-access-point-enforce-root-directory = {
+      description      = "Checks if Amazon Elastic File System (Amazon EFS) access points are configured to enforce a root directory. The rule is NON_COMPLIANT if the value of 'Path' is set to '/' (default root directory of the file system)."
+      input_parameters = var.efs_access_point_enforce_root_directory_parameters
+      severity         = "Medium"
+    }
+
+    efs-access-point-enforce-user-identity = {
+      description      = "Checks if Amazon Elastic File System (Amazon EFS) access points are configured to enforce a user identity. The rule is NON_COMPLIANT if 'PosixUser' is not defined or if parameters are provided and there is no match in the corresponding parameter."
+      input_parameters = var.efs_access_point_enforce_user_identity_parameters
+      severity         = "High"
+    }
+
     efs-encrypted-check = {
       description      = "Checks if Amazon Elastic File System (Amazon EFS) is configured to encrypt the file data using AWS Key Management Service (AWS KMS)."
       input_parameters = var.efs_encrypted_check_parameters
@@ -665,6 +791,12 @@ locals {
     efs-in-backup-plan = {
       description = "Checks whether Amazon Elastic File System (Amazon EFS) file systems are added in the backup plans of AWS Backup. The rule is NON_COMPLIANT if EFS file systems are not included in the backup plans."
       severity    = "Medium"
+    }
+
+    efs-last-backup-recovery-point-created = {
+      description      = "Checks if a recovery point was created for Amazon Elastic File System (Amazon EFS) File Systems. The rule is NON_COMPLIANT if the Amazon EFS File System does not have a corresponding Recovery Point created within the specified time period."
+      input_parameters = var.efs_last_backup_recovery_point_created_parameters
+      severity         = "Medium"
     }
 
     efs-resources-protected-by-backup-plan = {
@@ -740,6 +872,12 @@ locals {
       severity         = "Medium"
     }
 
+    elbv2-multiple-az = {
+      description      = "Checks if an Elastic Load Balancer V2 (Application, Network, or Gateway Load Balancer) has registered instances from multiple Availability Zones (AZ's). The rule is NON_COMPLIANT if an Elastic Load Balancer V2 has instances registered in less than 2 AZ's."
+      input_parameters = var.elbv2_multiple_az_parameters
+      severity         = "Medium"
+    }
+
     elb-acm-certificate-required = {
       description          = "Checks if the Classic Load Balancers use SSL certificates provided by AWS Certificate Manager. To use this rule, use an SSL or HTTPS listener with your Classic Load Balancer. This rule is only applicable to Classic Load Balancers."
       resource_types_scope = ["AWS::ElasticLoadBalancing::LoadBalancer"]
@@ -811,6 +949,12 @@ locals {
     fms-webacl-rulegroup-association-check = {
       description      = "Checks if the rule groups associate with the web ACL at the correct priority. The correct priority is decided by the rank of the rule groups in the ruleGroups parameter."
       input_parameters = var.fms_webacl_rulegroup_association_check_parameters
+      severity         = "Medium"
+    }
+
+    fsx-last-backup-recovery-point-created = {
+      description      = "Checks if a recovery point was created for Amazon FSx File Systems. The rule is NON_COMPLIANT if the Amazon FSx File System does not have a corresponding recovery point created within the specified time period."
+      input_parameters = var.fsx_last_backup_recovery_point_created_parameters
       severity         = "Medium"
     }
 
@@ -935,6 +1079,11 @@ locals {
       severity         = "High"
     }
 
+    kinesis-stream-encrypted = {
+      description = "Checks if Amazon Kinesis streams are encrypted at rest with server-side encryption. The rule is NON_COMPLIANT for a Kinesis stream if 'StreamEncryption' is not present."
+      severity    = "High"
+    }
+
     kms-cmk-not-scheduled-for-deletion = {
       description      = "Checks whether customer master keys (CMKs) are not scheduled for deletion in AWS Key Management Service (KMS). The rule is NON_COMPLAINT if CMKs are scheduled for deletion."
       input_parameters = var.kms_cmk_not_scheduled_for_deletion_parameters
@@ -998,8 +1147,30 @@ locals {
       severity    = "High"
     }
 
+    netfw-policy-default-action-fragment-packets = {
+      description      = "Checks if an AWS Network Firewall policy is configured with a user defined stateless default action for fragmented packets. The rule is NON_COMPLIANT if stateless default action for fragmented packets does not match with user defined default action."
+      input_parameters = var.netfw_policy_default_action_fragment_packets_parameters
+      severity         = "High"
+    }
+
+    netfw-policy-default-action-full-packets = {
+      description      = "Checks if an AWS Network Firewall policy is configured with a user defined default stateless action for full packets. This rule is NON_COMPLIANT if default stateless action for full packets does not match with user defined default stateless action."
+      input_parameters = var.netfw_policy_default_action_full_packets_parameters
+      severity         = "High"
+    }
+
+    netfw-policy-rule-group-associated = {
+      description = "Check AWS Network Firewall policy is associated with stateful OR stateless rule groups. This rule is NON_COMPLIANT if no stateful or stateless rule groups are associated with the Network Firewall policy else COMPLIANT if one of the rule group exists."
+      severity    = "High"
+    }
+
     netfw-stateless-rule-group-not-empty = {
       description = "Checks if a Stateless Network Firewall Rule Group contains rules. The rule is NON_COMPLIANT if there are no rules in a Stateless Network Firewall Rule Group."
+      severity    = "Medium"
+    }
+
+    nlb-cross-zone-load-balancing-enabled = {
+      description = "Checks if cross-zone load balancing is enabled on Network Load Balancers (NLBs). The rule is NON_COMPLIANT if cross-zone load balancing is not enabled for an NLB."
       severity    = "Medium"
     }
 
@@ -1096,6 +1267,12 @@ locals {
       severity    = "Medium"
     }
 
+    rds-last-backup-recovery-point-created = {
+      description      = "Checks if a recovery point was created for Amazon Relational Database Service (Amazon RDS). The rule is NON_COMPLIANT if the Amazon RDS instance does not have a corresponding recovery point created within the specified time period."
+      input_parameters = var.rds_last_backup_recovery_point_created_parameters
+      severity         = "High"
+    }
+
     rds-instance-default-admin-check = {
       description      = "Checks if an Amazon Relational Database Service (Amazon RDS) database has changed the admin username from its default value. This rule will only run on RDS database instances. The rule is NON_COMPLIANT if the admin username is set to the default value"
       input_parameters = var.rds_instance_default_admin_check_parameters
@@ -1151,6 +1328,12 @@ locals {
       severity         = "Medium"
     }
 
+    redshift-audit-logging-enabled = {
+      description      = "Checks if Amazon Redshift clusters are logging audits to a specific bucket. The rule is NON_COMPLIANT if audit logging is not enabled for a Redshift cluster or if the 'bucketNames' param is provided but the audit logging destination does not match."
+      input_parameters = var.redshift_audit_logging_enabled_parameters
+      severity         = "Medium"
+    }
+
     redshift-backup-enabled = {
       description      = "Checks that Amazon Redshift automated snapshots are enabled for clusters. The rule is NON_COMPLIANT if the value for automatedSnapshotRetentionPeriod is greater than MaxRetentionPeriod or less than MinRetentionPeriod or the value is 0."
       input_parameters = var.redshift_backup_enabled_parameters
@@ -1187,6 +1370,13 @@ locals {
     redshift-default-admin-check = {
       description          = "Checks if an Amazon Redshift cluster has changed the admin username from its default value. The rule is NON_COMPLIANT if the admin username for a Redshift cluster is set to “awsuser” or if the username does not match what is listed in parameter."
       input_parameters     = var.redshift_default_admin_check_parameters
+      resource_types_scope = ["AWS::Redshift::Cluster"]
+      severity             = "Medium"
+    }
+
+    redshift-default-db-name-check = {
+      description          = "Checks if a recovery point was created for Amazon Elastic File System (Amazon EFS) File Systems. The rule is NON_COMPLIANT if the Amazon EFS File System does not have a corresponding Recovery Point created within the specified time period."
+      input_parameters     = var.redshift_default_db_name_check_parameters
       resource_types_scope = ["AWS::Redshift::Cluster"]
       severity             = "Medium"
     }
@@ -1360,6 +1550,34 @@ locals {
       severity             = "Medium"
     }
 
+    s3-event-notifications-enabled = {
+      description          = "Checks if Amazon S3 Events Notifications are enabled on an S3 bucket. The rule is NON_COMPLIANT if S3 Events Notifications are not set on a bucket, or if the event type or destination do not match the eventTypes and destinationArn parameters."
+      input_parameters     = var.s3_event_notifications_enabled_parameters
+      resource_types_scope = ["AWS::S3::Bucket"]
+      severity             = "Low"
+    }
+
+    s3-last-backup-recovery-point-created = {
+      description          = "Checks if a recovery point was created for Amazon Simple Storage Service (Amazon S3). The rule is NON_COMPLIANT if the Amazon S3 bucket does not have a corresponding recovery point created within the specified time period."
+      input_parameters     = var.s3_last_backup_recovery_point_created_parameters
+      resource_types_scope = ["AWS::S3::Bucket"]
+      severity             = "Medium"
+    }
+
+    s3-lifecycle-policy-check = {
+      description          = "Checks if a lifecycle rule is configured for an Amazon Simple Storage Service (Amazon S3) bucket. The rule is NON_COMPLIANT if there is no active lifecycle configuration rules or the configuration does not match with the parameter values."
+      input_parameters     = var.s3_lifecycle_policy_check_parameters
+      resource_types_scope = ["AWS::S3::Bucket"]
+      severity             = "Medium"
+    }
+
+    s3-resources-protected-by-backup-plan = {
+      description          = "Checks if Amazon Simple Storage Service (Amazon S3) buckets are protected by a backup plan. The rule is NON_COMPLIANT if the Amazon S3 bucket is not covered by a backup plan."
+      input_parameters     = var.s3_resources_protected_by_backup_plan_parameters
+      resource_types_scope = ["AWS::S3::Bucket"]
+      severity             = "High"
+    }
+
     s3-version-lifecycle-policy-check = {
       description          = "Checks if Amazon Simple Storage Service (Amazon S3) version enabled buckets have lifecycle policy configured. The rule is NON_COMPLIANT if Amazon S3 lifecycle policy is not enabled."
       input_parameters     = var.s3_version_lifecycle_policy_check_parameters
@@ -1440,14 +1658,37 @@ locals {
       severity         = "Medium"
     }
 
+    sns-topic-message-delivery-notification-enabled = {
+      description = "Checks if Amazon Simple Notification Service (SNS) logging is enabled for the delivery status of notification messages sent to a topic for the endpoints. The rule is NON_COMPLIANT if the delivery status notification for messages is not enabled."
+      severity    = "Low"
+    }
+
     ssm-document-not-public = {
       description = "Checks if AWS Systems Manager documents owned by the account are public. This rule is NON_COMPLIANT if SSM documents with owner 'Self' are public."
       severity    = "Critical"
     }
 
+    storagegateway-last-backup-recovery-point-created = {
+      description      = "Checks if a recovery point was created for AWS Storage Gateway volumes. The rule is NON_COMPLIANT if the Storage Gateway volume does not have a corresponding recovery point created within the specified time period."
+      input_parameters = var.storagegateway_last_backup_recovery_point_created_parameters
+      severity         = "High"
+    }
+
     subnet-auto-assign-public-ip-disabled = {
       description = "Checks if Amazon Virtual Private Cloud (Amazon VPC) subnets are assigned a public IP address. The rule is COMPLIANT if Amazon VPC does not have subnets that are assigned a public IP address."
       severity    = "Medium"
+    }
+
+    virtualmachine-last-backup-recovery-point-created = {
+      description      = "Checks if a recovery point was created for AWS Backup-Gateway VirtualMachines. The rule is NON_COMPLIANT if an AWS Backup-Gateway VirtualMachines does not have a corresponding recovery point created within the specified time period."
+      input_parameters = var.virtualmachine_last_backup_recovery_point_created_parameters
+      severity         = "High"
+    }
+
+    virtualmachine-resources-protected-by-backup-plan = {
+      description      = "Checks if AWS Backup-Gateway VirtualMachines are protected by a backup plan. The rule is NON_COMPLIANT if the Backup-Gateway VirtualMachine is not covered by a backup plan."
+      input_parameters = var.virtualmachine_resources_protected_by_backup_plan_parameters
+      severity         = "High"
     }
 
     vpc-default-security-group-closed = {
@@ -1464,6 +1705,12 @@ locals {
     vpc-network-acl-unused-check = {
       description = "Checks if there are unused network access control lists (network ACLs). The rule is COMPLIANT if each network ACL is associated with a subnet. The rule is NON_COMPLIANT if a network ACL is not associated with a subnet."
       severity    = "Low"
+    }
+
+    vpc-peering-dns-resolution-check = {
+      description      = "Checks if DNS resolution from accepter/requester VPC to private IP is enabled. The rule is NON_COMPLIANT if DNS resolution from accepter/requester VPC to private IP is not enabled."
+      input_parameters = var.vpc_peering_dns_resolution_check_parameters
+      severity         = "High"
     }
 
     vpc-sg-open-only-to-authorized-ports = {
@@ -1489,8 +1736,33 @@ locals {
       severity         = "Medium"
     }
 
+    waf-global-rulegroup-not-empty = {
+      description = "Checks if an AWS WAF Classic rule group contains any rules. The rule is NON_COMPLIANT if there are no rules present within a rule group."
+      severity    = "Medium"
+    }
+
+    waf-global-rule-not-empty = {
+      description = "Checks if an AWS WAF global rule contains any conditions. The rule is NON_COMPLIANT if no conditions are present within the WAF global rule."
+      severity    = "Medium"
+    }
+
     waf-global-webacl-not-empty = {
       description = "Checks whether a WAF Global Web ACL contains any WAF rules or rule groups. This rule is NON_COMPLIANT if a Web ACL does not contain any WAF rule or rule group."
+      severity    = "Medium"
+    }
+
+    waf-regional-rulegroup-not-empty = {
+      description = "Checks if WAF Regional rule groups contain any rules. The rule is NON_COMPLIANT if there are no rules present within a WAF Regional rule group."
+      severity    = "Medium"
+    }
+
+    waf-regional-rule-not-empty = {
+      description = "Checks whether WAF regional rule contains conditions. This rule is COMPLIANT if the regional rule contains at least one condition and NON_COMPLIANT otherwise."
+      severity    = "Medium"
+    }
+
+    waf-regional-webacl-not-empty = {
+      description = "Checks if a WAF regional Web ACL contains any WAF rules or rule groups. The rule is NON_COMPLIANT if there are no WAF rules or rule groups present within a Web ACL."
       severity    = "Medium"
     }
   }
