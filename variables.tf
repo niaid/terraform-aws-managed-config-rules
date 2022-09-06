@@ -692,7 +692,7 @@ variable "guardduty_non_archived_findings_parameters" {
 variable "iam_customer_policy_blocked_kms_actions_parameters" {
   description = "Input parameters for the iam-customer-policy-blocked-kms-actions rule"
   default = {
-    blockedActionsPatterns = null
+    blockedActionsPatterns = "none"
   }
 
   type = object({
@@ -703,7 +703,7 @@ variable "iam_customer_policy_blocked_kms_actions_parameters" {
 variable "iam_inline_policy_blocked_kms_actions_parameters" {
   description = "Input parameters for the iam-inline-policy-blocked-kms-actions rule"
   default = {
-    blockedActionsPatterns = null
+    blockedActionsPatterns = "none"
   }
 
   type = object({
