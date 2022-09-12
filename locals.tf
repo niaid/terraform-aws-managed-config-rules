@@ -1442,7 +1442,7 @@ locals {
     }
 
     root-account-mfa-enabled = {
-      description = "Checks if your AWS account is enabled to use multi-factor authentication (MFA) hardware device to sign in with root credentials. The rule is NON_COMPLIANT if any virtual MFA devices are permitted for signing in with root credentials."
+      description = "Checks whether the root user of your AWS account requires multi-factor authentication for console sign-in."
       severity    = "Critical"
     }
 
