@@ -703,11 +703,15 @@ variable "iam_customer_policy_blocked_kms_actions_parameters" {
 variable "iam_inline_policy_blocked_kms_actions_parameters" {
   description = "Input parameters for the iam-inline-policy-blocked-kms-actions rule"
   default = {
-    blockedActionsPatterns = "none"
+    # Required comma-separated list of blocked KMS action patterns, for example, kms:*, kms:Decrypt, kms:ReEncrypt*. It doesn't accept null and If "none" specified, Rule Evaluaiton takes many hours to complete.
+    blockedActionsPatterns = "kms:*"
+    # Exclude a role if it is only assumable by organization management account. Valid values are "true" or "false". Specific default value is not provided by AWS
+    excludeRoleByManagementAccount = "true"
   }
 
   type = object({
-    blockedActionsPatterns = string
+    blockedActionsPatterns         = string
+    excludeRoleByManagementAccount = string
   })
 }
 
