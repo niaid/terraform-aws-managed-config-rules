@@ -1,5 +1,5 @@
 ---
-generated_on: '2022-09-06T14:57:46Z'
+generated_on: '2022-11-16T17:00:17Z'
 packs:
   AWS-Control-Tower-Detective-Guardrails:
   - autoscaling-launch-config-public-ip-disabled
@@ -690,6 +690,8 @@ packs:
   - api-gw-execution-logging-enabled
   - api-gw-ssl-enabled
   - api-gw-xray-enabled
+  - cloud-trail-cloud-watch-logs-enabled
+  - cloud-trail-enabled
   Operational-Best-Practices-for-APRA-CPG-234:
   - access-keys-rotated
   - account-part-of-organizations
@@ -849,41 +851,74 @@ packs:
   - root-account-hardware-mfa-enabled
   - root-account-mfa-enabled
   Operational-Best-Practices-for-AWS-Well-Architected-Reliability-Pillar:
+  - api-gw-execution-logging-enabled
+  - api-gw-xray-enabled
+  - aurora-resources-protected-by-backup-plan
   - autoscaling-group-elb-healthcheck-required
-  - autoscaling-launch-config-public-ip-disabled
+  - backup-plan-min-frequency-and-min-retention-check
+  - backup-recovery-point-encrypted
+  - backup-recovery-point-minimum-retention-check
   - beanstalk-enhanced-health-reporting-enabled
+  - clb-multiple-az
+  - cloud-trail-cloud-watch-logs-enabled
+  - cloud-trail-enabled
+  - cloudtrail-s3-dataevents-enabled
   - cloudwatch-alarm-action-check
   - db-instance-backup-enabled
   - dynamodb-autoscaling-enabled
   - dynamodb-in-backup-plan
   - dynamodb-pitr-enabled
+  - dynamodb-table-encrypted-kms
   - dynamodb-throughput-limit-check
   - ebs-in-backup-plan
   - ebs-optimized-instance
+  - ec2-ebs-encryption-by-default
   - ec2-instance-detailed-monitoring-enabled
+  - ec2-managedinstance-association-compliance-status-check
   - ec2-managedinstance-patch-compliance-status-check
+  - ec2-resources-protected-by-backup-plan
+  - ecs-container-insights-enabled
+  - ecs-task-definition-memory-hard-limit
+  - efs-encrypted-check
   - efs-in-backup-plan
   - elasticache-redis-cluster-automatic-backup-check
-  - elasticsearch-in-vpc-only
+  - elasticsearch-logs-to-cloudwatch
   - elb-cross-zone-load-balancing-enabled
   - elb-deletion-protection-enabled
+  - elb-logging-enabled
+  - elbv2-multiple-az
+  - encrypted-volumes
+  - fsx-resources-protected-by-backup-plan
   - guardduty-enabled-centralized
   - instances-in-vpc
   - lambda-concurrency-check
   - lambda-dlq-check
-  - lambda-inside-vpc
+  - lambda-vpc-multi-az-check
+  - multi-region-cloud-trail-enabled
+  - opensearch-data-node-fault-tolerance
+  - opensearch-logs-to-cloudwatch
   - rds-automatic-minor-version-upgrade-enabled
   - rds-enhanced-monitoring-enabled
   - rds-in-backup-plan
   - rds-instance-deletion-protection-enabled
+  - rds-logging-enabled
   - rds-multi-az-support
+  - rds-snapshot-encrypted
+  - rds-storage-encrypted
   - redshift-backup-enabled
+  - redshift-cluster-kms-enabled
   - redshift-cluster-maintenancesettings-check
+  - redshift-enhanced-vpc-routing-enabled
   - s3-bucket-default-lock-enabled
+  - s3-bucket-logging-enabled
   - s3-bucket-replication-enabled
+  - s3-bucket-server-side-encryption-enabled
   - s3-bucket-versioning-enabled
+  - s3-default-encryption-kms
   - securityhub-enabled
+  - vpc-flow-logs-enabled
   - vpc-vpn-2-tunnels-up
+  - wafv2-logging-enabled
   Operational-Best-Practices-for-AWS-Well-Architected-Security-Pillar:
   - access-keys-rotated
   - account-part-of-organizations
@@ -892,9 +927,11 @@ packs:
   - alb-http-to-https-redirection-check
   - alb-waf-enabled
   - api-gw-associated-with-waf
+  - api-gw-cache-enabled-and-encrypted
   - api-gw-execution-logging-enabled
   - api-gw-ssl-enabled
   - autoscaling-launch-config-public-ip-disabled
+  - backup-recovery-point-encrypted
   - cloud-trail-cloud-watch-logs-enabled
   - cloud-trail-encryption-enabled
   - cloud-trail-log-file-validation-enabled
@@ -902,7 +939,9 @@ packs:
   - cloudtrail-security-trail-enabled
   - cloudwatch-alarm-action-check
   - cloudwatch-log-group-encrypted
+  - codebuild-project-artifact-encryption
   - codebuild-project-envvar-awscred-check
+  - codebuild-project-s3-logs-encrypted
   - cw-loggroup-retention-period-check
   - dms-replication-not-public
   - dynamodb-table-encrypted-kms
@@ -918,7 +957,14 @@ packs:
   - ec2-security-group-attached-to-eni-periodic
   - ec2-stopped-instance
   - ec2-volume-inuse-check
+  - ecr-private-image-scanning-enabled
+  - ecs-container-insights-enabled
+  - ecs-containers-nonprivileged
+  - ecs-containers-readonly-access
+  - ecs-fargate-latest-platform-version
+  - ecs-task-definition-nonroot-user
   - ecs-task-definition-user-for-host-mode-check
+  - efs-access-point-enforce-user-identity
   - efs-encrypted-check
   - elastic-beanstalk-managed-updates-enabled
   - elasticsearch-encrypted-at-rest
@@ -933,6 +979,7 @@ packs:
   - emr-master-no-public-ip
   - encrypted-volumes
   - guardduty-enabled-centralized
+  - iam-customer-policy-blocked-kms-actions
   - iam-group-has-users-check
   - iam-no-inline-policy-check
   - iam-password-policy
@@ -950,6 +997,12 @@ packs:
   - mfa-enabled-for-iam-console-access
   - multi-region-cloud-trail-enabled
   - no-unrestricted-route-to-igw
+  - opensearch-audit-logging-enabled
+  - opensearch-encrypted-at-rest
+  - opensearch-https-required
+  - opensearch-in-vpc-only
+  - opensearch-logs-to-cloudwatch
+  - opensearch-node-to-node-encryption-check
   - rds-automatic-minor-version-upgrade-enabled
   - rds-instance-public-access-check
   - rds-logging-enabled
@@ -988,7 +1041,11 @@ packs:
   - subnet-auto-assign-public-ip-disabled
   - vpc-default-security-group-closed
   - vpc-flow-logs-enabled
+  - vpc-network-acl-unused-check
   - vpc-sg-open-only-to-authorized-ports
+  - waf-regional-rule-not-empty
+  - waf-regional-rulegroup-not-empty
+  - waf-regional-webacl-not-empty
   - wafv2-logging-enabled
   Operational-Best-Practices-for-Amazon-DynamoDB-with-Remediation:
   - dynamodb-autoscaling-enabled
@@ -2358,6 +2415,325 @@ packs:
   - vpc-network-acl-unused-check
   - vpc-sg-open-only-to-authorized-ports
   - wafv2-logging-enabled
+  Operational-Best-Practices-for-CJIS:
+  - access-keys-rotated
+  - account-part-of-organizations
+  - acm-certificate-expiration-check
+  - alb-http-drop-invalid-header-enabled
+  - alb-http-to-https-redirection-check
+  - alb-waf-enabled
+  - api-gw-associated-with-waf
+  - api-gw-cache-enabled-and-encrypted
+  - api-gw-execution-logging-enabled
+  - autoscaling-launch-config-public-ip-disabled
+  - aws-config-process-check
+  - backup-recovery-point-encrypted
+  - cloud-trail-cloud-watch-logs-enabled
+  - cloud-trail-encryption-enabled
+  - cloud-trail-log-file-validation-enabled
+  - cloudtrail-security-trail-enabled
+  - cloudwatch-log-group-encrypted
+  - codebuild-project-artifact-encryption
+  - codebuild-project-environment-privileged-check
+  - codebuild-project-logging-enabled
+  - codebuild-project-s3-logs-encrypted
+  - cw-loggroup-retention-period-check
+  - dms-replication-not-public
+  - dynamodb-table-encrypted-kms
+  - ebs-snapshot-public-restorable-check
+  - ec2-ebs-encryption-by-default
+  - ec2-instance-managed-by-ssm
+  - ec2-instance-no-public-ip
+  - ec2-instance-profile-attached
+  - ec2-managedinstance-association-compliance-status-check
+  - ec2-managedinstance-patch-compliance-status-check
+  - ecs-containers-nonprivileged
+  - ecs-containers-readonly-access
+  - ecs-fargate-latest-platform-version
+  - ecs-task-definition-nonroot-user
+  - efs-access-point-enforce-user-identity
+  - efs-encrypted-check
+  - elastic-beanstalk-managed-updates-enabled
+  - elasticsearch-encrypted-at-rest
+  - elasticsearch-in-vpc-only
+  - elasticsearch-logs-to-cloudwatch
+  - elasticsearch-node-to-node-encryption-check
+  - elb-acm-certificate-required
+  - elb-logging-enabled
+  - elb-tls-https-listeners-only
+  - elbv2-acm-certificate-required
+  - emr-kerberos-enabled
+  - emr-master-no-public-ip
+  - encrypted-volumes
+  - guardduty-enabled-centralized
+  - guardduty-non-archived-findings
+  - iam-customer-policy-blocked-kms-actions
+  - iam-group-has-users-check
+  - iam-inline-policy-blocked-kms-actions
+  - iam-no-inline-policy-check
+  - iam-password-policy
+  - iam-policy-no-statements-with-admin-access
+  - iam-policy-no-statements-with-full-access
+  - iam-root-access-key-check
+  - iam-user-group-membership-check
+  - iam-user-mfa-enabled
+  - iam-user-no-policies-check
+  - iam-user-unused-credentials-check
+  - incoming-ssh-disabled
+  - instances-in-vpc
+  - kinesis-stream-encrypted
+  - lambda-function-public-access-prohibited
+  - lambda-inside-vpc
+  - mfa-enabled-for-iam-console-access
+  - multi-region-cloud-trail-enabled
+  - no-unrestricted-route-to-igw
+  - opensearch-audit-logging-enabled
+  - opensearch-encrypted-at-rest
+  - opensearch-https-required
+  - opensearch-in-vpc-only
+  - opensearch-logs-to-cloudwatch
+  - opensearch-node-to-node-encryption-check
+  - rds-instance-iam-authentication-enabled
+  - rds-instance-public-access-check
+  - rds-logging-enabled
+  - rds-snapshot-encrypted
+  - rds-snapshots-public-prohibited
+  - rds-storage-encrypted
+  - redshift-audit-logging-enabled
+  - redshift-cluster-configuration-check
+  - redshift-cluster-kms-enabled
+  - redshift-cluster-public-access-check
+  - redshift-require-tls-ssl
+  - restricted-incoming-traffic
+  - root-account-hardware-mfa-enabled
+  - root-account-mfa-enabled
+  - s3-account-level-public-access-blocks-periodic
+  - s3-bucket-acl-prohibited
+  - s3-bucket-default-lock-enabled
+  - s3-bucket-level-public-access-prohibited
+  - s3-bucket-logging-enabled
+  - s3-bucket-public-read-prohibited
+  - s3-bucket-public-write-prohibited
+  - s3-bucket-server-side-encryption-enabled
+  - s3-bucket-ssl-requests-only
+  - s3-default-encryption-kms
+  - sagemaker-endpoint-configuration-kms-key-configured
+  - sagemaker-notebook-instance-kms-key-configured
+  - sagemaker-notebook-no-direct-internet-access
+  - secretsmanager-secret-unused
+  - secretsmanager-using-cmk
+  - securityhub-enabled
+  - sns-encrypted-kms
+  - subnet-auto-assign-public-ip-disabled
+  - vpc-default-security-group-closed
+  - vpc-flow-logs-enabled
+  - vpc-network-acl-unused-check
+  - vpc-sg-open-only-to-authorized-ports
+  - waf-regional-rule-not-empty
+  - waf-regional-rulegroup-not-empty
+  - waf-regional-webacl-not-empty
+  - wafv2-logging-enabled
+  Operational-Best-Practices-for-CMMC-2.0-Level-1:
+  - access-keys-rotated
+  - alb-http-drop-invalid-header-enabled
+  - alb-http-to-https-redirection-check
+  - alb-waf-enabled
+  - api-gw-associated-with-waf
+  - api-gw-execution-logging-enabled
+  - autoscaling-launch-config-public-ip-disabled
+  - cloud-trail-cloud-watch-logs-enabled
+  - cloudtrail-s3-dataevents-enabled
+  - cloudwatch-alarm-action-check
+  - dms-replication-not-public
+  - ebs-snapshot-public-restorable-check
+  - ec2-imdsv2-check
+  - ec2-instance-no-public-ip
+  - ec2-instance-profile-attached
+  - ecr-private-image-scanning-enabled
+  - elasticsearch-in-vpc-only
+  - elasticsearch-node-to-node-encryption-check
+  - elb-acm-certificate-required
+  - elb-logging-enabled
+  - elb-tls-https-listeners-only
+  - emr-kerberos-enabled
+  - emr-master-no-public-ip
+  - guardduty-enabled-centralized
+  - iam-customer-policy-blocked-kms-actions
+  - iam-group-has-users-check
+  - iam-inline-policy-blocked-kms-actions
+  - iam-no-inline-policy-check
+  - iam-password-policy
+  - iam-policy-no-statements-with-admin-access
+  - iam-policy-no-statements-with-full-access
+  - iam-root-access-key-check
+  - iam-user-group-membership-check
+  - iam-user-mfa-enabled
+  - iam-user-no-policies-check
+  - iam-user-unused-credentials-check
+  - incoming-ssh-disabled
+  - instances-in-vpc
+  - internet-gateway-authorized-vpc-only
+  - lambda-function-public-access-prohibited
+  - lambda-inside-vpc
+  - mfa-enabled-for-iam-console-access
+  - multi-region-cloud-trail-enabled
+  - no-unrestricted-route-to-igw
+  - opensearch-in-vpc-only
+  - opensearch-node-to-node-encryption-check
+  - rds-instance-public-access-check
+  - rds-logging-enabled
+  - rds-snapshots-public-prohibited
+  - redshift-cluster-public-access-check
+  - redshift-require-tls-ssl
+  - restricted-incoming-traffic
+  - root-account-hardware-mfa-enabled
+  - root-account-mfa-enabled
+  - s3-account-level-public-access-blocks-periodic
+  - s3-bucket-level-public-access-prohibited
+  - s3-bucket-logging-enabled
+  - s3-bucket-policy-grantee-check
+  - s3-bucket-public-read-prohibited
+  - s3-bucket-public-write-prohibited
+  - s3-bucket-ssl-requests-only
+  - sagemaker-notebook-no-direct-internet-access
+  - secretsmanager-rotation-enabled-check
+  - secretsmanager-scheduled-rotation-success-check
+  - securityhub-enabled
+  - ssm-document-not-public
+  - subnet-auto-assign-public-ip-disabled
+  - vpc-default-security-group-closed
+  - vpc-sg-open-only-to-authorized-ports
+  - wafv2-logging-enabled
+  Operational-Best-Practices-for-CMMC-2.0-Level-2:
+  - access-keys-rotated
+  - account-part-of-organizations
+  - acm-certificate-expiration-check
+  - alb-http-drop-invalid-header-enabled
+  - alb-http-to-https-redirection-check
+  - alb-waf-enabled
+  - api-gw-associated-with-waf
+  - api-gw-cache-enabled-and-encrypted
+  - api-gw-execution-logging-enabled
+  - api-gw-ssl-enabled
+  - autoscaling-launch-config-public-ip-disabled
+  - aws-config-process-check
+  - backup-plan-min-frequency-and-min-retention-check
+  - cloud-trail-cloud-watch-logs-enabled
+  - cloud-trail-enabled
+  - cloud-trail-encryption-enabled
+  - cloud-trail-log-file-validation-enabled
+  - cloudtrail-s3-dataevents-enabled
+  - cloudtrail-security-trail-enabled
+  - cloudwatch-alarm-action-check
+  - cloudwatch-log-group-encrypted
+  - cmk-backing-key-rotation-enabled
+  - codebuild-project-envvar-awscred-check
+  - codebuild-project-source-repo-url-check
+  - cw-loggroup-retention-period-check
+  - db-instance-backup-enabled
+  - dms-replication-not-public
+  - dynamodb-autoscaling-enabled
+  - dynamodb-in-backup-plan
+  - dynamodb-pitr-enabled
+  - ebs-in-backup-plan
+  - ebs-optimized-instance
+  - ebs-snapshot-public-restorable-check
+  - ec2-ebs-encryption-by-default
+  - ec2-imdsv2-check
+  - ec2-instance-managed-by-ssm
+  - ec2-instance-no-public-ip
+  - ec2-instance-profile-attached
+  - ec2-managedinstance-association-compliance-status-check
+  - ec2-managedinstance-patch-compliance-status-check
+  - ec2-stopped-instance
+  - ec2-volume-inuse-check
+  - ecr-private-image-scanning-enabled
+  - efs-encrypted-check
+  - efs-in-backup-plan
+  - eip-attached
+  - elastic-beanstalk-managed-updates-enabled
+  - elasticache-redis-cluster-automatic-backup-check
+  - elasticsearch-encrypted-at-rest
+  - elasticsearch-in-vpc-only
+  - elasticsearch-node-to-node-encryption-check
+  - elb-acm-certificate-required
+  - elb-cross-zone-load-balancing-enabled
+  - elb-deletion-protection-enabled
+  - elb-logging-enabled
+  - elb-tls-https-listeners-only
+  - elbv2-acm-certificate-required
+  - emr-kerberos-enabled
+  - emr-master-no-public-ip
+  - encrypted-volumes
+  - guardduty-enabled-centralized
+  - guardduty-non-archived-findings
+  - iam-customer-policy-blocked-kms-actions
+  - iam-group-has-users-check
+  - iam-inline-policy-blocked-kms-actions
+  - iam-no-inline-policy-check
+  - iam-password-policy
+  - iam-policy-no-statements-with-admin-access
+  - iam-policy-no-statements-with-full-access
+  - iam-root-access-key-check
+  - iam-user-group-membership-check
+  - iam-user-mfa-enabled
+  - iam-user-no-policies-check
+  - iam-user-unused-credentials-check
+  - incoming-ssh-disabled
+  - instances-in-vpc
+  - internet-gateway-authorized-vpc-only
+  - kms-cmk-not-scheduled-for-deletion
+  - lambda-dlq-check
+  - lambda-function-public-access-prohibited
+  - lambda-inside-vpc
+  - mfa-enabled-for-iam-console-access
+  - multi-region-cloud-trail-enabled
+  - no-unrestricted-route-to-igw
+  - opensearch-encrypted-at-rest
+  - opensearch-in-vpc-only
+  - opensearch-node-to-node-encryption-check
+  - rds-automatic-minor-version-upgrade-enabled
+  - rds-in-backup-plan
+  - rds-instance-deletion-protection-enabled
+  - rds-instance-public-access-check
+  - rds-logging-enabled
+  - rds-multi-az-support
+  - rds-snapshot-encrypted
+  - rds-snapshots-public-prohibited
+  - rds-storage-encrypted
+  - redshift-backup-enabled
+  - redshift-cluster-kms-enabled
+  - redshift-cluster-maintenancesettings-check
+  - redshift-cluster-public-access-check
+  - redshift-require-tls-ssl
+  - restricted-incoming-traffic
+  - root-account-hardware-mfa-enabled
+  - root-account-mfa-enabled
+  - s3-account-level-public-access-blocks-periodic
+  - s3-bucket-default-lock-enabled
+  - s3-bucket-level-public-access-prohibited
+  - s3-bucket-logging-enabled
+  - s3-bucket-policy-grantee-check
+  - s3-bucket-public-read-prohibited
+  - s3-bucket-public-write-prohibited
+  - s3-bucket-replication-enabled
+  - s3-bucket-server-side-encryption-enabled
+  - s3-bucket-ssl-requests-only
+  - s3-bucket-versioning-enabled
+  - s3-default-encryption-kms
+  - sagemaker-endpoint-configuration-kms-key-configured
+  - sagemaker-notebook-instance-kms-key-configured
+  - sagemaker-notebook-no-direct-internet-access
+  - secretsmanager-rotation-enabled-check
+  - secretsmanager-scheduled-rotation-success-check
+  - securityhub-enabled
+  - sns-encrypted-kms
+  - ssm-document-not-public
+  - subnet-auto-assign-public-ip-disabled
+  - vpc-default-security-group-closed
+  - vpc-sg-open-only-to-authorized-ports
+  - vpc-vpn-2-tunnels-up
+  - wafv2-logging-enabled
   Operational-Best-Practices-for-CMMC-Level-1:
   - access-keys-rotated
   - alb-http-drop-invalid-header-enabled
@@ -2403,6 +2779,8 @@ packs:
   - mfa-enabled-for-iam-console-access
   - multi-region-cloud-trail-enabled
   - no-unrestricted-route-to-igw
+  - opensearch-in-vpc-only
+  - opensearch-node-to-node-encryption-check
   - rds-instance-public-access-check
   - rds-logging-enabled
   - rds-snapshots-public-prohibited
@@ -2501,6 +2879,9 @@ packs:
   - mfa-enabled-for-iam-console-access
   - multi-region-cloud-trail-enabled
   - no-unrestricted-route-to-igw
+  - opensearch-encrypted-at-rest
+  - opensearch-in-vpc-only
+  - opensearch-node-to-node-encryption-check
   - rds-automatic-minor-version-upgrade-enabled
   - rds-in-backup-plan
   - rds-instance-public-access-check
@@ -2552,7 +2933,6 @@ packs:
   - api-gw-ssl-enabled
   - autoscaling-group-elb-healthcheck-required
   - autoscaling-launch-config-public-ip-disabled
-  - aws-config-process-check
   - backup-plan-min-frequency-and-min-retention-check
   - cloud-trail-cloud-watch-logs-enabled
   - cloud-trail-enabled
@@ -2583,6 +2963,7 @@ packs:
   - ec2-managedinstance-patch-compliance-status-check
   - ec2-stopped-instance
   - ec2-volume-inuse-check
+  - ecr-private-image-scanning-enabled
   - efs-encrypted-check
   - efs-in-backup-plan
   - eip-attached
@@ -2624,6 +3005,9 @@ packs:
   - mfa-enabled-for-iam-console-access
   - multi-region-cloud-trail-enabled
   - no-unrestricted-route-to-igw
+  - opensearch-encrypted-at-rest
+  - opensearch-in-vpc-only
+  - opensearch-node-to-node-encryption-check
   - rds-automatic-minor-version-upgrade-enabled
   - rds-in-backup-plan
   - rds-instance-deletion-protection-enabled
@@ -2679,7 +3063,6 @@ packs:
   - api-gw-ssl-enabled
   - autoscaling-group-elb-healthcheck-required
   - autoscaling-launch-config-public-ip-disabled
-  - aws-config-process-check
   - backup-plan-min-frequency-and-min-retention-check
   - cloud-trail-cloud-watch-logs-enabled
   - cloud-trail-enabled
@@ -2710,6 +3093,7 @@ packs:
   - ec2-managedinstance-patch-compliance-status-check
   - ec2-stopped-instance
   - ec2-volume-inuse-check
+  - ecr-private-image-scanning-enabled
   - efs-encrypted-check
   - efs-in-backup-plan
   - eip-attached
@@ -2751,6 +3135,9 @@ packs:
   - mfa-enabled-for-iam-console-access
   - multi-region-cloud-trail-enabled
   - no-unrestricted-route-to-igw
+  - opensearch-encrypted-at-rest
+  - opensearch-in-vpc-only
+  - opensearch-node-to-node-encryption-check
   - rds-automatic-minor-version-upgrade-enabled
   - rds-in-backup-plan
   - rds-instance-deletion-protection-enabled
@@ -2806,7 +3193,6 @@ packs:
   - api-gw-ssl-enabled
   - autoscaling-group-elb-healthcheck-required
   - autoscaling-launch-config-public-ip-disabled
-  - aws-config-process-check
   - backup-plan-min-frequency-and-min-retention-check
   - cloud-trail-cloud-watch-logs-enabled
   - cloud-trail-enabled
@@ -2837,6 +3223,7 @@ packs:
   - ec2-managedinstance-patch-compliance-status-check
   - ec2-stopped-instance
   - ec2-volume-inuse-check
+  - ecr-private-image-scanning-enabled
   - efs-encrypted-check
   - efs-in-backup-plan
   - eip-attached
@@ -2878,6 +3265,9 @@ packs:
   - mfa-enabled-for-iam-console-access
   - multi-region-cloud-trail-enabled
   - no-unrestricted-route-to-igw
+  - opensearch-encrypted-at-rest
+  - opensearch-in-vpc-only
+  - opensearch-node-to-node-encryption-check
   - rds-automatic-minor-version-upgrade-enabled
   - rds-in-backup-plan
   - rds-instance-deletion-protection-enabled
@@ -2917,6 +3307,7 @@ packs:
   - ssm-document-not-public
   - subnet-auto-assign-public-ip-disabled
   - vpc-default-security-group-closed
+  - vpc-network-acl-unused-check
   - vpc-sg-open-only-to-authorized-ports
   - vpc-vpn-2-tunnels-up
   - wafv2-logging-enabled
@@ -3366,7 +3757,6 @@ packs:
   - aurora-resources-protected-by-backup-plan
   - autoscaling-group-elb-healthcheck-required
   - autoscaling-launch-config-public-ip-disabled
-  - aws-config-process-check
   - backup-plan-min-frequency-and-min-retention-check
   - backup-recovery-point-encrypted
   - backup-recovery-point-manual-deletion-disabled
@@ -3437,6 +3827,9 @@ packs:
   - mfa-enabled-for-iam-console-access
   - multi-region-cloud-trail-enabled
   - no-unrestricted-route-to-igw
+  - opensearch-encrypted-at-rest
+  - opensearch-in-vpc-only
+  - opensearch-node-to-node-encryption-check
   - rds-automatic-minor-version-upgrade-enabled
   - rds-enhanced-monitoring-enabled
   - rds-in-backup-plan
@@ -3479,7 +3872,6 @@ packs:
   Operational-Best-Practices-for-FedRAMP-Low:
   - access-keys-rotated
   - acm-certificate-expiration-check
-  - alb-http-drop-invalid-header-enabled
   - alb-http-to-https-redirection-check
   - alb-waf-enabled
   - api-gw-associated-with-waf
@@ -3487,7 +3879,6 @@ packs:
   - aurora-resources-protected-by-backup-plan
   - autoscaling-group-elb-healthcheck-required
   - autoscaling-launch-config-public-ip-disabled
-  - aws-config-process-check
   - backup-plan-min-frequency-and-min-retention-check
   - beanstalk-enhanced-health-reporting-enabled
   - cloud-trail-cloud-watch-logs-enabled
@@ -3499,6 +3890,7 @@ packs:
   - cloudwatch-log-group-encrypted
   - cmk-backing-key-rotation-enabled
   - codebuild-project-envvar-awscred-check
+  - codebuild-project-logging-enabled
   - codebuild-project-source-repo-url-check
   - cw-loggroup-retention-period-check
   - db-instance-backup-enabled
@@ -3520,13 +3912,12 @@ packs:
   - ec2-resources-protected-by-backup-plan
   - ec2-stopped-instance
   - ec2-volume-inuse-check
+  - ecs-task-definition-memory-hard-limit
   - ecs-task-definition-user-for-host-mode-check
   - efs-resources-protected-by-backup-plan
+  - elastic-beanstalk-managed-updates-enabled
   - elasticache-redis-cluster-automatic-backup-check
   - elasticsearch-in-vpc-only
-  - elasticsearch-logs-to-cloudwatch
-  - elasticsearch-node-to-node-encryption-check
-  - elb-acm-certificate-required
   - elb-cross-zone-load-balancing-enabled
   - elb-deletion-protection-enabled
   - elb-logging-enabled
@@ -3557,6 +3948,7 @@ packs:
   - mfa-enabled-for-iam-console-access
   - multi-region-cloud-trail-enabled
   - no-unrestricted-route-to-igw
+  - opensearch-in-vpc-only
   - rds-enhanced-monitoring-enabled
   - rds-instance-deletion-protection-enabled
   - rds-instance-public-access-check
@@ -3592,6 +3984,7 @@ packs:
   - vpc-flow-logs-enabled
   - vpc-sg-open-only-to-authorized-ports
   - vpc-vpn-2-tunnels-up
+  - waf-regional-webacl-not-empty
   - wafv2-logging-enabled
   Operational-Best-Practices-for-FedRAMP:
   - access-keys-rotated
@@ -4421,21 +4814,24 @@ packs:
   - alb-waf-enabled
   - api-gw-associated-with-waf
   - autoscaling-launch-config-public-ip-disabled
-  - aws-config-process-check
   - dms-replication-not-public
   - ebs-snapshot-public-restorable-check
   - ec2-imdsv2-check
   - ec2-instance-managed-by-ssm
   - ec2-instance-no-public-ip
+  - ec2-instance-profile-attached
   - ec2-managedinstance-association-compliance-status-check
   - ec2-managedinstance-patch-compliance-status-check
   - ec2-security-group-attached-to-eni-periodic
+  - ecr-private-image-scanning-enabled
   - elastic-beanstalk-managed-updates-enabled
   - elasticsearch-in-vpc-only
   - emr-kerberos-enabled
   - emr-master-no-public-ip
   - guardduty-enabled-centralized
+  - iam-customer-policy-blocked-kms-actions
   - iam-group-has-users-check
+  - iam-inline-policy-blocked-kms-actions
   - iam-no-inline-policy-check
   - iam-password-policy
   - iam-policy-no-statements-with-admin-access
@@ -4451,7 +4847,12 @@ packs:
   - lambda-function-public-access-prohibited
   - lambda-inside-vpc
   - mfa-enabled-for-iam-console-access
+  - netfw-policy-default-action-fragment-packets
+  - netfw-policy-default-action-full-packets
+  - netfw-policy-rule-group-associated
+  - netfw-stateless-rule-group-not-empty
   - no-unrestricted-route-to-igw
+  - opensearch-in-vpc-only
   - rds-automatic-minor-version-upgrade-enabled
   - rds-instance-public-access-check
   - rds-snapshots-public-prohibited
@@ -4468,23 +4869,26 @@ packs:
   - sagemaker-notebook-no-direct-internet-access
   - secretsmanager-rotation-enabled-check
   - secretsmanager-scheduled-rotation-success-check
+  - securityhub-enabled
   - ssm-document-not-public
   - subnet-auto-assign-public-ip-disabled
   - vpc-default-security-group-closed
   - vpc-sg-open-only-to-authorized-ports
+  - waf-regional-rule-not-empty
+  - waf-regional-rulegroup-not-empty
+  - waf-regional-webacl-not-empty
   Operational-Best-Practices-for-MAS-TRMG:
   - access-keys-rotated
   - account-part-of-organizations
   - acm-certificate-expiration-check
   - alb-http-to-https-redirection-check
   - alb-waf-enabled
+  - api-gw-associated-with-waf
   - api-gw-cache-enabled-and-encrypted
   - api-gw-execution-logging-enabled
   - api-gw-ssl-enabled
-  - api-gw-xray-enabled
   - autoscaling-group-elb-healthcheck-required
   - autoscaling-launch-config-public-ip-disabled
-  - aws-config-process-check
   - beanstalk-enhanced-health-reporting-enabled
   - cloud-trail-cloud-watch-logs-enabled
   - cloud-trail-enabled
@@ -4546,13 +4950,18 @@ packs:
   - iam-user-unused-credentials-check
   - incoming-ssh-disabled
   - instances-in-vpc
-  - internet-gateway-authorized-vpc-only
   - kms-cmk-not-scheduled-for-deletion
   - lambda-function-public-access-prohibited
   - lambda-inside-vpc
   - mfa-enabled-for-iam-console-access
   - multi-region-cloud-trail-enabled
   - no-unrestricted-route-to-igw
+  - opensearch-data-node-fault-tolerance
+  - opensearch-encrypted-at-rest
+  - opensearch-https-required
+  - opensearch-in-vpc-only
+  - opensearch-logs-to-cloudwatch
+  - opensearch-node-to-node-encryption-check
   - rds-automatic-minor-version-upgrade-enabled
   - rds-in-backup-plan
   - rds-instance-deletion-protection-enabled
@@ -4654,6 +5063,7 @@ packs:
   - cloud-trail-cloud-watch-logs-enabled
   - cloud-trail-enabled
   - cloud-trail-encryption-enabled
+  - cloud-trail-log-file-validation-enabled
   - cloudtrail-s3-dataevents-enabled
   - cloudwatch-alarm-action-check
   - cloudwatch-log-group-encrypted
@@ -4718,6 +5128,11 @@ packs:
   - mfa-enabled-for-iam-console-access
   - multi-region-cloud-trail-enabled
   - no-unrestricted-route-to-igw
+  - opensearch-audit-logging-enabled
+  - opensearch-encrypted-at-rest
+  - opensearch-in-vpc-only
+  - opensearch-logs-to-cloudwatch
+  - opensearch-node-to-node-encryption-check
   - rds-automatic-minor-version-upgrade-enabled
   - rds-in-backup-plan
   - rds-instance-deletion-protection-enabled
@@ -4727,6 +5142,7 @@ packs:
   - rds-snapshot-encrypted
   - rds-snapshots-public-prohibited
   - rds-storage-encrypted
+  - redshift-audit-logging-enabled
   - redshift-backup-enabled
   - redshift-cluster-configuration-check
   - redshift-cluster-kms-enabled
@@ -4761,19 +5177,14 @@ packs:
   - vpc-vpn-2-tunnels-up
   - wafv2-logging-enabled
   Operational-Best-Practices-for-NCSC-CAF:
-  - access-keys-rotated
-  - account-part-of-organizations
   - acm-certificate-expiration-check
+  - alb-http-drop-invalid-header-enabled
   - alb-http-to-https-redirection-check
   - alb-waf-enabled
-  - api-gw-associated-with-waf
   - api-gw-cache-enabled-and-encrypted
   - api-gw-execution-logging-enabled
-  - api-gw-ssl-enabled
   - autoscaling-group-elb-healthcheck-required
-  - autoscaling-launch-config-public-ip-disabled
   - aws-config-process-check
-  - beanstalk-enhanced-health-reporting-enabled
   - cloud-trail-cloud-watch-logs-enabled
   - cloud-trail-encryption-enabled
   - cloudtrail-s3-dataevents-enabled
@@ -4781,6 +5192,8 @@ packs:
   - cloudwatch-alarm-action-check
   - cloudwatch-log-group-encrypted
   - cmk-backing-key-rotation-enabled
+  - codebuild-project-environment-privileged-check
+  - cw-loggroup-retention-period-check
   - db-instance-backup-enabled
   - dms-replication-not-public
   - dynamodb-autoscaling-enabled
@@ -4789,9 +5202,11 @@ packs:
   - dynamodb-table-encrypted-kms
   - dynamodb-throughput-limit-check
   - ebs-in-backup-plan
+  - ebs-optimized-instance
   - ebs-snapshot-public-restorable-check
   - ec2-ebs-encryption-by-default
   - ec2-imdsv2-check
+  - ec2-instance-detailed-monitoring-enabled
   - ec2-instance-managed-by-ssm
   - ec2-instance-no-public-ip
   - ec2-instance-profile-attached
@@ -4799,22 +5214,22 @@ packs:
   - ec2-managedinstance-patch-compliance-status-check
   - ec2-stopped-instance
   - ec2-volume-inuse-check
-  - ecs-task-definition-user-for-host-mode-check
+  - ecs-containers-nonprivileged
+  - ecs-containers-readonly-access
+  - ecs-task-definition-nonroot-user
+  - efs-access-point-enforce-user-identity
   - efs-encrypted-check
   - efs-in-backup-plan
   - eip-attached
-  - elastic-beanstalk-managed-updates-enabled
   - elasticache-redis-cluster-automatic-backup-check
   - elasticsearch-encrypted-at-rest
   - elasticsearch-in-vpc-only
-  - elasticsearch-logs-to-cloudwatch
   - elasticsearch-node-to-node-encryption-check
   - elb-acm-certificate-required
   - elb-cross-zone-load-balancing-enabled
   - elb-deletion-protection-enabled
   - elb-logging-enabled
   - elb-tls-https-listeners-only
-  - elbv2-acm-certificate-required
   - emr-kerberos-enabled
   - emr-master-no-public-ip
   - encrypted-volumes
@@ -4822,7 +5237,6 @@ packs:
   - guardduty-non-archived-findings
   - iam-customer-policy-blocked-kms-actions
   - iam-group-has-users-check
-  - iam-inline-policy-blocked-kms-actions
   - iam-no-inline-policy-check
   - iam-password-policy
   - iam-policy-no-statements-with-admin-access
@@ -4841,7 +5255,10 @@ packs:
   - lambda-function-public-access-prohibited
   - lambda-inside-vpc
   - mfa-enabled-for-iam-console-access
-  - no-unrestricted-route-to-igw
+  - opensearch-access-control-enabled
+  - opensearch-encrypted-at-rest
+  - opensearch-in-vpc-only
+  - opensearch-node-to-node-encryption-check
   - rds-enhanced-monitoring-enabled
   - rds-in-backup-plan
   - rds-instance-deletion-protection-enabled
@@ -4851,19 +5268,15 @@ packs:
   - rds-snapshot-encrypted
   - rds-snapshots-public-prohibited
   - rds-storage-encrypted
-  - redshift-backup-enabled
   - redshift-cluster-configuration-check
-  - redshift-cluster-kms-enabled
   - redshift-cluster-maintenancesettings-check
   - redshift-cluster-public-access-check
-  - redshift-enhanced-vpc-routing-enabled
   - redshift-require-tls-ssl
   - restricted-incoming-traffic
   - root-account-hardware-mfa-enabled
   - root-account-mfa-enabled
   - s3-account-level-public-access-blocks-periodic
   - s3-bucket-default-lock-enabled
-  - s3-bucket-level-public-access-prohibited
   - s3-bucket-logging-enabled
   - s3-bucket-policy-grantee-check
   - s3-bucket-public-read-prohibited
@@ -4872,14 +5285,13 @@ packs:
   - s3-bucket-server-side-encryption-enabled
   - s3-bucket-ssl-requests-only
   - s3-bucket-versioning-enabled
+  - s3-event-notifications-enabled
   - sagemaker-endpoint-configuration-kms-key-configured
   - sagemaker-notebook-instance-kms-key-configured
   - sagemaker-notebook-no-direct-internet-access
-  - secretsmanager-using-cmk
+  - secretsmanager-secret-unused
   - securityhub-enabled
   - sns-encrypted-kms
-  - ssm-document-not-public
-  - subnet-auto-assign-public-ip-disabled
   - vpc-default-security-group-closed
   - vpc-flow-logs-enabled
   - vpc-network-acl-unused-check
@@ -4890,15 +5302,13 @@ packs:
   - access-keys-rotated
   - account-part-of-organizations
   - acm-certificate-expiration-check
-  - alb-http-drop-invalid-header-enabled
   - alb-http-to-https-redirection-check
   - alb-waf-enabled
-  - api-gw-associated-with-waf
   - api-gw-cache-enabled-and-encrypted
   - api-gw-execution-logging-enabled
   - api-gw-ssl-enabled
-  - autoscaling-launch-config-public-ip-disabled
-  - aws-config-process-check
+  - backup-recovery-point-encrypted
+  - backup-recovery-point-minimum-retention-check
   - cloud-trail-cloud-watch-logs-enabled
   - cloud-trail-enabled
   - cloud-trail-encryption-enabled
@@ -4907,6 +5317,8 @@ packs:
   - cloudtrail-security-trail-enabled
   - cloudwatch-alarm-action-check
   - cloudwatch-log-group-encrypted
+  - codebuild-project-artifact-encryption
+  - codebuild-project-environment-privileged-check
   - codebuild-project-envvar-awscred-check
   - codebuild-project-source-repo-url-check
   - cw-loggroup-retention-period-check
@@ -4919,10 +5331,14 @@ packs:
   - ebs-snapshot-public-restorable-check
   - ec2-ebs-encryption-by-default
   - ec2-imdsv2-check
+  - ec2-instance-detailed-monitoring-enabled
   - ec2-instance-managed-by-ssm
   - ec2-instance-no-public-ip
   - ec2-managedinstance-association-compliance-status-check
   - ec2-managedinstance-patch-compliance-status-check
+  - ecs-container-insights-enabled
+  - ecs-containers-nonprivileged
+  - ecs-containers-readonly-access
   - ecs-task-definition-user-for-host-mode-check
   - efs-encrypted-check
   - efs-in-backup-plan
@@ -4957,6 +5373,7 @@ packs:
   - incoming-ssh-disabled
   - instances-in-vpc
   - internet-gateway-authorized-vpc-only
+  - kinesis-stream-encrypted
   - kms-cmk-not-scheduled-for-deletion
   - lambda-dlq-check
   - lambda-function-public-access-prohibited
@@ -4964,8 +5381,14 @@ packs:
   - mfa-enabled-for-iam-console-access
   - multi-region-cloud-trail-enabled
   - no-unrestricted-route-to-igw
+  - opensearch-encrypted-at-rest
+  - opensearch-https-required
+  - opensearch-in-vpc-only
+  - opensearch-logs-to-cloudwatch
+  - opensearch-node-to-node-encryption-check
   - rds-enhanced-monitoring-enabled
   - rds-in-backup-plan
+  - rds-instance-iam-authentication-enabled
   - rds-instance-public-access-check
   - rds-logging-enabled
   - rds-multi-az-support
@@ -4977,7 +5400,6 @@ packs:
   - redshift-cluster-kms-enabled
   - redshift-cluster-maintenancesettings-check
   - redshift-cluster-public-access-check
-  - redshift-enhanced-vpc-routing-enabled
   - redshift-require-tls-ssl
   - restricted-incoming-traffic
   - root-account-hardware-mfa-enabled
@@ -4995,12 +5417,10 @@ packs:
   - sagemaker-endpoint-configuration-kms-key-configured
   - sagemaker-notebook-instance-kms-key-configured
   - sagemaker-notebook-no-direct-internet-access
-  - secretsmanager-rotation-enabled-check
-  - secretsmanager-scheduled-rotation-success-check
+  - secretsmanager-using-cmk
   - securityhub-enabled
   - sns-encrypted-kms
   - ssm-document-not-public
-  - subnet-auto-assign-public-ip-disabled
   - vpc-default-security-group-closed
   - vpc-flow-logs-enabled
   - vpc-sg-open-only-to-authorized-ports
@@ -5290,11 +5710,12 @@ packs:
   - vpc-sg-open-only-to-authorized-ports
   - wafv2-logging-enabled
   Operational-Best-Practices-for-NIST-800-172:
+  - alb-desync-mode-check
   - alb-http-drop-invalid-header-enabled
   - alb-http-to-https-redirection-check
   - api-gw-ssl-enabled
   - autoscaling-launch-config-public-ip-disabled
-  - aws-config-process-check
+  - clb-desync-mode-check
   - cloud-trail-cloud-watch-logs-enabled
   - cloud-trail-log-file-validation-enabled
   - cloudwatch-alarm-action-check
@@ -5306,7 +5727,10 @@ packs:
   - ec2-managedinstance-association-compliance-status-check
   - ec2-managedinstance-patch-compliance-status-check
   - ec2-stopped-instance
+  - ec2-token-hop-limit-check
   - ec2-volume-inuse-check
+  - ecr-private-image-scanning-enabled
+  - ecs-fargate-latest-platform-version
   - eip-attached
   - elastic-beanstalk-managed-updates-enabled
   - elasticsearch-in-vpc-only
@@ -5321,7 +5745,11 @@ packs:
   - instances-in-vpc
   - lambda-function-public-access-prohibited
   - lambda-inside-vpc
+  - nacl-no-unrestricted-ssh-rdp
   - no-unrestricted-route-to-igw
+  - opensearch-https-required
+  - opensearch-in-vpc-only
+  - opensearch-node-to-node-encryption-check
   - rds-automatic-minor-version-upgrade-enabled
   - rds-enhanced-monitoring-enabled
   - rds-instance-public-access-check
@@ -6438,6 +6866,76 @@ packs:
   - vpc-sg-open-only-to-authorized-ports
   - vpc-vpn-2-tunnels-up
   - wafv2-logging-enabled
+  Operational-Best-Practices-for-SWIFT-CSP:
+  - access-keys-rotated
+  - account-part-of-organizations
+  - cloud-trail-cloud-watch-logs-enabled
+  - cloud-trail-enabled
+  - cloud-trail-encryption-enabled
+  - cloud-trail-log-file-validation-enabled
+  - cloudwatch-log-group-encrypted
+  - ebs-in-backup-plan
+  - ec2-ebs-encryption-by-default
+  - ec2-imdsv2-check
+  - ec2-instance-detailed-monitoring-enabled
+  - ec2-instance-managed-by-ssm
+  - ec2-instance-multiple-eni-check
+  - ec2-instance-no-public-ip
+  - ec2-instance-profile-attached
+  - ec2-no-amazon-key-pair
+  - ec2-stopped-instance
+  - ec2-token-hop-limit-check
+  - ec2-volume-inuse-check
+  - efs-encrypted-check
+  - efs-in-backup-plan
+  - encrypted-volumes
+  - guardduty-enabled-centralized
+  - iam-customer-policy-blocked-kms-actions
+  - iam-group-has-users-check
+  - iam-inline-policy-blocked-kms-actions
+  - iam-no-inline-policy-check
+  - iam-password-policy
+  - iam-policy-no-statements-with-full-access
+  - iam-root-access-key-check
+  - iam-user-group-membership-check
+  - iam-user-mfa-enabled
+  - iam-user-no-policies-check
+  - iam-user-unused-credentials-check
+  - incoming-ssh-disabled
+  - instances-in-vpc
+  - internet-gateway-authorized-vpc-only
+  - kinesis-stream-encrypted
+  - kms-cmk-not-scheduled-for-deletion
+  - lambda-function-public-access-prohibited
+  - lambda-inside-vpc
+  - mfa-enabled-for-iam-console-access
+  - nacl-no-unrestricted-ssh-rdp
+  - restricted-incoming-traffic
+  - root-account-hardware-mfa-enabled
+  - root-account-mfa-enabled
+  - s3-account-level-public-access-blocks-periodic
+  - s3-bucket-acl-prohibited
+  - s3-bucket-level-public-access-prohibited
+  - s3-bucket-logging-enabled
+  - s3-bucket-policy-grantee-check
+  - s3-bucket-public-read-prohibited
+  - s3-bucket-public-write-prohibited
+  - s3-bucket-server-side-encryption-enabled
+  - s3-bucket-versioning-enabled
+  - s3-default-encryption-kms
+  - secretsmanager-rotation-enabled-check
+  - secretsmanager-scheduled-rotation-success-check
+  - secretsmanager-secret-periodic-rotation
+  - secretsmanager-secret-unused
+  - secretsmanager-using-cmk
+  - securityhub-enabled
+  - sns-encrypted-kms
+  - sns-topic-message-delivery-notification-enabled
+  - ssm-document-not-public
+  - vpc-default-security-group-closed
+  - vpc-flow-logs-enabled
+  - vpc-network-acl-unused-check
+  - vpc-sg-open-only-to-authorized-ports
   Operational-Best-Practices-for-Security-Services:
   - access-keys-rotated
   - account-part-of-organizations
@@ -6578,6 +7076,10 @@ packs:
   - codebuild-project-logging-enabled
   - codebuild-project-s3-logs-encrypted
   - codebuild-project-source-repo-url-check
+  Security-Best-Practices-for-ECR:
+  - ecr-private-image-scanning-enabled
+  - ecr-private-lifecycle-policy-configured
+  - ecr-private-tag-immutability-enabled
   Security-Best-Practices-for-ECS:
   - ecs-container-insights-enabled
   - ecs-containers-nonprivileged
@@ -6636,6 +7138,10 @@ packs:
   - redshift-default-db-name-check
   - redshift-enhanced-vpc-routing-enabled
   - redshift-require-tls-ssl
+  Security-Best-Practices-for-SageMaker:
+  - sagemaker-endpoint-configuration-kms-key-configured
+  - sagemaker-notebook-instance-kms-key-configured
+  - sagemaker-notebook-no-direct-internet-access
   Security-Best-Practices-for-Secrets-Manager:
   - secretsmanager-rotation-enabled-check
   - secretsmanager-scheduled-rotation-success-check
