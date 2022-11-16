@@ -32,6 +32,9 @@ Operational-Best-Practices-for-CIS-Critical-Security-Controls-v8-IG3
 Operational-Best-Practices-for-CIS-Top20
 Operational-Best-Practices-for-CIS
 Operational-Best-Practices-for-CISA-Cyber-Essentials
+Operational-Best-Practices-for-CJIS
+Operational-Best-Practices-for-CMMC-2.0-Level-1
+Operational-Best-Practices-for-CMMC-2.0-Level-2
 Operational-Best-Practices-for-CMMC-Level-1
 Operational-Best-Practices-for-CMMC-Level-2
 Operational-Best-Practices-for-CMMC-Level-3
@@ -80,6 +83,7 @@ Operational-Best-Practices-for-PCI-DSS
 Operational-Best-Practices-for-Publicly-Accessible-Resources
 Operational-Best-Practices-for-RBI-Basic-Cyber-Security-Framework
 Operational-Best-Practices-for-RBI-MasterDirection
+Operational-Best-Practices-for-SWIFT-CSP
 Operational-Best-Practices-for-Security-Services
 Operational-Best-Practices-for-Serverless
 Operational-Best-Practices-for-Storage-Services
@@ -89,6 +93,7 @@ Security-Best-Practices-for-AutoScaling
 Security-Best-Practices-for-CloudFront
 Security-Best-Practices-for-CloudTrail
 Security-Best-Practices-for-CodeBuild
+Security-Best-Practices-for-ECR
 Security-Best-Practices-for-ECS
 Security-Best-Practices-for-EFS
 Security-Best-Practices-for-EKS
@@ -96,4 +101,5 @@ Security-Best-Practices-for-Lambda
 Security-Best-Practices-for-Network-Firewall
 Security-Best-Practices-for-RDS
 Security-Best-Practices-for-Redshift
+Security-Best-Practices-for-SageMaker
 Security-Best-Practices-for-Secrets-Manager
