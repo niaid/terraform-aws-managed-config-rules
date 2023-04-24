@@ -105,6 +105,14 @@ variable "alb_waf_enabled_parameters" {
   type        = map(string)
 }
 
+variable "api_gwv2_authorization_type_configured_parameters" {
+  description = "Input Parameters for the api-gwv2-authorization-type-configured rule."
+  default     = null
+
+  # Parameter to check API routes' authorization types against. String parameters matching CUSTOM, AWS_IAM, JWT are valid.
+  type = string
+}
+
 variable "api_gw_associated_with_waf_parameters" {
   description = "Input Parameters for the api-gw-associated-with-waf rule"
   default     = null
@@ -157,6 +165,26 @@ variable "approved_amis_by_tag_parameters" {
   # The AMIs by tag (comma-separated list up to 10; for example,tag-key:tag-value; i.e. tag-key1 matches AMIs with tag-key1,tag-key2:value2 matches tag-key2 having value2).
   type = object({
     amisByTagKeyAndValue = string
+  })
+}
+
+variable "appsync_associated_with_waf_parameters" {
+  description = "Input parameters for the appsync-associated-with-waf rule"
+  default     = null
+
+  # Comma-separated list of Amazon Resource Names (ARNs) for authorized web ACLs.
+  type = object({
+    wafWebAclARNs = string
+  })
+}
+
+variable "appsync_logging_enabled_parameters" {
+  description = "Input parameters for the appsync-logging-enabled rule"
+  default     = null
+
+  # Comma-separated list of specific field logging levels (for example, ERROR, ALL).
+  type = object({
+    fieldLoggingLevel = string
   })
 }
 
@@ -441,6 +469,16 @@ variable "ec2_instance_profile_attached_parameters" {
   type        = map(string)
 }
 
+variable "ec2_launch_template_public_ip_disabled_parameters" {
+  description = "Input parameters for the ec2-launch-template-public-ip-disabled rule"
+  default     = null
+
+  # Comma-separated list of exempted EC2 Launch Template IDs that are allowed to have Network Interfaces with the AssociatePublicIpAddress value set to 'true'.
+  type = object({
+    exemptedLaunchTemplates = string
+  })
+}
+
 variable "ec2_last_backup_recovery_point_created_parameters" {
   description = "Input parameters for the ec2-last-backup-recovery-point-created rule"
   default     = null
@@ -576,6 +614,16 @@ variable "eks_secrets_encrypted_parameters" {
   type        = map(string)
 }
 
+variable "elasticache_rbac_auth_enabled_parameters" {
+  description = "Input parameters for the elasticache-rbac-auth-enabled rule"
+  default     = null
+
+  # A comma-separated list of User Group IDs that are approved for ElastiCache replication group access.
+  type = object({
+    allowedUserGroupIDs = string
+  })
+}
+
 variable "elasticache_redis_cluster_automatic_backup_check_parameters" {
   description = "Input parameters for the elasticache-redis-cluster-automatic-backup-check rule"
 
@@ -588,10 +636,32 @@ variable "elasticache_redis_cluster_automatic_backup_check_parameters" {
   })
 }
 
+variable "elasticache_repl_grp_encrypted_at_rest_parameters" {
+  description = "Input parameters for the elasticache-repl-grp-encrypted-at-rest rule"
+  default     = null
+
+  # Comma-separated list of KMS Key IDs that are approved for ElastiCache usage.
+  type = object({
+    aapprovedKMSKeyIds = string
+  })
+}
+
 variable "elasticsearch_logs_to_cloudwatch_parameters" {
   description = "Input parameters for the elasticsearch-logs-to-cloudwatch rule"
   default     = null
   type        = map(string)
+}
+
+variable "elastic_beanstalk_logs_to_cloudwatch_parameters" {
+  description = "Input parameters for the elastic-beanstalk-logs-to-cloudwatch rule"
+  default     = null
+
+  # RetentionInDays   - Checks the number of days to keep log events before they expire. Valid values are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1827, 3653. The rule is NON_COMPLIANT if the value of `logs.RetentionInDays` does not match this parameter.
+  # DeleteOnTerminate - Checks if logs are configured to be deleted upon termination of the environment. Valid values are `true` or `false`. The rule is NON_COMPLIANT if the value of `logs.DeleteOnTerminate` does not match this parameter.
+  type = object({
+    RetentionInDays   = string,
+    DeleteOnTerminate = string
+  })
 }
 
 variable "elastic_beanstalk_managed_updates_enabled_parameters" {
@@ -822,6 +892,16 @@ variable "multi_region_cloud_trail_enabled_parameters" {
   description = "Input parameters for the multi-region-cloud-trail-enabled rule"
   default     = null
   type        = map(string)
+}
+
+variable "netfw_multi_az_enabled_parameters" {
+  description = "Input parameters for the netfw-multi-az-enabled rule"
+  default     = null
+
+  # The number of expected Availability Zones.
+  type = object({
+    availabilityZones = number
+  })
 }
 
 variable "netfw_policy_default_action_fragment_packets_parameters" {
@@ -1075,6 +1155,16 @@ variable "sagemaker_notebook_instance_kms_key_configured_parameters" {
   type        = map(string)
 }
 
+variable "sagemaker_notebook_instance_inside_vpc_parameters" {
+  description = "Input parameters for the sagemaker-notebook-instance-inside-vpc rule"
+  default     = null
+
+  # Comma-separated list of subnet IDs that notebook instances can be launched in.
+  type = object({
+    SubnetIds = string
+  })
+}
+
 variable "secretsmanager_rotation_enabled_check_parameters" {
   description = "Input parameters for the secretsmanager-rotation-enabled-check rule"
   default     = null
@@ -1128,6 +1218,12 @@ variable "sns_encrypted_kms_parameters" {
 
 variable "storagegateway_last_backup_recovery_point_created_parameters" {
   description = "Input parameters for the storagegateway-last-backup-recovery-point-created rule"
+  default     = null
+  type        = map(string)
+}
+
+variable "storagegateway_resources_protected_by_backup_plan_parameters" {
+  description = "Input parameters for the storagegateway-resources-protected-by-backup-plan rule"
   default     = null
   type        = map(string)
 }
