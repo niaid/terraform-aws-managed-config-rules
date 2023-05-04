@@ -1,0 +1,16 @@
+locals {
+    managed_rules = {
+        {%- for rule in rules %}
+            {{ rule.name }} = {
+                description = "{{ rule.locals_description() }}"
+                {%- if rule.parameters_data %}
+                input_parameters = var.{{ rule.tf_variable_name }}
+                {%- endif %}
+                {%- if rule.resource_types %}
+                resource_types_scope = {{ rule.resource_types|replace("'", '"') }}
+                {%- endif %}
+                severity = "{{ rule.rule_severity }}"
+            }
+        {% endfor %}
+    }
+}
