@@ -2,6 +2,21 @@
 
 This script scrapes AWS documentation for the latest list of AWS-managed Config Rules and generates Terraform HCL code for variables and locals compatible with the `terraform-aws-managed-config-rules` Terraform module.
 
+## Usage
+
+```bash
+# From the root of the repository...
+cd scripts/config-rule-updater
+
+# Create a virtual environment and install packages.
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# Run the script.
+python index.py
+```
+
 ## How it Works
 
 First, the script scrapes AWS documentation for a list of Rules and the documentation page for each rule is scraped for information describing the rule and its parameters. A Terraform variable is generated with a list of the rule's parameters and any default values, and the `managed_rules` local value is updated with the new rule.
