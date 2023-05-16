@@ -65,24 +65,23 @@ class AwsConfigRule:
     def cleanup_description_string(self, input_str: str) -> str:
         """Fix single/double quotes and tick marks so that the description
         is compatible with HCL variable descriptions."""
-        return input_str.strip().strip('"').replace("'\"'", '`').replace('"', "'")
+        return input_str.strip().strip('"').replace("'\"'", "'").replace('"', "'")
 
-    def locals_description(self) -> str:
+    def locals_description(self, max_length: str=256) -> str:
         """The description for each rule in the locals block cannot be longer
-        than 256 characters. This method truncates the description to end on
-        the last full word at the limit followed by an ellipsis (...)."""
-        MAX_DESCRIPTION_LENGTH = 256
+        than {max_length} characters. This method truncates the description to
+        end on the last full word at the limit followed by an ellipsis."""
         # Remove newlines, strip trailing quotes, replace internal quotes, and join the strings.
         full_description = ' '.join(
             [self.cleanup_description_string(x) for x in self.tf_variable_description.split('\n')])
         full_description = self.replace_multiple_whitespace_with_single(full_description)
         # Return the full description if it's already shorter than the limit.
-        if len(full_description) <= MAX_DESCRIPTION_LENGTH:
+        if len(full_description) <= max_length:
             return full_description
         
         # Truncate the description and determine if we need to shorten it
         # further to support the trailing ellipsis or return it as is.
-        short_description = full_description[:MAX_DESCRIPTION_LENGTH]
+        short_description = full_description[:max_length]
         # If it ends in a period then that's probably the end of a sentence.
         if short_description[-1] == '.':
             return short_description
@@ -91,7 +90,7 @@ class AwsConfigRule:
         # of a complete word) and replace it with an ellipsis '...'.
         result = self.replace_last_whitespace_char_with_ellipsis(short_description)
         while True:
-            if len(result) <= MAX_DESCRIPTION_LENGTH:
+            if len(result) <= max_length:
                 break
             result = self.replace_last_whitespace_char_with_ellipsis(result)
 
