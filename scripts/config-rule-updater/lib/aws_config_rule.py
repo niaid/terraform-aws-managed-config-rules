@@ -65,7 +65,17 @@ class AwsConfigRule:
     def cleanup_description_string(self, input_str: str) -> str:
         """Fix single/double quotes and tick marks so that the description
         is compatible with HCL variable descriptions."""
-        return input_str.strip().strip('"').replace("'\"'", "'").replace('"', "'")
+        result = ""
+        for index, character in enumerate(input_str):
+            if character in ["'", "\u2018", "\u2019"]: # ASCII and Unicode single quotes
+                """Check for possessive ('s) characters and keep those. Otherwise, replace
+                them with empty spaces."""
+                result += self.replace_single_quotes(input_str[index:index + 3])
+            elif character in ['"', "`"]: # We want to remove these entirely.
+                result += ' '
+            else:
+                result += character
+        return result.strip()
 
     def locals_description(self, max_length: str=256) -> str:
         """The description for each rule in the locals block cannot be longer
@@ -103,6 +113,13 @@ class AwsConfigRule:
 
         # Replace multiple whitespaces with a single whitespace.
         return pattern.sub(' ', input_str)
+    
+    def replace_single_quotes(self, input_str: str) -> str:
+        """Returns either a single quote or a space depending on whether the
+        string argument represents a possessive apostrophe."""
+        if input_str.endswith("s ") or input_str.endswith("s."):
+            return "'"
+        return ' '
     
     def replace_colons_with_equals(self, input_str: str) -> str:
         """Replace colons with ' = ' to be compatible with HCL structure."""
