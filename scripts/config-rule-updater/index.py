@@ -29,9 +29,10 @@ if __name__ == '__main__':
 
     # Update the severity levels of the latest rules from the existing rules.
     rules: List[AwsConfigRule] = []
+    existing_rules = existing_rules_data.keys()
     for rule_data in latest_config_rules_data:
         rule = AwsConfigRule(data=rule_data)
-        if not rule.parameters_data:
+        if rule.name not in existing_rules:
             rules.append(rule)
             continue
         for existing_rule_name, existing_rule_data in existing_rules_data.items():
@@ -39,7 +40,7 @@ if __name__ == '__main__':
                 print(f"Updating rule {rule.name} severity to {existing_rule_data['severity']}")
                 rule.set_severity_level(existing_rule_data['severity'])
                 rules.append(rule)
-                continue
+                break
 
     # Update the managed rules in the locals block with the latest changes.
     generate_locals(
