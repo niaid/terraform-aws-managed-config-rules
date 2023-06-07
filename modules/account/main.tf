@@ -14,8 +14,12 @@ resource "aws_config_config_rule" "rule" {
   }
 
   input_parameters = (
+    # AWS Config expects all values as strings. This list comprehension
+    # removes optional parameter attributes whose value is 'null'.
     try(jsonencode(each.value["input_parameters"]), null) != "null" ?
-    try(jsonencode(each.value["input_parameters"]), null) :
+    try(jsonencode(
+      { for k, v in each.value["input_parameters"] :
+        k => tostring(v) if v != null }), null) :
     null
   )
 

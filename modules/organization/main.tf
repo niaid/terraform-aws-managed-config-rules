@@ -8,8 +8,12 @@ resource "aws_config_organization_managed_rule" "rule" {
   resource_types_scope = try(each.value["resource_types_scope"], [])
 
   input_parameters = (
+    # AWS Config expects all values as strings. This list comprehension
+    # removes optional parameter attributes whose value is 'null'.
     try(jsonencode(each.value["input_parameters"]), null) != "null" ?
-    try(jsonencode(each.value["input_parameters"]), null) :
+    try(jsonencode(
+      { for k, v in each.value["input_parameters"] :
+        k => tostring(v) if v != null }), null) :
     null
   )
 }

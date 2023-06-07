@@ -29,7 +29,7 @@ module "managed_rules" {
   ]
 
   redshift_cluster_maintenancesettings_check_parameters = {
-    allowVersionUpgrade = "true"
+    allowVersionUpgrade = true
   }
 
   rule_overrides = {
@@ -37,7 +37,7 @@ module "managed_rules" {
       description = "Checks if AWS Certificate Manager Certificates in your account..."
 
       input_parameters = {
-        daysToExpiration = tostring(var.acm_certificate_expiration_check)
+        daysToExpiration = var.acm_certificate_expiration_check
       }
     }
   }
