@@ -1,7 +1,7 @@
 variable "access_keys_rotated_parameters" {
   description = "Input parameters for the access-keys-rotated rule."
   type = object({
-    maxAccessKeyAge = number
+    maxAccessKeyAge = optional(number, 90)
   })
   default = {
     maxAccessKeyAge = 90
@@ -20,7 +20,7 @@ variable "account_part_of_organizations_parameters" {
 variable "acm_certificate_expiration_check_parameters" {
   description = "Input parameters for the acm-certificate-expiration-check rule."
   type = object({
-    daysToExpiration = number
+    daysToExpiration = optional(number, 14)
   })
   default = {
     daysToExpiration = 14
@@ -31,7 +31,7 @@ variable "acm_certificate_expiration_check_parameters" {
 variable "alb_desync_mode_check_parameters" {
   description = "Input parameters for the alb-desync-mode-check rule."
   type = object({
-    desyncMode = optional(string, null)
+    desyncMode = string
   })
   default = {}
 }
@@ -63,7 +63,7 @@ variable "api_gw_associated_with_waf_parameters" {
 variable "api_gw_endpoint_type_check_parameters" {
   description = "Input parameters for the api-gw-endpoint-type-check rule."
   type = object({
-    endpointConfigurationTypes = optional(string, null)
+    endpointConfigurationTypes = string
   })
   default = {}
 }
@@ -71,7 +71,7 @@ variable "api_gw_endpoint_type_check_parameters" {
 variable "api_gw_execution_logging_enabled_parameters" {
   description = "Input parameters for the api-gw-execution-logging-enabled rule."
   type = object({
-    loggingLevel = string
+    loggingLevel = optional(string, "ERROR,INF")
   })
   default = {
     loggingLevel = "ERROR,INF"
@@ -90,7 +90,7 @@ variable "api_gw_ssl_enabled_parameters" {
 variable "approved_amis_by_id_parameters" {
   description = "Input parameters for the approved-amis-by-id rule."
   type = object({
-    amiIds = optional(string, null)
+    amiIds = string
   })
   default = {}
 }
@@ -98,7 +98,7 @@ variable "approved_amis_by_id_parameters" {
 variable "approved_amis_by_tag_parameters" {
   description = "Input parameters for the approved-amis-by-tag rule."
   type = object({
-    amisByTagKeyAndValue = string
+    amisByTagKeyAndValue = optional(string, "tag-key = tag-value,other-tag-key")
   })
   default = {
     amisByTagKeyAndValue = "tag-key:tag-value,other-tag-key"
@@ -125,8 +125,8 @@ variable "appsync_logging_enabled_parameters" {
 variable "aurora_last_backup_recovery_point_created_parameters" {
   description = "Input parameters for the aurora-last-backup-recovery-point-created rule."
   type = object({
-    recoveryPointAgeUnit  = string
-    recoveryPointAgeValue = number
+    recoveryPointAgeUnit  = optional(string, "days")
+    recoveryPointAgeValue = optional(number, 1)
     resourceId            = optional(string, null)
     resourceTags          = optional(string, null)
   })
@@ -170,9 +170,9 @@ variable "autoscaling_multiple_az_parameters" {
 variable "backup_plan_min_frequency_and_min_retention_check_parameters" {
   description = "Input parameters for the backup-plan-min-frequency-and-min-retention-check rule."
   type = object({
-    requiredFrequencyUnit  = string
-    requiredFrequencyValue = number
-    requiredRetentionDays  = number
+    requiredFrequencyUnit  = optional(string, "days")
+    requiredFrequencyValue = optional(number, 1)
+    requiredRetentionDays  = optional(number, 35)
   })
   default = {
     requiredFrequencyUnit  = "days"
@@ -193,7 +193,7 @@ variable "backup_recovery_point_manual_deletion_disabled_parameters" {
 variable "backup_recovery_point_minimum_retention_check_parameters" {
   description = "Input parameters for the backup-recovery-point-minimum-retention-check rule."
   type = object({
-    requiredRetentionDays = number
+    requiredRetentionDays = optional(number, 35)
   })
   default = {
     requiredRetentionDays = 35
@@ -204,7 +204,7 @@ variable "backup_recovery_point_minimum_retention_check_parameters" {
 variable "clb_desync_mode_check_parameters" {
   description = "Input parameters for the clb-desync-mode-check rule."
   type = object({
-    desyncMode = optional(string, null)
+    desyncMode = string
   })
   default = {}
 }
@@ -220,7 +220,7 @@ variable "clb_multiple_az_parameters" {
 variable "cloudformation_stack_drift_detection_check_parameters" {
   description = "Input parameters for the cloudformation-stack-drift-detection-check rule."
   type = object({
-    cloudformationRoleArn = optional(string, null)
+    cloudformationRoleArn = string
   })
   default = {}
 }
@@ -269,9 +269,9 @@ variable "cloudwatch_alarm_action_check_parameters" {
     action3                        = optional(string, null)
     action4                        = optional(string, null)
     action5                        = optional(string, null)
-    alarmActionRequired            = string
-    insufficientDataActionRequired = string
-    okActionRequired               = string
+    alarmActionRequired            = optional(string, "true")
+    insufficientDataActionRequired = optional(string, "true")
+    okActionRequired               = optional(string, "false")
   })
   default = {
     alarmActionRequired            = "true"
@@ -284,8 +284,8 @@ variable "cloudwatch_alarm_action_check_parameters" {
 variable "cloudwatch_alarm_resource_check_parameters" {
   description = "Input parameters for the cloudwatch-alarm-resource-check rule."
   type = object({
-    metricName   = optional(string, null)
-    resourceType = optional(string, null)
+    metricName   = string
+    resourceType = string
   })
   default = {}
 }
@@ -295,8 +295,8 @@ variable "cloudwatch_alarm_settings_check_parameters" {
   type = object({
     comparisonOperator = optional(string, null)
     evaluationPeriods  = optional(number, null)
-    metricName         = optional(string, null)
-    period             = number
+    metricName         = string
+    period             = optional(number, 300)
     statistic          = optional(string, null)
     threshold          = optional(number, null)
   })
@@ -318,6 +318,16 @@ variable "cloud_trail_cloud_watch_logs_enabled_parameters" {
   description = "Input parameters for the cloud-trail-cloud-watch-logs-enabled rule."
   type = object({
     expectedDeliveryWindowAge = optional(number, null)
+  })
+  default = {}
+}
+
+variable "cloudtrail_enabled_parameters" {
+  description = "Input parameters for the cloudtrail-enabled rule."
+  type = object({
+    cloudWatchLogsLogGroupArn = optional(string, null)
+    s3BucketName              = optional(string, null)
+    snsTopicArn               = optional(string, null)
   })
   default = {}
 }
@@ -350,8 +360,8 @@ variable "codebuild_project_s3_logs_encrypted_parameters" {
 variable "codedeploy_ec2_minimum_healthy_hosts_configured_parameters" {
   description = "Input parameters for the codedeploy-ec2-minimum-healthy-hosts-configured rule."
   type = object({
-    minimumHealthyHostsFleetPercent = number
-    minimumHealthyHostsHostCount    = number
+    minimumHealthyHostsFleetPercent = optional(number, 66)
+    minimumHealthyHostsHostCount    = optional(number, 1)
   })
   default = {
     minimumHealthyHostsFleetPercent = 66
@@ -371,7 +381,7 @@ variable "codepipeline_deployment_count_check_parameters" {
 variable "codepipeline_region_fanout_check_parameters" {
   description = "Input parameters for the codepipeline-region-fanout-check rule."
   type = object({
-    regionFanoutFactor = number
+    regionFanoutFactor = optional(number, 3)
   })
   default = {
     regionFanoutFactor = 3
@@ -404,7 +414,7 @@ variable "desired_instance_tenancy_parameters" {
   type = object({
     hostId  = optional(string, null)
     imageId = optional(string, null)
-    tenancy = optional(string, null)
+    tenancy = string
   })
   default = {}
 }
@@ -412,7 +422,7 @@ variable "desired_instance_tenancy_parameters" {
 variable "desired_instance_type_parameters" {
   description = "Input parameters for the desired-instance-type rule."
   type = object({
-    instanceType = optional(string, null)
+    instanceType = string
   })
   default = {}
 }
@@ -433,8 +443,8 @@ variable "dynamodb_autoscaling_enabled_parameters" {
 variable "dynamodb_last_backup_recovery_point_created_parameters" {
   description = "Input parameters for the dynamodb-last-backup-recovery-point-created rule."
   type = object({
-    recoveryPointAgeUnit  = string
-    recoveryPointAgeValue = number
+    recoveryPointAgeUnit  = optional(string, "days")
+    recoveryPointAgeValue = optional(number, 1)
     resourceId            = optional(string, null)
     resourceTags          = optional(string, null)
   })
@@ -470,8 +480,8 @@ variable "dynamodb_table_encrypted_kms_parameters" {
 variable "dynamodb_throughput_limit_check_parameters" {
   description = "Input parameters for the dynamodb-throughput-limit-check rule."
   type = object({
-    accountRCUThresholdPercentage = number
-    accountWCUThresholdPercentage = number
+    accountRCUThresholdPercentage = optional(number, 80)
+    accountWCUThresholdPercentage = optional(number, 80)
   })
   default = {
     accountRCUThresholdPercentage = 80
@@ -483,8 +493,8 @@ variable "dynamodb_throughput_limit_check_parameters" {
 variable "ebs_last_backup_recovery_point_created_parameters" {
   description = "Input parameters for the ebs-last-backup-recovery-point-created rule."
   type = object({
-    recoveryPointAgeUnit  = string
-    recoveryPointAgeValue = number
+    recoveryPointAgeUnit  = optional(string, "days")
+    recoveryPointAgeValue = optional(number, 1)
     resourceId            = optional(string, null)
     resourceTags          = optional(string, null)
   })
@@ -528,8 +538,8 @@ variable "ec2_instance_profile_attached_parameters" {
 variable "ec2_last_backup_recovery_point_created_parameters" {
   description = "Input parameters for the ec2-last-backup-recovery-point-created rule."
   type = object({
-    recoveryPointAgeUnit  = string
-    recoveryPointAgeValue = number
+    recoveryPointAgeUnit  = optional(string, "days")
+    recoveryPointAgeValue = optional(number, 1)
     resourceId            = optional(string, null)
     resourceTags          = optional(string, null)
   })
@@ -551,7 +561,7 @@ variable "ec2_launch_template_public_ip_disabled_parameters" {
 variable "ec2_managedinstance_applications_blacklisted_parameters" {
   description = "Input parameters for the ec2-managedinstance-applications-blacklisted rule."
   type = object({
-    applicationNames = optional(string, null)
+    applicationNames = string
     platformType     = optional(string, null)
   })
   default = {}
@@ -560,7 +570,7 @@ variable "ec2_managedinstance_applications_blacklisted_parameters" {
 variable "ec2_managedinstance_applications_required_parameters" {
   description = "Input parameters for the ec2-managedinstance-applications-required rule."
   type = object({
-    applicationNames = optional(string, null)
+    applicationNames = string
     platformType     = optional(string, null)
   })
   default = {}
@@ -569,7 +579,7 @@ variable "ec2_managedinstance_applications_required_parameters" {
 variable "ec2_managedinstance_inventory_blacklisted_parameters" {
   description = "Input parameters for the ec2-managedinstance-inventory-blacklisted rule."
   type = object({
-    inventoryNames = optional(string, null)
+    inventoryNames = string
     platformType   = optional(string, null)
   })
   default = {}
@@ -580,7 +590,7 @@ variable "ec2_managedinstance_platform_check_parameters" {
   type = object({
     agentVersion    = optional(string, null)
     platformName    = optional(string, null)
-    platformType    = optional(string, null)
+    platformType    = string
     platformVersion = optional(string, null)
   })
   default = {}
@@ -603,7 +613,7 @@ variable "ec2_resources_protected_by_backup_plan_parameters" {
 variable "ec2_stopped_instance_parameters" {
   description = "Input parameters for the ec2-stopped-instance rule."
   type = object({
-    allowedDays = number
+    allowedDays = optional(number, 30)
   })
   default = {
     allowedDays = 30
@@ -639,7 +649,7 @@ variable "ecs_fargate_latest_platform_version_parameters" {
 variable "ecs_no_environment_secrets_parameters" {
   description = "Input parameters for the ecs-no-environment-secrets rule."
   type = object({
-    secretKeys = optional(string, null)
+    secretKeys = string
   })
   default = {}
 }
@@ -680,8 +690,8 @@ variable "efs_encrypted_check_parameters" {
 variable "efs_last_backup_recovery_point_created_parameters" {
   description = "Input parameters for the efs-last-backup-recovery-point-created rule."
   type = object({
-    recoveryPointAgeUnit  = string
-    recoveryPointAgeValue = number
+    recoveryPointAgeUnit  = optional(string, "days")
+    recoveryPointAgeValue = optional(number, 1)
     resourceId            = optional(string, null)
     resourceTags          = optional(string, null)
   })
@@ -709,7 +719,7 @@ variable "efs_resources_protected_by_backup_plan_parameters" {
 variable "eks_cluster_oldest_supported_version_parameters" {
   description = "Input parameters for the eks-cluster-oldest-supported-version rule."
   type = object({
-    oldestVersionSupported = optional(string, null)
+    oldestVersionSupported = string
   })
   default = {}
 }
@@ -717,7 +727,7 @@ variable "eks_cluster_oldest_supported_version_parameters" {
 variable "eks_cluster_supported_version_parameters" {
   description = "Input parameters for the eks-cluster-supported-version rule."
   type = object({
-    oldestVersionSupported = optional(string, null)
+    oldestVersionSupported = string
   })
   default = {}
 }
@@ -741,7 +751,7 @@ variable "elasticache_rbac_auth_enabled_parameters" {
 variable "elasticache_redis_cluster_automatic_backup_check_parameters" {
   description = "Input parameters for the elasticache-redis-cluster-automatic-backup-check rule."
   type = object({
-    snapshotRetentionPeriod = number
+    snapshotRetentionPeriod = optional(number, 15)
   })
   default = {
     snapshotRetentionPeriod = 15
@@ -753,6 +763,15 @@ variable "elasticache_repl_grp_encrypted_at_rest_parameters" {
   description = "Input parameters for the elasticache-repl-grp-encrypted-at-rest rule."
   type = object({
     approvedKMSKeyIds = optional(string, null)
+  })
+  default = {}
+}
+
+variable "elasticache_supported_engine_version_parameters" {
+  description = "Input parameters for the elasticache-supported-engine-version rule."
+  type = object({
+    latestMemcachedVersion = string
+    latestRedisVersion     = string
   })
   default = {}
 }
@@ -801,7 +820,7 @@ variable "elbv2_multiple_az_parameters" {
 variable "elb_custom_security_policy_ssl_check_parameters" {
   description = "Input parameters for the elb-custom-security-policy-ssl-check rule."
   type = object({
-    sslProtocolsAndCiphers = optional(string, null)
+    sslProtocolsAndCiphers = string
   })
   default = {}
 }
@@ -817,7 +836,7 @@ variable "elb_logging_enabled_parameters" {
 variable "elb_predefined_security_policy_ssl_check_parameters" {
   description = "Input parameters for the elb-predefined-security-policy-ssl-check rule."
   type = object({
-    predefinedPolicyName = optional(string, null)
+    predefinedPolicyName = string
   })
   default = {}
 }
@@ -849,8 +868,8 @@ variable "fms_shield_resource_policy_check_parameters" {
     fmsManagedToken       = optional(string, null)
     fmsRemediationEnabled = optional(bool, null)
     resourceTags          = optional(string, null)
-    resourceTypes         = optional(string, null)
-    webACLId              = optional(string, null)
+    resourceTypes         = string
+    webACLId              = string
   })
   default = {}
 }
@@ -862,7 +881,7 @@ variable "fms_webacl_resource_policy_check_parameters" {
     fmsManagedToken       = optional(string, null)
     fmsRemediationEnabled = optional(bool, null)
     resourceTags          = optional(string, null)
-    webACLId              = optional(string, null)
+    webACLId              = string
   })
   default = {}
 }
@@ -872,7 +891,7 @@ variable "fms_webacl_rulegroup_association_check_parameters" {
   type = object({
     fmsManagedToken       = optional(string, null)
     fmsRemediationEnabled = optional(bool, null)
-    ruleGroups            = optional(string, null)
+    ruleGroups            = string
   })
   default = {}
 }
@@ -880,8 +899,8 @@ variable "fms_webacl_rulegroup_association_check_parameters" {
 variable "fsx_last_backup_recovery_point_created_parameters" {
   description = "Input parameters for the fsx-last-backup-recovery-point-created rule."
   type = object({
-    recoveryPointAgeUnit  = string
-    recoveryPointAgeValue = number
+    recoveryPointAgeUnit  = optional(string, "days")
+    recoveryPointAgeValue = optional(number, 1)
     resourceId            = optional(string, null)
     resourceTags          = optional(string, null)
   })
@@ -917,9 +936,9 @@ variable "guardduty_enabled_centralized_parameters" {
 variable "guardduty_non_archived_findings_parameters" {
   description = "Input parameters for the guardduty-non-archived-findings rule."
   type = object({
-    daysHighSev   = number
-    daysLowSev    = number
-    daysMediumSev = number
+    daysHighSev   = optional(number, 1)
+    daysLowSev    = optional(number, 30)
+    daysMediumSev = optional(number, 7)
   })
   default = {
     daysHighSev   = 1
@@ -932,7 +951,7 @@ variable "guardduty_non_archived_findings_parameters" {
 variable "iam_customer_policy_blocked_kms_actions_parameters" {
   description = "Input parameters for the iam-customer-policy-blocked-kms-actions rule."
   type = object({
-    blockedActionsPatterns          = optional(string, null)
+    blockedActionsPatterns          = string
     excludePermissionBoundaryPolicy = optional(bool, null)
   })
   default = {}
@@ -941,7 +960,7 @@ variable "iam_customer_policy_blocked_kms_actions_parameters" {
 variable "iam_inline_policy_blocked_kms_actions_parameters" {
   description = "Input parameters for the iam-inline-policy-blocked-kms-actions rule."
   type = object({
-    blockedActionsPatterns         = optional(string, null)
+    blockedActionsPatterns         = string
     excludeRoleByManagementAccount = optional(bool, null)
   })
   default = {}
@@ -950,13 +969,13 @@ variable "iam_inline_policy_blocked_kms_actions_parameters" {
 variable "iam_password_policy_parameters" {
   description = "Input parameters for the iam-password-policy rule."
   type = object({
-    maxPasswordAge             = number
-    minimumPasswordLength      = number
-    passwordReusePrevention    = number
-    requireLowercaseCharacters = bool
-    requireNumbers             = bool
-    requireSymbols             = bool
-    requireUppercaseCharacters = bool
+    maxPasswordAge             = optional(number, 90)
+    minimumPasswordLength      = optional(number, 14)
+    passwordReusePrevention    = optional(number, 24)
+    requireLowercaseCharacters = optional(bool, true)
+    requireNumbers             = optional(bool, true)
+    requireSymbols             = optional(bool, true)
+    requireUppercaseCharacters = optional(bool, true)
   })
   default = {
     maxPasswordAge             = 90
@@ -974,7 +993,7 @@ variable "iam_policy_blacklisted_check_parameters" {
   description = "Input parameters for the iam-policy-blacklisted-check rule."
   type = object({
     exceptionList = optional(string, null)
-    policyArns    = string
+    policyArns    = optional(string, "arn = aws = iam =  = aws = policy/AdministratorAccess")
   })
   default = {
     policyArns = "arn:aws:iam::aws:policy/AdministratorAccess"
@@ -985,7 +1004,7 @@ variable "iam_policy_blacklisted_check_parameters" {
 variable "iam_policy_in_use_parameters" {
   description = "Input parameters for the iam-policy-in-use rule."
   type = object({
-    policyARN       = optional(string, null)
+    policyARN       = string
     policyUsageType = optional(string, null)
   })
   default = {}
@@ -1010,7 +1029,7 @@ variable "iam_policy_no_statements_with_full_access_parameters" {
 variable "iam_role_managed_policy_check_parameters" {
   description = "Input parameters for the iam-role-managed-policy-check rule."
   type = object({
-    managedPolicyArns = optional(string, null)
+    managedPolicyArns = string
   })
   default = {}
 }
@@ -1026,12 +1045,20 @@ variable "iam_user_group_membership_check_parameters" {
 variable "iam_user_unused_credentials_check_parameters" {
   description = "Input parameters for the iam-user-unused-credentials-check rule."
   type = object({
-    maxCredentialUsageAge = number
+    maxCredentialUsageAge = optional(number, 90)
   })
   default = {
     maxCredentialUsageAge = 90
   }
 
+}
+
+variable "ec2_instances_in_vpc_parameters" {
+  description = "Input parameters for the ec2-instances-in-vpc rule."
+  type = object({
+    vpcId = optional(string, null)
+  })
+  default = {}
 }
 
 variable "internet_gateway_authorized_vpc_only_parameters" {
@@ -1070,10 +1097,10 @@ variable "lambda_dlq_check_parameters" {
 variable "lambda_function_settings_check_parameters" {
   description = "Input parameters for the lambda-function-settings-check rule."
   type = object({
-    memorySize = number
+    memorySize = optional(number, 128)
     role       = optional(string, null)
-    runtime    = optional(string, null)
-    timeout    = number
+    runtime    = string
+    timeout    = optional(number, 3)
   })
   default = {
     memorySize = 128
@@ -1098,6 +1125,26 @@ variable "lambda_vpc_multi_az_check_parameters" {
   default = {}
 }
 
+variable "multi_region_cloudtrail_enabled_parameters" {
+  description = "Input parameters for the multi-region-cloudtrail-enabled rule."
+  type = object({
+    cloudWatchLogsLogGroupArn = optional(string, null)
+    includeManagementEvents   = optional(bool, null)
+    readWriteType             = optional(string, null)
+    s3BucketName              = optional(string, null)
+    snsTopicArn               = optional(string, null)
+  })
+  default = {}
+}
+
+variable "netfw_logging_enabled_parameters" {
+  description = "Input parameters for the netfw-logging-enabled rule."
+  type = object({
+    logType = optional(string, null)
+  })
+  default = {}
+}
+
 variable "netfw_multi_az_enabled_parameters" {
   description = "Input parameters for the netfw-multi-az-enabled rule."
   type = object({
@@ -1109,7 +1156,7 @@ variable "netfw_multi_az_enabled_parameters" {
 variable "netfw_policy_default_action_fragment_packets_parameters" {
   description = "Input parameters for the netfw-policy-default-action-fragment-packets rule."
   type = object({
-    statelessFragmentDefaultActions = optional(string, null)
+    statelessFragmentDefaultActions = string
   })
   default = {}
 }
@@ -1117,7 +1164,7 @@ variable "netfw_policy_default_action_fragment_packets_parameters" {
 variable "netfw_policy_default_action_full_packets_parameters" {
   description = "Input parameters for the netfw-policy-default-action-full-packets rule."
   type = object({
-    statelessDefaultActions = optional(string, null)
+    statelessDefaultActions = string
   })
   default = {}
 }
@@ -1189,8 +1236,8 @@ variable "rds_instance_deletion_protection_enabled_parameters" {
 variable "rds_last_backup_recovery_point_created_parameters" {
   description = "Input parameters for the rds-last-backup-recovery-point-created rule."
   type = object({
-    recoveryPointAgeUnit  = string
-    recoveryPointAgeValue = number
+    recoveryPointAgeUnit  = optional(string, "days")
+    recoveryPointAgeValue = optional(number, 1)
     resourceId            = optional(string, null)
     resourceTags          = optional(string, null)
   })
@@ -1251,9 +1298,9 @@ variable "redshift_backup_enabled_parameters" {
 variable "redshift_cluster_configuration_check_parameters" {
   description = "Input parameters for the redshift-cluster-configuration-check rule."
   type = object({
-    clusterDbEncrypted = bool
-    loggingEnabled     = bool
-    nodeTypes          = string
+    clusterDbEncrypted = optional(bool, true)
+    loggingEnabled     = optional(bool, true)
+    nodeTypes          = optional(string, "dc1.large")
   })
   default = {
     clusterDbEncrypted = true
@@ -1274,8 +1321,8 @@ variable "redshift_cluster_kms_enabled_parameters" {
 variable "redshift_cluster_maintenancesettings_check_parameters" {
   description = "Input parameters for the redshift-cluster-maintenancesettings-check rule."
   type = object({
-    allowVersionUpgrade              = bool
-    automatedSnapshotRetentionPeriod = number
+    allowVersionUpgrade              = optional(bool, true)
+    automatedSnapshotRetentionPeriod = optional(number, 1)
     preferredMaintenanceWindow       = optional(string, null)
   })
   default = {
@@ -1304,7 +1351,7 @@ variable "redshift_default_db_name_check_parameters" {
 variable "required_tags_parameters" {
   description = "Input parameters for the required-tags rule."
   type = object({
-    tag1Key   = string
+    tag1Key   = optional(string, "CostCenter")
     tag1Value = optional(string, null)
     tag2Key   = optional(string, null)
     tag2Value = optional(string, null)
@@ -1323,13 +1370,32 @@ variable "required_tags_parameters" {
 
 }
 
+variable "restricted_common_ports_parameters" {
+  description = "Input parameters for the restricted-common-ports rule."
+  type = object({
+    blockedPort1 = optional(number, 20)
+    blockedPort2 = optional(number, 21)
+    blockedPort3 = optional(number, 3389)
+    blockedPort4 = optional(number, 3306)
+    blockedPort5 = optional(number, 4333)
+  })
+  default = {
+    blockedPort1 = 20
+    blockedPort2 = 21
+    blockedPort3 = 3389
+    blockedPort4 = 3306
+    blockedPort5 = 4333
+  }
+
+}
+
 variable "s3_account_level_public_access_blocks_parameters" {
   description = "Input parameters for the s3-account-level-public-access-blocks rule."
   type = object({
-    blockPublicAcls       = string
-    blockPublicPolicy     = string
-    ignorePublicAcls      = string
-    restrictPublicBuckets = string
+    blockPublicAcls       = optional(string, "True")
+    blockPublicPolicy     = optional(string, "True")
+    ignorePublicAcls      = optional(string, "True")
+    restrictPublicBuckets = optional(string, "True")
   })
   default = {
     blockPublicAcls       = "True"
@@ -1354,7 +1420,7 @@ variable "s3_account_level_public_access_blocks_periodic_parameters" {
 variable "s3_bucket_blacklisted_actions_prohibited_parameters" {
   description = "Input parameters for the s3-bucket-blacklisted-actions-prohibited rule."
   type = object({
-    blacklistedActionPattern = optional(string, null)
+    blacklistedActionPattern = string
   })
   default = {}
 }
@@ -1399,7 +1465,7 @@ variable "s3_bucket_policy_grantee_check_parameters" {
 variable "s3_bucket_policy_not_more_permissive_parameters" {
   description = "Input parameters for the s3-bucket-policy-not-more-permissive rule."
   type = object({
-    controlPolicy = optional(string, null)
+    controlPolicy = string
   })
   default = {}
 }
@@ -1440,8 +1506,8 @@ variable "s3_event_notifications_enabled_parameters" {
 variable "s3_last_backup_recovery_point_created_parameters" {
   description = "Input parameters for the s3-last-backup-recovery-point-created rule."
   type = object({
-    recoveryPointAgeUnit  = string
-    recoveryPointAgeValue = number
+    recoveryPointAgeUnit  = optional(string, "days")
+    recoveryPointAgeValue = optional(number, 1)
     resourceId            = optional(string, null)
     resourceTags          = optional(string, null)
   })
@@ -1546,7 +1612,7 @@ variable "secretsmanager_using_cmk_parameters" {
 variable "service_vpc_endpoint_enabled_parameters" {
   description = "Input parameters for the service-vpc-endpoint-enabled rule."
   type = object({
-    serviceName = optional(string, null)
+    serviceName = string
   })
   default = {}
 }
@@ -1559,11 +1625,20 @@ variable "sns_encrypted_kms_parameters" {
   default = {}
 }
 
+variable "step_functions_state_machine_logging_enabled_parameters" {
+  description = "Input parameters for the step-functions-state-machine-logging-enabled rule."
+  type = object({
+    cloudWatchLogGroupArns = optional(string, null)
+    logLevel               = optional(string, null)
+  })
+  default = {}
+}
+
 variable "storagegateway_last_backup_recovery_point_created_parameters" {
   description = "Input parameters for the storagegateway-last-backup-recovery-point-created rule."
   type = object({
-    recoveryPointAgeUnit  = string
-    recoveryPointAgeValue = number
+    recoveryPointAgeUnit  = optional(string, "days")
+    recoveryPointAgeValue = optional(number, 1)
     resourceId            = optional(string, null)
     resourceTags          = optional(string, null)
   })
@@ -1591,8 +1666,8 @@ variable "storagegateway_resources_protected_by_backup_plan_parameters" {
 variable "virtualmachine_last_backup_recovery_point_created_parameters" {
   description = "Input parameters for the virtualmachine-last-backup-recovery-point-created rule."
   type = object({
-    recoveryPointAgeUnit  = string
-    recoveryPointAgeValue = number
+    recoveryPointAgeUnit  = optional(string, "days")
+    recoveryPointAgeValue = optional(number, 1)
     resourceId            = optional(string, null)
     resourceTags          = optional(string, null)
   })

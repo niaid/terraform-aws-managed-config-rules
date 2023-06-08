@@ -108,6 +108,11 @@ class AwsDocsReader:
                 # Set the parameter's name.
                 elif child.name == 'dt' and not current_parameter:
                     current_parameter['name'] = self.parse_parameter_name(page_element=child)
+                    # Determine if the parameter is required.
+                    if str(child.string).strip().endswith('(Optional)'):
+                        current_parameter['optional'] = True
+                    else:
+                        current_parameter['optional'] = False
                     continue
                 # Set the parameter's description. If we've made it this far in the
                 # list then the next element is either the start ofanother parameter
