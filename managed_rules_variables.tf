@@ -3,6 +3,10 @@ variable "access_keys_rotated_parameters" {
   type = object({
     maxAccessKeyAge = optional(number, 90)
   })
+  default = {
+    maxAccessKeyAge = 90
+  }
+
 }
 
 variable "account_part_of_organizations_parameters" {
@@ -10,6 +14,7 @@ variable "account_part_of_organizations_parameters" {
   type = object({
     masterAccountId = optional(string, null)
   })
+  default = {}
 }
 
 variable "acm_certificate_expiration_check_parameters" {
@@ -17,6 +22,10 @@ variable "acm_certificate_expiration_check_parameters" {
   type = object({
     daysToExpiration = optional(number, 14)
   })
+  default = {
+    daysToExpiration = 14
+  }
+
 }
 
 variable "alb_desync_mode_check_parameters" {
@@ -24,6 +33,7 @@ variable "alb_desync_mode_check_parameters" {
   type = object({
     desyncMode = optional(string, null)
   })
+  default = {}
 }
 
 variable "alb_waf_enabled_parameters" {
@@ -31,6 +41,7 @@ variable "alb_waf_enabled_parameters" {
   type = object({
     wafWebAclIds = optional(string, null)
   })
+  default = {}
 }
 
 variable "api_gwv2_authorization_type_configured_parameters" {
@@ -38,6 +49,7 @@ variable "api_gwv2_authorization_type_configured_parameters" {
   type = object({
     authorizationType = optional(string, null)
   })
+  default = {}
 }
 
 variable "api_gw_associated_with_waf_parameters" {
@@ -45,6 +57,7 @@ variable "api_gw_associated_with_waf_parameters" {
   type = object({
     webAclArns = optional(string, null)
   })
+  default = {}
 }
 
 variable "api_gw_endpoint_type_check_parameters" {
@@ -52,6 +65,7 @@ variable "api_gw_endpoint_type_check_parameters" {
   type = object({
     endpointConfigurationTypes = optional(string, null)
   })
+  default = {}
 }
 
 variable "api_gw_execution_logging_enabled_parameters" {
@@ -59,6 +73,10 @@ variable "api_gw_execution_logging_enabled_parameters" {
   type = object({
     loggingLevel = optional(string, "ERROR,INF")
   })
+  default = {
+    loggingLevel = "ERROR,INF"
+  }
+
 }
 
 variable "api_gw_ssl_enabled_parameters" {
@@ -66,6 +84,7 @@ variable "api_gw_ssl_enabled_parameters" {
   type = object({
     certificateIDs = optional(string, null)
   })
+  default = {}
 }
 
 variable "approved_amis_by_id_parameters" {
@@ -73,6 +92,7 @@ variable "approved_amis_by_id_parameters" {
   type = object({
     amiIds = optional(string, null)
   })
+  default = {}
 }
 
 variable "approved_amis_by_tag_parameters" {
@@ -80,6 +100,10 @@ variable "approved_amis_by_tag_parameters" {
   type = object({
     amisByTagKeyAndValue = optional(string, "tag-key = tag-value,other-tag-key")
   })
+  default = {
+    amisByTagKeyAndValue = "tag-key:tag-value,other-tag-key"
+  }
+
 }
 
 variable "appsync_associated_with_waf_parameters" {
@@ -87,6 +111,7 @@ variable "appsync_associated_with_waf_parameters" {
   type = object({
     wafWebAclARNs = optional(string, null)
   })
+  default = {}
 }
 
 variable "appsync_logging_enabled_parameters" {
@@ -94,6 +119,7 @@ variable "appsync_logging_enabled_parameters" {
   type = object({
     fieldLoggingLevel = optional(string, null)
   })
+  default = {}
 }
 
 variable "aurora_last_backup_recovery_point_created_parameters" {
@@ -104,6 +130,11 @@ variable "aurora_last_backup_recovery_point_created_parameters" {
     resourceId            = optional(string, null)
     resourceTags          = optional(string, null)
   })
+  default = {
+    recoveryPointAgeUnit  = "days"
+    recoveryPointAgeValue = 1
+  }
+
 }
 
 variable "aurora_mysql_backtracking_enabled_parameters" {
@@ -111,6 +142,7 @@ variable "aurora_mysql_backtracking_enabled_parameters" {
   type = object({
     backtrackWindowInHours = optional(number, null)
   })
+  default = {}
 }
 
 variable "aurora_resources_protected_by_backup_plan_parameters" {
@@ -124,6 +156,7 @@ variable "aurora_resources_protected_by_backup_plan_parameters" {
     resourceId           = optional(string, null)
     resourceTags         = optional(string, null)
   })
+  default = {}
 }
 
 variable "autoscaling_multiple_az_parameters" {
@@ -131,6 +164,7 @@ variable "autoscaling_multiple_az_parameters" {
   type = object({
     minAvailabilityZones = optional(number, null)
   })
+  default = {}
 }
 
 variable "backup_plan_min_frequency_and_min_retention_check_parameters" {
@@ -140,6 +174,12 @@ variable "backup_plan_min_frequency_and_min_retention_check_parameters" {
     requiredFrequencyValue = optional(number, 1)
     requiredRetentionDays  = optional(number, 35)
   })
+  default = {
+    requiredFrequencyUnit  = "days"
+    requiredFrequencyValue = 1
+    requiredRetentionDays  = 35
+  }
+
 }
 
 variable "backup_recovery_point_manual_deletion_disabled_parameters" {
@@ -147,6 +187,7 @@ variable "backup_recovery_point_manual_deletion_disabled_parameters" {
   type = object({
     principalArnList = optional(string, null)
   })
+  default = {}
 }
 
 variable "backup_recovery_point_minimum_retention_check_parameters" {
@@ -154,6 +195,10 @@ variable "backup_recovery_point_minimum_retention_check_parameters" {
   type = object({
     requiredRetentionDays = optional(number, 35)
   })
+  default = {
+    requiredRetentionDays = 35
+  }
+
 }
 
 variable "clb_desync_mode_check_parameters" {
@@ -161,6 +206,7 @@ variable "clb_desync_mode_check_parameters" {
   type = object({
     desyncMode = optional(string, null)
   })
+  default = {}
 }
 
 variable "clb_multiple_az_parameters" {
@@ -168,6 +214,7 @@ variable "clb_multiple_az_parameters" {
   type = object({
     minAvailabilityZones = optional(number, null)
   })
+  default = {}
 }
 
 variable "cloudformation_stack_drift_detection_check_parameters" {
@@ -175,6 +222,7 @@ variable "cloudformation_stack_drift_detection_check_parameters" {
   type = object({
     cloudformationRoleArn = optional(string, null)
   })
+  default = {}
 }
 
 variable "cloudformation_stack_notification_check_parameters" {
@@ -186,6 +234,7 @@ variable "cloudformation_stack_notification_check_parameters" {
     snsTopic4 = optional(string, null)
     snsTopic5 = optional(string, null)
   })
+  default = {}
 }
 
 variable "cloudfront_accesslogs_enabled_parameters" {
@@ -193,6 +242,7 @@ variable "cloudfront_accesslogs_enabled_parameters" {
   type = object({
     s3BucketName = optional(string, null)
   })
+  default = {}
 }
 
 variable "cloudfront_associated_with_waf_parameters" {
@@ -200,6 +250,7 @@ variable "cloudfront_associated_with_waf_parameters" {
   type = object({
     wafWebAclIds = optional(string, null)
   })
+  default = {}
 }
 
 variable "cloudtrail_s3_dataevents_enabled_parameters" {
@@ -207,6 +258,7 @@ variable "cloudtrail_s3_dataevents_enabled_parameters" {
   type = object({
     s3BucketNames = optional(string, null)
   })
+  default = {}
 }
 
 variable "cloudwatch_alarm_action_check_parameters" {
@@ -221,6 +273,12 @@ variable "cloudwatch_alarm_action_check_parameters" {
     insufficientDataActionRequired = optional(string, "true")
     okActionRequired               = optional(string, "false")
   })
+  default = {
+    alarmActionRequired            = "true"
+    insufficientDataActionRequired = "true"
+    okActionRequired               = "false"
+  }
+
 }
 
 variable "cloudwatch_alarm_resource_check_parameters" {
@@ -229,6 +287,7 @@ variable "cloudwatch_alarm_resource_check_parameters" {
     metricName   = optional(string, null)
     resourceType = optional(string, null)
   })
+  default = {}
 }
 
 variable "cloudwatch_alarm_settings_check_parameters" {
@@ -241,6 +300,10 @@ variable "cloudwatch_alarm_settings_check_parameters" {
     statistic          = optional(string, null)
     threshold          = optional(number, null)
   })
+  default = {
+    period = 300
+  }
+
 }
 
 variable "cloudwatch_log_group_encrypted_parameters" {
@@ -248,6 +311,7 @@ variable "cloudwatch_log_group_encrypted_parameters" {
   type = object({
     kmsKeyId = optional(string, null)
   })
+  default = {}
 }
 
 variable "cloud_trail_cloud_watch_logs_enabled_parameters" {
@@ -255,6 +319,7 @@ variable "cloud_trail_cloud_watch_logs_enabled_parameters" {
   type = object({
     expectedDeliveryWindowAge = optional(number, null)
   })
+  default = {}
 }
 
 variable "cloudtrail_enabled_parameters" {
@@ -264,6 +329,7 @@ variable "cloudtrail_enabled_parameters" {
     s3BucketName              = optional(string, null)
     snsTopicArn               = optional(string, null)
   })
+  default = {}
 }
 
 variable "codebuild_project_environment_privileged_check_parameters" {
@@ -271,6 +337,7 @@ variable "codebuild_project_environment_privileged_check_parameters" {
   type = object({
     exemptedProjects = optional(string, null)
   })
+  default = {}
 }
 
 variable "codebuild_project_logging_enabled_parameters" {
@@ -279,6 +346,7 @@ variable "codebuild_project_logging_enabled_parameters" {
     cloudWatchGroupNames = optional(string, null)
     s3BucketNames        = optional(string, null)
   })
+  default = {}
 }
 
 variable "codebuild_project_s3_logs_encrypted_parameters" {
@@ -286,6 +354,7 @@ variable "codebuild_project_s3_logs_encrypted_parameters" {
   type = object({
     exemptedProjects = optional(string, null)
   })
+  default = {}
 }
 
 variable "codedeploy_ec2_minimum_healthy_hosts_configured_parameters" {
@@ -294,6 +363,11 @@ variable "codedeploy_ec2_minimum_healthy_hosts_configured_parameters" {
     minimumHealthyHostsFleetPercent = optional(number, 66)
     minimumHealthyHostsHostCount    = optional(number, 1)
   })
+  default = {
+    minimumHealthyHostsFleetPercent = 66
+    minimumHealthyHostsHostCount    = 1
+  }
+
 }
 
 variable "codepipeline_deployment_count_check_parameters" {
@@ -301,6 +375,7 @@ variable "codepipeline_deployment_count_check_parameters" {
   type = object({
     deploymentLimit = optional(number, null)
   })
+  default = {}
 }
 
 variable "codepipeline_region_fanout_check_parameters" {
@@ -308,6 +383,10 @@ variable "codepipeline_region_fanout_check_parameters" {
   type = object({
     regionFanoutFactor = optional(number, 3)
   })
+  default = {
+    regionFanoutFactor = 3
+  }
+
 }
 
 variable "cw_loggroup_retention_period_check_parameters" {
@@ -316,6 +395,7 @@ variable "cw_loggroup_retention_period_check_parameters" {
     logGroupNames    = optional(string, null)
     minRetentionTime = optional(number, null)
   })
+  default = {}
 }
 
 variable "db_instance_backup_enabled_parameters" {
@@ -326,6 +406,7 @@ variable "db_instance_backup_enabled_parameters" {
     checkReadReplicas      = optional(bool, null)
     preferredBackupWindow  = optional(string, null)
   })
+  default = {}
 }
 
 variable "desired_instance_tenancy_parameters" {
@@ -335,6 +416,7 @@ variable "desired_instance_tenancy_parameters" {
     imageId = optional(string, null)
     tenancy = optional(string, null)
   })
+  default = {}
 }
 
 variable "desired_instance_type_parameters" {
@@ -342,6 +424,7 @@ variable "desired_instance_type_parameters" {
   type = object({
     instanceType = optional(string, null)
   })
+  default = {}
 }
 
 variable "dynamodb_autoscaling_enabled_parameters" {
@@ -354,6 +437,7 @@ variable "dynamodb_autoscaling_enabled_parameters" {
     targetReadUtilization       = optional(number, null)
     targetWriteUtilization      = optional(number, null)
   })
+  default = {}
 }
 
 variable "dynamodb_last_backup_recovery_point_created_parameters" {
@@ -364,6 +448,11 @@ variable "dynamodb_last_backup_recovery_point_created_parameters" {
     resourceId            = optional(string, null)
     resourceTags          = optional(string, null)
   })
+  default = {
+    recoveryPointAgeUnit  = "days"
+    recoveryPointAgeValue = 1
+  }
+
 }
 
 variable "dynamodb_resources_protected_by_backup_plan_parameters" {
@@ -377,6 +466,7 @@ variable "dynamodb_resources_protected_by_backup_plan_parameters" {
     resourceId           = optional(string, null)
     resourceTags         = optional(string, null)
   })
+  default = {}
 }
 
 variable "dynamodb_table_encrypted_kms_parameters" {
@@ -384,6 +474,7 @@ variable "dynamodb_table_encrypted_kms_parameters" {
   type = object({
     kmsKeyArns = optional(string, null)
   })
+  default = {}
 }
 
 variable "dynamodb_throughput_limit_check_parameters" {
@@ -392,6 +483,11 @@ variable "dynamodb_throughput_limit_check_parameters" {
     accountRCUThresholdPercentage = optional(number, 80)
     accountWCUThresholdPercentage = optional(number, 80)
   })
+  default = {
+    accountRCUThresholdPercentage = 80
+    accountWCUThresholdPercentage = 80
+  }
+
 }
 
 variable "ebs_last_backup_recovery_point_created_parameters" {
@@ -402,6 +498,11 @@ variable "ebs_last_backup_recovery_point_created_parameters" {
     resourceId            = optional(string, null)
     resourceTags          = optional(string, null)
   })
+  default = {
+    recoveryPointAgeUnit  = "days"
+    recoveryPointAgeValue = 1
+  }
+
 }
 
 variable "ebs_resources_protected_by_backup_plan_parameters" {
@@ -415,6 +516,7 @@ variable "ebs_resources_protected_by_backup_plan_parameters" {
     resourceId           = optional(string, null)
     resourceTags         = optional(string, null)
   })
+  default = {}
 }
 
 variable "ec2_instance_multiple_eni_check_parameters" {
@@ -422,6 +524,7 @@ variable "ec2_instance_multiple_eni_check_parameters" {
   type = object({
     networkInterfaceIds = optional(string, null)
   })
+  default = {}
 }
 
 variable "ec2_instance_profile_attached_parameters" {
@@ -429,6 +532,7 @@ variable "ec2_instance_profile_attached_parameters" {
   type = object({
     iamInstanceProfileArnList = optional(string, null)
   })
+  default = {}
 }
 
 variable "ec2_last_backup_recovery_point_created_parameters" {
@@ -439,6 +543,11 @@ variable "ec2_last_backup_recovery_point_created_parameters" {
     resourceId            = optional(string, null)
     resourceTags          = optional(string, null)
   })
+  default = {
+    recoveryPointAgeUnit  = "days"
+    recoveryPointAgeValue = 1
+  }
+
 }
 
 variable "ec2_launch_template_public_ip_disabled_parameters" {
@@ -446,6 +555,7 @@ variable "ec2_launch_template_public_ip_disabled_parameters" {
   type = object({
     exemptedLaunchTemplates = optional(string, null)
   })
+  default = {}
 }
 
 variable "ec2_managedinstance_applications_blacklisted_parameters" {
@@ -454,6 +564,7 @@ variable "ec2_managedinstance_applications_blacklisted_parameters" {
     applicationNames = optional(string, null)
     platformType     = optional(string, null)
   })
+  default = {}
 }
 
 variable "ec2_managedinstance_applications_required_parameters" {
@@ -462,6 +573,7 @@ variable "ec2_managedinstance_applications_required_parameters" {
     applicationNames = optional(string, null)
     platformType     = optional(string, null)
   })
+  default = {}
 }
 
 variable "ec2_managedinstance_inventory_blacklisted_parameters" {
@@ -470,6 +582,7 @@ variable "ec2_managedinstance_inventory_blacklisted_parameters" {
     inventoryNames = optional(string, null)
     platformType   = optional(string, null)
   })
+  default = {}
 }
 
 variable "ec2_managedinstance_platform_check_parameters" {
@@ -480,6 +593,7 @@ variable "ec2_managedinstance_platform_check_parameters" {
     platformType    = optional(string, null)
     platformVersion = optional(string, null)
   })
+  default = {}
 }
 
 variable "ec2_resources_protected_by_backup_plan_parameters" {
@@ -493,6 +607,7 @@ variable "ec2_resources_protected_by_backup_plan_parameters" {
     resourceId           = optional(string, null)
     resourceTags         = optional(string, null)
   })
+  default = {}
 }
 
 variable "ec2_stopped_instance_parameters" {
@@ -500,6 +615,10 @@ variable "ec2_stopped_instance_parameters" {
   type = object({
     allowedDays = optional(number, 30)
   })
+  default = {
+    allowedDays = 30
+  }
+
 }
 
 variable "ec2_token_hop_limit_check_parameters" {
@@ -507,6 +626,7 @@ variable "ec2_token_hop_limit_check_parameters" {
   type = object({
     tokenHopLimit = optional(number, null)
   })
+  default = {}
 }
 
 variable "ec2_volume_inuse_check_parameters" {
@@ -514,6 +634,7 @@ variable "ec2_volume_inuse_check_parameters" {
   type = object({
     deleteOnTermination = optional(bool, null)
   })
+  default = {}
 }
 
 variable "ecs_fargate_latest_platform_version_parameters" {
@@ -522,6 +643,7 @@ variable "ecs_fargate_latest_platform_version_parameters" {
     latestLinuxVersion   = optional(string, null)
     latestWindowsVersion = optional(string, null)
   })
+  default = {}
 }
 
 variable "ecs_no_environment_secrets_parameters" {
@@ -529,6 +651,7 @@ variable "ecs_no_environment_secrets_parameters" {
   type = object({
     secretKeys = optional(string, null)
   })
+  default = {}
 }
 
 variable "ecs_task_definition_user_for_host_mode_check_parameters" {
@@ -536,6 +659,7 @@ variable "ecs_task_definition_user_for_host_mode_check_parameters" {
   type = object({
     skipInactiveTaskDefinitions = optional(bool, null)
   })
+  default = {}
 }
 
 variable "efs_access_point_enforce_root_directory_parameters" {
@@ -543,6 +667,7 @@ variable "efs_access_point_enforce_root_directory_parameters" {
   type = object({
     approvedDirectories = optional(string, null)
   })
+  default = {}
 }
 
 variable "efs_access_point_enforce_user_identity_parameters" {
@@ -551,6 +676,7 @@ variable "efs_access_point_enforce_user_identity_parameters" {
     approvedGids = optional(string, null)
     approvedUids = optional(string, null)
   })
+  default = {}
 }
 
 variable "efs_encrypted_check_parameters" {
@@ -558,6 +684,7 @@ variable "efs_encrypted_check_parameters" {
   type = object({
     kmsKeyId = optional(string, null)
   })
+  default = {}
 }
 
 variable "efs_last_backup_recovery_point_created_parameters" {
@@ -568,6 +695,11 @@ variable "efs_last_backup_recovery_point_created_parameters" {
     resourceId            = optional(string, null)
     resourceTags          = optional(string, null)
   })
+  default = {
+    recoveryPointAgeUnit  = "days"
+    recoveryPointAgeValue = 1
+  }
+
 }
 
 variable "efs_resources_protected_by_backup_plan_parameters" {
@@ -581,6 +713,7 @@ variable "efs_resources_protected_by_backup_plan_parameters" {
     resourceId           = optional(string, null)
     resourceTags         = optional(string, null)
   })
+  default = {}
 }
 
 variable "eks_cluster_oldest_supported_version_parameters" {
@@ -588,6 +721,7 @@ variable "eks_cluster_oldest_supported_version_parameters" {
   type = object({
     oldestVersionSupported = optional(string, null)
   })
+  default = {}
 }
 
 variable "eks_cluster_supported_version_parameters" {
@@ -595,6 +729,7 @@ variable "eks_cluster_supported_version_parameters" {
   type = object({
     oldestVersionSupported = optional(string, null)
   })
+  default = {}
 }
 
 variable "eks_secrets_encrypted_parameters" {
@@ -602,6 +737,7 @@ variable "eks_secrets_encrypted_parameters" {
   type = object({
     kmsKeyArns = optional(string, null)
   })
+  default = {}
 }
 
 variable "elasticache_rbac_auth_enabled_parameters" {
@@ -609,6 +745,7 @@ variable "elasticache_rbac_auth_enabled_parameters" {
   type = object({
     allowedUserGroupIDs = optional(string, null)
   })
+  default = {}
 }
 
 variable "elasticache_redis_cluster_automatic_backup_check_parameters" {
@@ -616,6 +753,10 @@ variable "elasticache_redis_cluster_automatic_backup_check_parameters" {
   type = object({
     snapshotRetentionPeriod = optional(number, 15)
   })
+  default = {
+    snapshotRetentionPeriod = 15
+  }
+
 }
 
 variable "elasticache_repl_grp_encrypted_at_rest_parameters" {
@@ -623,6 +764,7 @@ variable "elasticache_repl_grp_encrypted_at_rest_parameters" {
   type = object({
     approvedKMSKeyIds = optional(string, null)
   })
+  default = {}
 }
 
 variable "elasticache_supported_engine_version_parameters" {
@@ -631,6 +773,7 @@ variable "elasticache_supported_engine_version_parameters" {
     latestMemcachedVersion = optional(string, null)
     latestRedisVersion     = optional(string, null)
   })
+  default = {}
 }
 
 variable "elasticsearch_logs_to_cloudwatch_parameters" {
@@ -638,6 +781,7 @@ variable "elasticsearch_logs_to_cloudwatch_parameters" {
   type = object({
     logTypes = optional(string, null)
   })
+  default = {}
 }
 
 variable "elastic_beanstalk_logs_to_cloudwatch_parameters" {
@@ -646,6 +790,7 @@ variable "elastic_beanstalk_logs_to_cloudwatch_parameters" {
     deleteOnTerminate = optional(string, null)
     retentionInDays   = optional(string, null)
   })
+  default = {}
 }
 
 variable "elastic_beanstalk_managed_updates_enabled_parameters" {
@@ -653,6 +798,7 @@ variable "elastic_beanstalk_managed_updates_enabled_parameters" {
   type = object({
     updateLevel = optional(string, null)
   })
+  default = {}
 }
 
 variable "elbv2_acm_certificate_required_parameters" {
@@ -660,6 +806,7 @@ variable "elbv2_acm_certificate_required_parameters" {
   type = object({
     acmCertificatesAllowed = optional(string, null)
   })
+  default = {}
 }
 
 variable "elbv2_multiple_az_parameters" {
@@ -667,6 +814,7 @@ variable "elbv2_multiple_az_parameters" {
   type = object({
     minAvailabilityZones = optional(number, null)
   })
+  default = {}
 }
 
 variable "elb_custom_security_policy_ssl_check_parameters" {
@@ -674,6 +822,7 @@ variable "elb_custom_security_policy_ssl_check_parameters" {
   type = object({
     sslProtocolsAndCiphers = optional(string, null)
   })
+  default = {}
 }
 
 variable "elb_logging_enabled_parameters" {
@@ -681,6 +830,7 @@ variable "elb_logging_enabled_parameters" {
   type = object({
     s3BucketNames = optional(string, null)
   })
+  default = {}
 }
 
 variable "elb_predefined_security_policy_ssl_check_parameters" {
@@ -688,6 +838,7 @@ variable "elb_predefined_security_policy_ssl_check_parameters" {
   type = object({
     predefinedPolicyName = optional(string, null)
   })
+  default = {}
 }
 
 variable "emr_kerberos_enabled_parameters" {
@@ -699,6 +850,7 @@ variable "emr_kerberos_enabled_parameters" {
     realm                 = optional(string, null)
     ticketLifetimeInHours = optional(number, null)
   })
+  default = {}
 }
 
 variable "encrypted_volumes_parameters" {
@@ -706,6 +858,7 @@ variable "encrypted_volumes_parameters" {
   type = object({
     kmsId = optional(string, null)
   })
+  default = {}
 }
 
 variable "fms_shield_resource_policy_check_parameters" {
@@ -718,6 +871,7 @@ variable "fms_shield_resource_policy_check_parameters" {
     resourceTypes         = optional(string, null)
     webACLId              = optional(string, null)
   })
+  default = {}
 }
 
 variable "fms_webacl_resource_policy_check_parameters" {
@@ -729,6 +883,7 @@ variable "fms_webacl_resource_policy_check_parameters" {
     resourceTags          = optional(string, null)
     webACLId              = optional(string, null)
   })
+  default = {}
 }
 
 variable "fms_webacl_rulegroup_association_check_parameters" {
@@ -738,6 +893,7 @@ variable "fms_webacl_rulegroup_association_check_parameters" {
     fmsRemediationEnabled = optional(bool, null)
     ruleGroups            = optional(string, null)
   })
+  default = {}
 }
 
 variable "fsx_last_backup_recovery_point_created_parameters" {
@@ -748,6 +904,11 @@ variable "fsx_last_backup_recovery_point_created_parameters" {
     resourceId            = optional(string, null)
     resourceTags          = optional(string, null)
   })
+  default = {
+    recoveryPointAgeUnit  = "days"
+    recoveryPointAgeValue = 1
+  }
+
 }
 
 variable "fsx_resources_protected_by_backup_plan_parameters" {
@@ -761,6 +922,7 @@ variable "fsx_resources_protected_by_backup_plan_parameters" {
     resourceId           = optional(string, null)
     resourceTags         = optional(string, null)
   })
+  default = {}
 }
 
 variable "guardduty_enabled_centralized_parameters" {
@@ -768,6 +930,7 @@ variable "guardduty_enabled_centralized_parameters" {
   type = object({
     centralMonitoringAccount = optional(string, null)
   })
+  default = {}
 }
 
 variable "guardduty_non_archived_findings_parameters" {
@@ -777,6 +940,12 @@ variable "guardduty_non_archived_findings_parameters" {
     daysLowSev    = optional(number, 30)
     daysMediumSev = optional(number, 7)
   })
+  default = {
+    daysHighSev   = 1
+    daysLowSev    = 30
+    daysMediumSev = 7
+  }
+
 }
 
 variable "iam_customer_policy_blocked_kms_actions_parameters" {
@@ -785,6 +954,7 @@ variable "iam_customer_policy_blocked_kms_actions_parameters" {
     blockedActionsPatterns          = optional(string, null)
     excludePermissionBoundaryPolicy = optional(bool, null)
   })
+  default = {}
 }
 
 variable "iam_inline_policy_blocked_kms_actions_parameters" {
@@ -793,6 +963,7 @@ variable "iam_inline_policy_blocked_kms_actions_parameters" {
     blockedActionsPatterns         = optional(string, null)
     excludeRoleByManagementAccount = optional(bool, null)
   })
+  default = {}
 }
 
 variable "iam_password_policy_parameters" {
@@ -806,6 +977,16 @@ variable "iam_password_policy_parameters" {
     requireSymbols             = optional(bool, true)
     requireUppercaseCharacters = optional(bool, true)
   })
+  default = {
+    maxPasswordAge             = 90
+    minimumPasswordLength      = 14
+    passwordReusePrevention    = 24
+    requireLowercaseCharacters = true
+    requireNumbers             = true
+    requireSymbols             = true
+    requireUppercaseCharacters = true
+  }
+
 }
 
 variable "iam_policy_blacklisted_check_parameters" {
@@ -814,6 +995,10 @@ variable "iam_policy_blacklisted_check_parameters" {
     exceptionList = optional(string, null)
     policyArns    = optional(string, "arn = aws = iam =  = aws = policy/AdministratorAccess")
   })
+  default = {
+    policyArns = "arn:aws:iam::aws:policy/AdministratorAccess"
+  }
+
 }
 
 variable "iam_policy_in_use_parameters" {
@@ -822,6 +1007,7 @@ variable "iam_policy_in_use_parameters" {
     policyARN       = optional(string, null)
     policyUsageType = optional(string, null)
   })
+  default = {}
 }
 
 variable "iam_policy_no_statements_with_admin_access_parameters" {
@@ -829,6 +1015,7 @@ variable "iam_policy_no_statements_with_admin_access_parameters" {
   type = object({
     excludePermissionBoundaryPolicy = optional(bool, null)
   })
+  default = {}
 }
 
 variable "iam_policy_no_statements_with_full_access_parameters" {
@@ -836,6 +1023,7 @@ variable "iam_policy_no_statements_with_full_access_parameters" {
   type = object({
     excludePermissionBoundaryPolicy = optional(bool, null)
   })
+  default = {}
 }
 
 variable "iam_role_managed_policy_check_parameters" {
@@ -843,6 +1031,7 @@ variable "iam_role_managed_policy_check_parameters" {
   type = object({
     managedPolicyArns = optional(string, null)
   })
+  default = {}
 }
 
 variable "iam_user_group_membership_check_parameters" {
@@ -850,6 +1039,7 @@ variable "iam_user_group_membership_check_parameters" {
   type = object({
     groupNames = optional(string, null)
   })
+  default = {}
 }
 
 variable "iam_user_unused_credentials_check_parameters" {
@@ -857,6 +1047,10 @@ variable "iam_user_unused_credentials_check_parameters" {
   type = object({
     maxCredentialUsageAge = optional(number, 90)
   })
+  default = {
+    maxCredentialUsageAge = 90
+  }
+
 }
 
 variable "ec2_instances_in_vpc_parameters" {
@@ -864,6 +1058,7 @@ variable "ec2_instances_in_vpc_parameters" {
   type = object({
     vpcId = optional(string, null)
   })
+  default = {}
 }
 
 variable "internet_gateway_authorized_vpc_only_parameters" {
@@ -871,6 +1066,7 @@ variable "internet_gateway_authorized_vpc_only_parameters" {
   type = object({
     authorizedVpcIds = optional(string, null)
   })
+  default = {}
 }
 
 variable "kms_cmk_not_scheduled_for_deletion_parameters" {
@@ -878,6 +1074,7 @@ variable "kms_cmk_not_scheduled_for_deletion_parameters" {
   type = object({
     kmsKeyIds = optional(string, null)
   })
+  default = {}
 }
 
 variable "lambda_concurrency_check_parameters" {
@@ -886,6 +1083,7 @@ variable "lambda_concurrency_check_parameters" {
     concurrencyLimitHigh = optional(string, null)
     concurrencyLimitLow  = optional(string, null)
   })
+  default = {}
 }
 
 variable "lambda_dlq_check_parameters" {
@@ -893,6 +1091,7 @@ variable "lambda_dlq_check_parameters" {
   type = object({
     dlqArns = optional(string, null)
   })
+  default = {}
 }
 
 variable "lambda_function_settings_check_parameters" {
@@ -903,6 +1102,11 @@ variable "lambda_function_settings_check_parameters" {
     runtime    = optional(string, null)
     timeout    = optional(number, 3)
   })
+  default = {
+    memorySize = 128
+    timeout    = 3
+  }
+
 }
 
 variable "lambda_inside_vpc_parameters" {
@@ -910,6 +1114,7 @@ variable "lambda_inside_vpc_parameters" {
   type = object({
     subnetIds = optional(string, null)
   })
+  default = {}
 }
 
 variable "lambda_vpc_multi_az_check_parameters" {
@@ -917,6 +1122,7 @@ variable "lambda_vpc_multi_az_check_parameters" {
   type = object({
     availabilityZones = optional(number, null)
   })
+  default = {}
 }
 
 variable "multi_region_cloudtrail_enabled_parameters" {
@@ -928,6 +1134,7 @@ variable "multi_region_cloudtrail_enabled_parameters" {
     s3BucketName              = optional(string, null)
     snsTopicArn               = optional(string, null)
   })
+  default = {}
 }
 
 variable "netfw_logging_enabled_parameters" {
@@ -935,6 +1142,7 @@ variable "netfw_logging_enabled_parameters" {
   type = object({
     logType = optional(string, null)
   })
+  default = {}
 }
 
 variable "netfw_multi_az_enabled_parameters" {
@@ -942,6 +1150,7 @@ variable "netfw_multi_az_enabled_parameters" {
   type = object({
     availabilityZones = optional(number, null)
   })
+  default = {}
 }
 
 variable "netfw_policy_default_action_fragment_packets_parameters" {
@@ -949,6 +1158,7 @@ variable "netfw_policy_default_action_fragment_packets_parameters" {
   type = object({
     statelessFragmentDefaultActions = optional(string, null)
   })
+  default = {}
 }
 
 variable "netfw_policy_default_action_full_packets_parameters" {
@@ -956,6 +1166,7 @@ variable "netfw_policy_default_action_full_packets_parameters" {
   type = object({
     statelessDefaultActions = optional(string, null)
   })
+  default = {}
 }
 
 variable "no_unrestricted_route_to_igw_parameters" {
@@ -963,6 +1174,7 @@ variable "no_unrestricted_route_to_igw_parameters" {
   type = object({
     routeTableIds = optional(string, null)
   })
+  default = {}
 }
 
 variable "opensearch_audit_logging_enabled_parameters" {
@@ -970,6 +1182,7 @@ variable "opensearch_audit_logging_enabled_parameters" {
   type = object({
     cloudWatchLogsLogGroupArnList = optional(string, null)
   })
+  default = {}
 }
 
 variable "opensearch_https_required_parameters" {
@@ -977,6 +1190,7 @@ variable "opensearch_https_required_parameters" {
   type = object({
     tlsPolicies = optional(string, null)
   })
+  default = {}
 }
 
 variable "opensearch_logs_to_cloudwatch_parameters" {
@@ -984,6 +1198,7 @@ variable "opensearch_logs_to_cloudwatch_parameters" {
   type = object({
     logTypes = optional(string, null)
   })
+  default = {}
 }
 
 variable "rds_cluster_default_admin_check_parameters" {
@@ -991,6 +1206,7 @@ variable "rds_cluster_default_admin_check_parameters" {
   type = object({
     validAdminUserNames = optional(string, null)
   })
+  default = {}
 }
 
 variable "rds_enhanced_monitoring_enabled_parameters" {
@@ -998,6 +1214,7 @@ variable "rds_enhanced_monitoring_enabled_parameters" {
   type = object({
     monitoringInterval = optional(number, null)
   })
+  default = {}
 }
 
 variable "rds_instance_default_admin_check_parameters" {
@@ -1005,6 +1222,7 @@ variable "rds_instance_default_admin_check_parameters" {
   type = object({
     validAdminUserNames = optional(string, null)
   })
+  default = {}
 }
 
 variable "rds_instance_deletion_protection_enabled_parameters" {
@@ -1012,6 +1230,7 @@ variable "rds_instance_deletion_protection_enabled_parameters" {
   type = object({
     databaseEngines = optional(string, null)
   })
+  default = {}
 }
 
 variable "rds_last_backup_recovery_point_created_parameters" {
@@ -1022,6 +1241,11 @@ variable "rds_last_backup_recovery_point_created_parameters" {
     resourceId            = optional(string, null)
     resourceTags          = optional(string, null)
   })
+  default = {
+    recoveryPointAgeUnit  = "days"
+    recoveryPointAgeValue = 1
+  }
+
 }
 
 variable "rds_logging_enabled_parameters" {
@@ -1029,6 +1253,7 @@ variable "rds_logging_enabled_parameters" {
   type = object({
     additionalLogs = optional(string, null)
   })
+  default = {}
 }
 
 variable "rds_resources_protected_by_backup_plan_parameters" {
@@ -1042,6 +1267,7 @@ variable "rds_resources_protected_by_backup_plan_parameters" {
     resourceId           = optional(string, null)
     resourceTags         = optional(string, null)
   })
+  default = {}
 }
 
 variable "rds_storage_encrypted_parameters" {
@@ -1049,6 +1275,7 @@ variable "rds_storage_encrypted_parameters" {
   type = object({
     kmsKeyId = optional(string, null)
   })
+  default = {}
 }
 
 variable "redshift_audit_logging_enabled_parameters" {
@@ -1056,6 +1283,7 @@ variable "redshift_audit_logging_enabled_parameters" {
   type = object({
     bucketNames = optional(string, null)
   })
+  default = {}
 }
 
 variable "redshift_backup_enabled_parameters" {
@@ -1064,6 +1292,7 @@ variable "redshift_backup_enabled_parameters" {
     maxRetentionPeriod = optional(number, null)
     minRetentionPeriod = optional(number, null)
   })
+  default = {}
 }
 
 variable "redshift_cluster_configuration_check_parameters" {
@@ -1073,6 +1302,12 @@ variable "redshift_cluster_configuration_check_parameters" {
     loggingEnabled     = optional(bool, true)
     nodeTypes          = optional(string, "dc1.large")
   })
+  default = {
+    clusterDbEncrypted = true
+    loggingEnabled     = true
+    nodeTypes          = "dc1.large"
+  }
+
 }
 
 variable "redshift_cluster_kms_enabled_parameters" {
@@ -1080,6 +1315,7 @@ variable "redshift_cluster_kms_enabled_parameters" {
   type = object({
     kmsKeyArns = optional(string, null)
   })
+  default = {}
 }
 
 variable "redshift_cluster_maintenancesettings_check_parameters" {
@@ -1089,6 +1325,11 @@ variable "redshift_cluster_maintenancesettings_check_parameters" {
     automatedSnapshotRetentionPeriod = optional(number, 1)
     preferredMaintenanceWindow       = optional(string, null)
   })
+  default = {
+    allowVersionUpgrade              = true
+    automatedSnapshotRetentionPeriod = 1
+  }
+
 }
 
 variable "redshift_default_admin_check_parameters" {
@@ -1096,6 +1337,7 @@ variable "redshift_default_admin_check_parameters" {
   type = object({
     validAdminUserNames = optional(string, null)
   })
+  default = {}
 }
 
 variable "redshift_default_db_name_check_parameters" {
@@ -1103,6 +1345,7 @@ variable "redshift_default_db_name_check_parameters" {
   type = object({
     validDatabaseNames = optional(string, null)
   })
+  default = {}
 }
 
 variable "required_tags_parameters" {
@@ -1121,6 +1364,10 @@ variable "required_tags_parameters" {
     tag6Key   = optional(string, null)
     tag6Value = optional(string, null)
   })
+  default = {
+    tag1Key = "CostCenter"
+  }
+
 }
 
 variable "restricted_common_ports_parameters" {
@@ -1132,6 +1379,14 @@ variable "restricted_common_ports_parameters" {
     blockedPort4 = optional(number, 3306)
     blockedPort5 = optional(number, 4333)
   })
+  default = {
+    blockedPort1 = 20
+    blockedPort2 = 21
+    blockedPort3 = 3389
+    blockedPort4 = 3306
+    blockedPort5 = 4333
+  }
+
 }
 
 variable "s3_account_level_public_access_blocks_parameters" {
@@ -1142,6 +1397,13 @@ variable "s3_account_level_public_access_blocks_parameters" {
     ignorePublicAcls      = optional(string, "True")
     restrictPublicBuckets = optional(string, "True")
   })
+  default = {
+    blockPublicAcls       = "True"
+    blockPublicPolicy     = "True"
+    ignorePublicAcls      = "True"
+    restrictPublicBuckets = "True"
+  }
+
 }
 
 variable "s3_account_level_public_access_blocks_periodic_parameters" {
@@ -1152,6 +1414,7 @@ variable "s3_account_level_public_access_blocks_periodic_parameters" {
     ignorePublicAcls      = optional(string, null)
     restrictPublicBuckets = optional(string, null)
   })
+  default = {}
 }
 
 variable "s3_bucket_blacklisted_actions_prohibited_parameters" {
@@ -1159,6 +1422,7 @@ variable "s3_bucket_blacklisted_actions_prohibited_parameters" {
   type = object({
     blacklistedActionPattern = optional(string, null)
   })
+  default = {}
 }
 
 variable "s3_bucket_default_lock_enabled_parameters" {
@@ -1166,6 +1430,7 @@ variable "s3_bucket_default_lock_enabled_parameters" {
   type = object({
     mode = optional(string, null)
   })
+  default = {}
 }
 
 variable "s3_bucket_level_public_access_prohibited_parameters" {
@@ -1173,6 +1438,7 @@ variable "s3_bucket_level_public_access_prohibited_parameters" {
   type = object({
     excludedPublicBuckets = optional(string, null)
   })
+  default = {}
 }
 
 variable "s3_bucket_logging_enabled_parameters" {
@@ -1181,6 +1447,7 @@ variable "s3_bucket_logging_enabled_parameters" {
     targetBucket = optional(string, null)
     targetPrefix = optional(string, null)
   })
+  default = {}
 }
 
 variable "s3_bucket_policy_grantee_check_parameters" {
@@ -1192,6 +1459,7 @@ variable "s3_bucket_policy_grantee_check_parameters" {
     servicePrincipals = optional(string, null)
     vpcIds            = optional(string, null)
   })
+  default = {}
 }
 
 variable "s3_bucket_policy_not_more_permissive_parameters" {
@@ -1199,6 +1467,7 @@ variable "s3_bucket_policy_not_more_permissive_parameters" {
   type = object({
     controlPolicy = optional(string, null)
   })
+  default = {}
 }
 
 variable "s3_bucket_replication_enabled_parameters" {
@@ -1206,6 +1475,7 @@ variable "s3_bucket_replication_enabled_parameters" {
   type = object({
     replicationType = optional(string, null)
   })
+  default = {}
 }
 
 variable "s3_bucket_versioning_enabled_parameters" {
@@ -1213,6 +1483,7 @@ variable "s3_bucket_versioning_enabled_parameters" {
   type = object({
     isMfaDeleteEnabled = optional(string, null)
   })
+  default = {}
 }
 
 variable "s3_default_encryption_kms_parameters" {
@@ -1220,6 +1491,7 @@ variable "s3_default_encryption_kms_parameters" {
   type = object({
     kmsKeyArns = optional(string, null)
   })
+  default = {}
 }
 
 variable "s3_event_notifications_enabled_parameters" {
@@ -1228,6 +1500,7 @@ variable "s3_event_notifications_enabled_parameters" {
     destinationArn = optional(string, null)
     eventTypes     = optional(string, null)
   })
+  default = {}
 }
 
 variable "s3_last_backup_recovery_point_created_parameters" {
@@ -1238,6 +1511,11 @@ variable "s3_last_backup_recovery_point_created_parameters" {
     resourceId            = optional(string, null)
     resourceTags          = optional(string, null)
   })
+  default = {
+    recoveryPointAgeUnit  = "days"
+    recoveryPointAgeValue = 1
+  }
+
 }
 
 variable "s3_lifecycle_policy_check_parameters" {
@@ -1249,6 +1527,7 @@ variable "s3_lifecycle_policy_check_parameters" {
     targetTransitionDays         = optional(number, null)
     targetTransitionStorageClass = optional(string, null)
   })
+  default = {}
 }
 
 variable "s3_resources_protected_by_backup_plan_parameters" {
@@ -1262,6 +1541,7 @@ variable "s3_resources_protected_by_backup_plan_parameters" {
     resourceId           = optional(string, null)
     resourceTags         = optional(string, null)
   })
+  default = {}
 }
 
 variable "s3_version_lifecycle_policy_check_parameters" {
@@ -1269,6 +1549,7 @@ variable "s3_version_lifecycle_policy_check_parameters" {
   type = object({
     bucketNames = optional(string, null)
   })
+  default = {}
 }
 
 variable "sagemaker_endpoint_configuration_kms_key_configured_parameters" {
@@ -1276,6 +1557,7 @@ variable "sagemaker_endpoint_configuration_kms_key_configured_parameters" {
   type = object({
     kmsKeyArns = optional(string, null)
   })
+  default = {}
 }
 
 variable "sagemaker_notebook_instance_inside_vpc_parameters" {
@@ -1283,6 +1565,7 @@ variable "sagemaker_notebook_instance_inside_vpc_parameters" {
   type = object({
     subnetIds = optional(string, null)
   })
+  default = {}
 }
 
 variable "sagemaker_notebook_instance_kms_key_configured_parameters" {
@@ -1290,6 +1573,7 @@ variable "sagemaker_notebook_instance_kms_key_configured_parameters" {
   type = object({
     kmsKeyArns = optional(string, null)
   })
+  default = {}
 }
 
 variable "secretsmanager_rotation_enabled_check_parameters" {
@@ -1298,6 +1582,7 @@ variable "secretsmanager_rotation_enabled_check_parameters" {
     maximumAllowedRotationFrequency        = optional(number, null)
     maximumAllowedRotationFrequencyInHours = optional(number, null)
   })
+  default = {}
 }
 
 variable "secretsmanager_secret_periodic_rotation_parameters" {
@@ -1305,6 +1590,7 @@ variable "secretsmanager_secret_periodic_rotation_parameters" {
   type = object({
     maxDaysSinceRotation = optional(number, null)
   })
+  default = {}
 }
 
 variable "secretsmanager_secret_unused_parameters" {
@@ -1312,6 +1598,7 @@ variable "secretsmanager_secret_unused_parameters" {
   type = object({
     unusedForDays = optional(number, null)
   })
+  default = {}
 }
 
 variable "secretsmanager_using_cmk_parameters" {
@@ -1319,6 +1606,7 @@ variable "secretsmanager_using_cmk_parameters" {
   type = object({
     kmsKeyArns = optional(string, null)
   })
+  default = {}
 }
 
 variable "service_vpc_endpoint_enabled_parameters" {
@@ -1326,6 +1614,7 @@ variable "service_vpc_endpoint_enabled_parameters" {
   type = object({
     serviceName = optional(string, null)
   })
+  default = {}
 }
 
 variable "sns_encrypted_kms_parameters" {
@@ -1333,6 +1622,7 @@ variable "sns_encrypted_kms_parameters" {
   type = object({
     kmsKeyIds = optional(string, null)
   })
+  default = {}
 }
 
 variable "step_functions_state_machine_logging_enabled_parameters" {
@@ -1341,6 +1631,7 @@ variable "step_functions_state_machine_logging_enabled_parameters" {
     cloudWatchLogGroupArns = optional(string, null)
     logLevel               = optional(string, null)
   })
+  default = {}
 }
 
 variable "storagegateway_last_backup_recovery_point_created_parameters" {
@@ -1351,6 +1642,11 @@ variable "storagegateway_last_backup_recovery_point_created_parameters" {
     resourceId            = optional(string, null)
     resourceTags          = optional(string, null)
   })
+  default = {
+    recoveryPointAgeUnit  = "days"
+    recoveryPointAgeValue = 1
+  }
+
 }
 
 variable "storagegateway_resources_protected_by_backup_plan_parameters" {
@@ -1364,6 +1660,7 @@ variable "storagegateway_resources_protected_by_backup_plan_parameters" {
     resourceId           = optional(string, null)
     resourceTags         = optional(string, null)
   })
+  default = {}
 }
 
 variable "virtualmachine_last_backup_recovery_point_created_parameters" {
@@ -1374,6 +1671,11 @@ variable "virtualmachine_last_backup_recovery_point_created_parameters" {
     resourceId            = optional(string, null)
     resourceTags          = optional(string, null)
   })
+  default = {
+    recoveryPointAgeUnit  = "days"
+    recoveryPointAgeValue = 1
+  }
+
 }
 
 variable "virtualmachine_resources_protected_by_backup_plan_parameters" {
@@ -1387,6 +1689,7 @@ variable "virtualmachine_resources_protected_by_backup_plan_parameters" {
     resourceId           = optional(string, null)
     resourceTags         = optional(string, null)
   })
+  default = {}
 }
 
 variable "vpc_flow_logs_enabled_parameters" {
@@ -1394,6 +1697,7 @@ variable "vpc_flow_logs_enabled_parameters" {
   type = object({
     trafficType = optional(string, null)
   })
+  default = {}
 }
 
 variable "vpc_peering_dns_resolution_check_parameters" {
@@ -1401,6 +1705,7 @@ variable "vpc_peering_dns_resolution_check_parameters" {
   type = object({
     vpcIds = optional(string, null)
   })
+  default = {}
 }
 
 variable "vpc_sg_open_only_to_authorized_ports_parameters" {
@@ -1409,6 +1714,7 @@ variable "vpc_sg_open_only_to_authorized_ports_parameters" {
     authorizedTcpPorts = optional(string, null)
     authorizedUdpPorts = optional(string, null)
   })
+  default = {}
 }
 
 variable "wafv2_logging_enabled_parameters" {
@@ -1416,6 +1722,7 @@ variable "wafv2_logging_enabled_parameters" {
   type = object({
     kinesisFirehoseDeliveryStreamArns = optional(string, null)
   })
+  default = {}
 }
 
 variable "waf_classic_logging_enabled_parameters" {
@@ -1423,4 +1730,5 @@ variable "waf_classic_logging_enabled_parameters" {
   type = object({
     kinesisFirehoseDeliveryStreamArns = optional(string, null)
   })
+  default = {}
 }
