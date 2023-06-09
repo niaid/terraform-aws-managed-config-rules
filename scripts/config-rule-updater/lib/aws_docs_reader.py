@@ -49,7 +49,7 @@ class AwsDocsReader:
     
     def format_variable_name(self, name: str) -> str:
         """Format the rule name as the name of the parameters variable in Terraform."""
-        return name.replace('-', '_') + '_parameters'
+        return name.lower().replace('-', '_') + '_parameters'
     
     def get_rule_description(self, soup: BeautifulSoup) -> str:
         """Parse the content column and return the rule's description."""
@@ -80,6 +80,11 @@ class AwsDocsReader:
             description = self.clean_string_with_tags(
                 ''.join([repr(x) for x in description_p.stripped_strings]))
         return description
+    
+    def get_rule_identifier(self, soup: BeautifulSoup) -> List[str]:
+        """Return the AWS rule identifier."""
+        resources_element = soup.find('b', string='Identifier:')
+        return resources_element.next_sibling.strip()
     
     def get_rule_parameters(self, soup: BeautifulSoup) -> List[dict]:
         """Parse the rule's parameter list. Returns an empty list if there are no parameters."""
@@ -151,10 +156,12 @@ class AwsDocsReader:
                     content=self.get_page_content(url=self._root_url + rule_name))
                 main_column = self.get_main_column_content(soup=rule_soup)
                 rule = {'name': rule_name}
-                rule['variable_name'] = self.format_variable_name(name=rule_name)
+                rule['identifier'] = self.get_rule_identifier(soup=main_column)
+                rule['variable_name'] = self.format_variable_name(name=rule['identifier'])
                 rule['description'] = self.get_rule_description(soup=main_column)
                 rule['parameters'] = self.get_rule_parameters(soup=main_column)
                 rule['resource_types'] = self.get_resource_types(soup=main_column)
+                
                 result.append(rule)
         except Exception as e:
             print(e)

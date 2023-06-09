@@ -397,9 +397,9 @@ locals {
       severity         = "Low"
     }
 
-    cloudtrail-enabled = {
+    cloud-trail-enabled = {
       description      = "Checks if an AWS CloudTrail trail is enabled in your AWS account. The rule is NON_COMPLIANT if a trail is not enabled. Optionally, the rule checks a specific S3 bucket, Amazon Simple Notification Service (Amazon SNS) topic, and CloudWatch log group."
-      input_parameters = var.cloudtrail_enabled_parameters
+      input_parameters = var.cloud_trail_enabled_parameters
       severity         = "Medium"
     }
 
@@ -638,7 +638,7 @@ locals {
       severity             = "Medium"
     }
 
-    ec2-instance-managed-by-systems-manager = {
+    ec2-instance-managed-by-ssm = {
       description          = "Checks if your Amazon EC2 instances are managed by AWS Systems Manager (SSM Agent). The rule is NON_COMPLIANT if the EC2 instance previously associated with an SSM Agent instance inventory becomes unreachable or is not managed by SSM Agent."
       resource_types_scope = ["AWS::EC2::Instance", "AWS::SSM::ManagedInstanceInventory"]
       severity             = "Medium"
@@ -1252,15 +1252,15 @@ locals {
       severity         = "Medium"
     }
 
-    restricted-ssh = {
+    incoming-ssh-disabled = {
       description          = "Checks if the incoming SSH traffic for the security groups is accessible. The rule is COMPLIANT when IP addresses of the incoming SSH traffic in the security groups are restricted (CIDR other than 0.0.0.0/0). This rule applies only to IPv4."
       resource_types_scope = ["AWS::EC2::SecurityGroup"]
       severity             = "Medium"
     }
 
-    ec2-instances-in-vpc = {
+    instances-in-vpc = {
       description          = "Checks if your EC2 instances belong to a virtual private cloud (VPC). Optionally, you can specify the VPC ID to associate with your instances."
-      input_parameters     = var.ec2_instances_in_vpc_parameters
+      input_parameters     = var.instances_in_vpc_parameters
       resource_types_scope = ["AWS::EC2::Instance"]
       severity             = "Medium"
     }
@@ -1355,9 +1355,9 @@ locals {
       severity             = "Medium"
     }
 
-    multi-region-cloudtrail-enabled = {
+    multi-region-cloud-trail-enabled = {
       description      = "Checks if there is at least one multi-region AWS CloudTrail. The rule is NON_COMPLIANT if the trails do not match input parameters.The rule is NON_COMPLIANT if the ExcludeManagementEventSources field is not empty or if AWS CloudTrail is configured to..."
-      input_parameters = var.multi_region_cloudtrail_enabled_parameters
+      input_parameters = var.multi_region_cloud_trail_enabled_parameters
       severity         = "Medium"
     }
 
@@ -1666,9 +1666,9 @@ locals {
       severity             = "Medium"
     }
 
-    restricted-common-ports = {
+    restricted-incoming-traffic = {
       description          = "Checks if the security groups in use do not allow unrestricted incoming Transmission Control Protocol (TCP) traffic to the specified ports for IPv4. The rule is COMPLIANT if IP addresses for inbound TCP connections are restricted to the specified ports."
-      input_parameters     = var.restricted_common_ports_parameters
+      input_parameters     = var.restricted_incoming_traffic_parameters
       resource_types_scope = ["AWS::EC2::SecurityGroup"]
       severity             = "Medium"
     }

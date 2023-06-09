@@ -13,8 +13,6 @@ class AwsConfigRuleLocal:
 
 class AwsConfigRule:
     def __init__(self, data: dict) -> None:
-        self.name: str = data['name']
-        """The name of the rule."""
         self.tf_variable_name: str = data['variable_name']
         """The name of the Terraform variable for the rule's parameters."""
         self.tf_variable_description: str = data['description']
@@ -23,8 +21,15 @@ class AwsConfigRule:
         """A list of the rule's parameters."""
         self.resource_types: List[str] = data.get('resource_types', [])
         """A list of resource types checked by the rule."""
+        self._rule_identifier: str = data['identifier']
+        """The rule identifier in AWS."""
         self._rule_severity: str = data.get('severity', 'Medium')
         """The level of severity of noncompliant resources."""
+
+    @property
+    def name(self) -> str:
+        """The name of the rule."""
+        return self._rule_identifier.lower().replace('_', '-')
 
     @property
     def rule_severity(self) -> str:
@@ -172,8 +177,6 @@ class AwsConfigRule:
             # Set the parameter as optional if no default value is found.
             if param.get('default', None):
                 result[param_name] = f"optional({param_type}, {self._get_default_param_value(param['default'], param_type)})"
-            # elif param.get('optional', False):
-            #     result[param_name] = f"optional({param_type}, null)"
             else:
                 result[param_name] = f"optional({param_type}, null)"
         return f"object({{\n{yaml.dump(result, default_flow_style=False)}}})"
