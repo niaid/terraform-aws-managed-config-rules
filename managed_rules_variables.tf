@@ -22,7 +22,7 @@ variable "acm_certificate_expiration_check_parameters" {
 variable "alb_desync_mode_check_parameters" {
   description = "Input parameters for the alb-desync-mode-check rule."
   type = object({
-    desyncMode = string
+    desyncMode = optional(string, null)
   })
 }
 
@@ -50,7 +50,7 @@ variable "api_gw_associated_with_waf_parameters" {
 variable "api_gw_endpoint_type_check_parameters" {
   description = "Input parameters for the api-gw-endpoint-type-check rule."
   type = object({
-    endpointConfigurationTypes = string
+    endpointConfigurationTypes = optional(string, null)
   })
 }
 
@@ -71,7 +71,7 @@ variable "api_gw_ssl_enabled_parameters" {
 variable "approved_amis_by_id_parameters" {
   description = "Input parameters for the approved-amis-by-id rule."
   type = object({
-    amiIds = string
+    amiIds = optional(string, null)
   })
 }
 
@@ -159,7 +159,7 @@ variable "backup_recovery_point_minimum_retention_check_parameters" {
 variable "clb_desync_mode_check_parameters" {
   description = "Input parameters for the clb-desync-mode-check rule."
   type = object({
-    desyncMode = string
+    desyncMode = optional(string, null)
   })
 }
 
@@ -173,7 +173,7 @@ variable "clb_multiple_az_parameters" {
 variable "cloudformation_stack_drift_detection_check_parameters" {
   description = "Input parameters for the cloudformation-stack-drift-detection-check rule."
   type = object({
-    cloudformationRoleArn = string
+    cloudformationRoleArn = optional(string, null)
   })
 }
 
@@ -226,8 +226,8 @@ variable "cloudwatch_alarm_action_check_parameters" {
 variable "cloudwatch_alarm_resource_check_parameters" {
   description = "Input parameters for the cloudwatch-alarm-resource-check rule."
   type = object({
-    metricName   = string
-    resourceType = string
+    metricName   = optional(string, null)
+    resourceType = optional(string, null)
   })
 }
 
@@ -236,7 +236,7 @@ variable "cloudwatch_alarm_settings_check_parameters" {
   type = object({
     comparisonOperator = optional(string, null)
     evaluationPeriods  = optional(number, null)
-    metricName         = string
+    metricName         = optional(string, null)
     period             = optional(number, 300)
     statistic          = optional(string, null)
     threshold          = optional(number, null)
@@ -333,14 +333,14 @@ variable "desired_instance_tenancy_parameters" {
   type = object({
     hostId  = optional(string, null)
     imageId = optional(string, null)
-    tenancy = string
+    tenancy = optional(string, null)
   })
 }
 
 variable "desired_instance_type_parameters" {
   description = "Input parameters for the desired-instance-type rule."
   type = object({
-    instanceType = string
+    instanceType = optional(string, null)
   })
 }
 
@@ -451,7 +451,7 @@ variable "ec2_launch_template_public_ip_disabled_parameters" {
 variable "ec2_managedinstance_applications_blacklisted_parameters" {
   description = "Input parameters for the ec2-managedinstance-applications-blacklisted rule."
   type = object({
-    applicationNames = string
+    applicationNames = optional(string, null)
     platformType     = optional(string, null)
   })
 }
@@ -459,7 +459,7 @@ variable "ec2_managedinstance_applications_blacklisted_parameters" {
 variable "ec2_managedinstance_applications_required_parameters" {
   description = "Input parameters for the ec2-managedinstance-applications-required rule."
   type = object({
-    applicationNames = string
+    applicationNames = optional(string, null)
     platformType     = optional(string, null)
   })
 }
@@ -467,7 +467,7 @@ variable "ec2_managedinstance_applications_required_parameters" {
 variable "ec2_managedinstance_inventory_blacklisted_parameters" {
   description = "Input parameters for the ec2-managedinstance-inventory-blacklisted rule."
   type = object({
-    inventoryNames = string
+    inventoryNames = optional(string, null)
     platformType   = optional(string, null)
   })
 }
@@ -477,7 +477,7 @@ variable "ec2_managedinstance_platform_check_parameters" {
   type = object({
     agentVersion    = optional(string, null)
     platformName    = optional(string, null)
-    platformType    = string
+    platformType    = optional(string, null)
     platformVersion = optional(string, null)
   })
 }
@@ -527,7 +527,7 @@ variable "ecs_fargate_latest_platform_version_parameters" {
 variable "ecs_no_environment_secrets_parameters" {
   description = "Input parameters for the ecs-no-environment-secrets rule."
   type = object({
-    secretKeys = string
+    secretKeys = optional(string, null)
   })
 }
 
@@ -586,14 +586,14 @@ variable "efs_resources_protected_by_backup_plan_parameters" {
 variable "eks_cluster_oldest_supported_version_parameters" {
   description = "Input parameters for the eks-cluster-oldest-supported-version rule."
   type = object({
-    oldestVersionSupported = string
+    oldestVersionSupported = optional(string, null)
   })
 }
 
 variable "eks_cluster_supported_version_parameters" {
   description = "Input parameters for the eks-cluster-supported-version rule."
   type = object({
-    oldestVersionSupported = string
+    oldestVersionSupported = optional(string, null)
   })
 }
 
@@ -628,8 +628,8 @@ variable "elasticache_repl_grp_encrypted_at_rest_parameters" {
 variable "elasticache_supported_engine_version_parameters" {
   description = "Input parameters for the elasticache-supported-engine-version rule."
   type = object({
-    latestMemcachedVersion = string
-    latestRedisVersion     = string
+    latestMemcachedVersion = optional(string, null)
+    latestRedisVersion     = optional(string, null)
   })
 }
 
@@ -672,7 +672,7 @@ variable "elbv2_multiple_az_parameters" {
 variable "elb_custom_security_policy_ssl_check_parameters" {
   description = "Input parameters for the elb-custom-security-policy-ssl-check rule."
   type = object({
-    sslProtocolsAndCiphers = string
+    sslProtocolsAndCiphers = optional(string, null)
   })
 }
 
@@ -686,7 +686,7 @@ variable "elb_logging_enabled_parameters" {
 variable "elb_predefined_security_policy_ssl_check_parameters" {
   description = "Input parameters for the elb-predefined-security-policy-ssl-check rule."
   type = object({
-    predefinedPolicyName = string
+    predefinedPolicyName = optional(string, null)
   })
 }
 
@@ -715,8 +715,8 @@ variable "fms_shield_resource_policy_check_parameters" {
     fmsManagedToken       = optional(string, null)
     fmsRemediationEnabled = optional(bool, null)
     resourceTags          = optional(string, null)
-    resourceTypes         = string
-    webACLId              = string
+    resourceTypes         = optional(string, null)
+    webACLId              = optional(string, null)
   })
 }
 
@@ -727,7 +727,7 @@ variable "fms_webacl_resource_policy_check_parameters" {
     fmsManagedToken       = optional(string, null)
     fmsRemediationEnabled = optional(bool, null)
     resourceTags          = optional(string, null)
-    webACLId              = string
+    webACLId              = optional(string, null)
   })
 }
 
@@ -736,7 +736,7 @@ variable "fms_webacl_rulegroup_association_check_parameters" {
   type = object({
     fmsManagedToken       = optional(string, null)
     fmsRemediationEnabled = optional(bool, null)
-    ruleGroups            = string
+    ruleGroups            = optional(string, null)
   })
 }
 
@@ -782,7 +782,7 @@ variable "guardduty_non_archived_findings_parameters" {
 variable "iam_customer_policy_blocked_kms_actions_parameters" {
   description = "Input parameters for the iam-customer-policy-blocked-kms-actions rule."
   type = object({
-    blockedActionsPatterns          = string
+    blockedActionsPatterns          = optional(string, null)
     excludePermissionBoundaryPolicy = optional(bool, null)
   })
 }
@@ -790,7 +790,7 @@ variable "iam_customer_policy_blocked_kms_actions_parameters" {
 variable "iam_inline_policy_blocked_kms_actions_parameters" {
   description = "Input parameters for the iam-inline-policy-blocked-kms-actions rule."
   type = object({
-    blockedActionsPatterns         = string
+    blockedActionsPatterns         = optional(string, null)
     excludeRoleByManagementAccount = optional(bool, null)
   })
 }
@@ -819,7 +819,7 @@ variable "iam_policy_blacklisted_check_parameters" {
 variable "iam_policy_in_use_parameters" {
   description = "Input parameters for the iam-policy-in-use rule."
   type = object({
-    policyARN       = string
+    policyARN       = optional(string, null)
     policyUsageType = optional(string, null)
   })
 }
@@ -841,7 +841,7 @@ variable "iam_policy_no_statements_with_full_access_parameters" {
 variable "iam_role_managed_policy_check_parameters" {
   description = "Input parameters for the iam-role-managed-policy-check rule."
   type = object({
-    managedPolicyArns = string
+    managedPolicyArns = optional(string, null)
   })
 }
 
@@ -900,7 +900,7 @@ variable "lambda_function_settings_check_parameters" {
   type = object({
     memorySize = optional(number, 128)
     role       = optional(string, null)
-    runtime    = string
+    runtime    = optional(string, null)
     timeout    = optional(number, 3)
   })
 }
@@ -947,14 +947,14 @@ variable "netfw_multi_az_enabled_parameters" {
 variable "netfw_policy_default_action_fragment_packets_parameters" {
   description = "Input parameters for the netfw-policy-default-action-fragment-packets rule."
   type = object({
-    statelessFragmentDefaultActions = string
+    statelessFragmentDefaultActions = optional(string, null)
   })
 }
 
 variable "netfw_policy_default_action_full_packets_parameters" {
   description = "Input parameters for the netfw-policy-default-action-full-packets rule."
   type = object({
-    statelessDefaultActions = string
+    statelessDefaultActions = optional(string, null)
   })
 }
 
@@ -1157,7 +1157,7 @@ variable "s3_account_level_public_access_blocks_periodic_parameters" {
 variable "s3_bucket_blacklisted_actions_prohibited_parameters" {
   description = "Input parameters for the s3-bucket-blacklisted-actions-prohibited rule."
   type = object({
-    blacklistedActionPattern = string
+    blacklistedActionPattern = optional(string, null)
   })
 }
 
@@ -1197,7 +1197,7 @@ variable "s3_bucket_policy_grantee_check_parameters" {
 variable "s3_bucket_policy_not_more_permissive_parameters" {
   description = "Input parameters for the s3-bucket-policy-not-more-permissive rule."
   type = object({
-    controlPolicy = string
+    controlPolicy = optional(string, null)
   })
 }
 
@@ -1324,7 +1324,7 @@ variable "secretsmanager_using_cmk_parameters" {
 variable "service_vpc_endpoint_enabled_parameters" {
   description = "Input parameters for the service-vpc-endpoint-enabled rule."
   type = object({
-    serviceName = string
+    serviceName = optional(string, null)
   })
 }
 

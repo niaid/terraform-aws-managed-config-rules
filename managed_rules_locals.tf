@@ -554,7 +554,7 @@ locals {
     }
 
     dynamodb-pitr-enabled = {
-      description          = "Checks that point in time recovery (PITR) is enabled for Amazon DynamoDB tables. The rule is NON_COMPLIANT if point in time recovery is not enabled for Amazon DynamoDB tables."
+      description          = "Checks if point-in-time recovery (PITR) is enabled for Amazon DynamoDB tables. The rule is NON_COMPLIANT if PITR is not enabled for DynamoDB tables."
       resource_types_scope = ["AWS::DynamoDB::Table"]
       severity             = "Medium"
     }
@@ -598,7 +598,7 @@ locals {
     }
 
     ebs-optimized-instance = {
-      description          = "Checks if EBS optimization is enabled for your EC2 instances that can be EBS-optimized. The rule is NON_COMPLIANT if EBS optimization is not enabled for an EC2 instance that can be EBS-optimized."
+      description          = "Checks if Amazon EBS optimization is enabled for your Amazon Elastic Compute Cloud (Amazon EC2) instances that can be Amazon EBS-optimized. The rule is NON_COMPLIANT if EBS optimization is not enabled for an Amazon EC2 instance that can be EBS-optimized."
       resource_types_scope = ["AWS::EC2::Instance"]
       severity             = "Medium"
     }
@@ -738,7 +738,7 @@ locals {
     }
 
     ec2-security-group-attached-to-eni = {
-      description          = "Checks if non-default security groups are attached to Elastic network interfaces (ENIs). The rule is NON_COMPLIANT if the security group is not associated with an elastic network interface (ENI)."
+      description          = "Checks if non-default security groups are attached to elastic network interfaces. The rule is NON_COMPLIANT if the security group is not associated with a network interface."
       resource_types_scope = ["AWS::EC2::SecurityGroup"]
       severity             = "Medium"
     }
@@ -902,7 +902,7 @@ locals {
     }
 
     eip-attached = {
-      description          = "Checks if all Elastic IP addresses that are allocated to an AWS account are attached to EC2 instances or in-use elastic network interfaces (ENIs)."
+      description          = "Checks if all Elastic IP addresses that are allocated to an AWS account are attached to EC2 instances or in-use elastic network interfaces. The rule is NON_COMPLIANT if the AssociationId is null for the Elastic IP address."
       resource_types_scope = ["AWS::EC2::EIP"]
       severity             = "Medium"
     }
@@ -997,24 +997,24 @@ locals {
     }
 
     elasticsearch-encrypted-at-rest = {
-      description = "Checks if Elasticsearch domains have encryption at rest configuration enabled. The rule is NON_COMPLIANT if the EncryptionAtRestOptions field is not enabled."
+      description = "Checks if Amazon OpenSearch Service (previously called Elasticsearch) domains have encryption at rest configuration enabled. The rule is NON_COMPLIANT if the EncryptionAtRestOptions field is not enabled."
       severity    = "Medium"
     }
 
     elasticsearch-in-vpc-only = {
-      description = "Checks if Elasticsearch domains are in Amazon Virtual Private Cloud (Amazon VPC). The rule is NON_COMPLIANT if an Elasticsearch domain endpoint is public."
+      description = "Checks if Amazon OpenSearch Service (previously called Elasticsearch) domains are in Amazon Virtual Private Cloud (Amazon VPC). The rule is NON_COMPLIANT if an OpenSearch Service domain endpoint is public."
       severity    = "Medium"
     }
 
     elasticsearch-logs-to-cloudwatch = {
-      description          = "Checks if Elasticsearch domains are configured to send logs to Amazon CloudWatch Logs. The rule is COMPLIANT if a log is enabled for an Elasticsearch domain. This rule is NON_COMPLIANT if logging is not configured."
+      description          = "Checks if Amazon OpenSearch Service domains are configured to send logs to Amazon CloudWatch Logs. The rule is COMPLIANT if a log is enabled for an Amazon ES domain. This rule is NON_COMPLIANT if logging is not configured."
       input_parameters     = var.elasticsearch_logs_to_cloudwatch_parameters
       resource_types_scope = ["AWS::Elasticsearch::Domain"]
       severity             = "Low"
     }
 
     elasticsearch-node-to-node-encryption-check = {
-      description          = "Check if Elasticsearch nodes are encrypted end to end. The rule is NON_COMPLIANT if the node-to-node encryption is not enabled on the domain."
+      description          = "Check if OpenSearch Service (previously called Elasticsearch) nodes are encrypted end to end. The rule is NON_COMPLIANT if the node-to-node encryption is not enabled on the domain."
       resource_types_scope = ["AWS::Elasticsearch::Domain"]
       severity             = "Medium"
     }
@@ -1086,7 +1086,7 @@ locals {
     }
 
     elb-tls-https-listeners-only = {
-      description          = "Checks if your Classic Load Balancer is configured with SSL or HTTPS listeners."
+      description          = "Checks if your Classic Load Balancer is configured with SSL or HTTPS listeners. The rule is NON_COMPLIANT if a listener is not configured with SSL or HTTPS."
       resource_types_scope = ["AWS::ElasticLoadBalancing::LoadBalancer"]
       severity             = "Medium"
     }
@@ -1098,13 +1098,13 @@ locals {
     }
 
     emr-master-no-public-ip = {
-      description          = "Checks if Amazon Elastic MapReduce (EMR) clusters master nodes have public IPs. The rule is NON_COMPLIANT if the master node has a public IP."
+      description          = "Checks if Amazon EMR clusters master nodes have public IPs. The rule is NON_COMPLIANT if the master node has a public IP."
       resource_types_scope = ["AWS::EMR::Cluster"]
       severity             = "Medium"
     }
 
     encrypted-volumes = {
-      description          = "Checks if the EBS volumes that are in an attached state are encrypted. If you specify the ID of a KMS key for encryption using the kmsId parameter, the rule checks if the EBS volumes in an attached state are encrypted with that KMS key."
+      description          = "Checks if attached Amazon EBS volumes are encrypted and optionally are encrypted with a specified KMS key. The rule is NON_COMPLIANT if attached EBS volumes are unencrypted or are encrypted with a KMS key not in the supplied parameters."
       input_parameters     = var.encrypted_volumes_parameters
       resource_types_scope = ["AWS::EC2::Volume"]
       severity             = "Medium"
@@ -1146,7 +1146,7 @@ locals {
     }
 
     guardduty-enabled-centralized = {
-      description      = "Checks if Amazon GuardDuty is enabled in your AWS account and region. If you provide an AWS account for centralization, the rule evaluates the Amazon GuardDuty results in the centralized account. The rule is COMPLIANT when Amazon GuardDuty is enabled."
+      description      = "Checks if Amazon GuardDuty is enabled in your AWS account and AWS Region. If you provide an AWS account for centralization, the rule evaluates the GuardDuty results in the centralized account. The rule is COMPLIANT when GuardDuty is enabled."
       input_parameters = var.guardduty_enabled_centralized_parameters
       severity         = "High"
     }
@@ -1158,7 +1158,7 @@ locals {
     }
 
     iam-customer-policy-blocked-kms-actions = {
-      description          = "Checks if the managed AWS Identity and Access Management (IAM) policies that you create do not allow blocked actions on AWS KMS keys. The rule is NON_COMPLIANT if any blocked action is allowed on AWS KMS keys by the managed IAM policy."
+      description          = "Checks if the managed AWS Identity and Access Management (IAM) policies that you create do not allow blocked actions on AWS KMS) keys. The rule is NON_COMPLIANT if any blocked action is allowed on AWS KMS keys by the managed IAM policy."
       input_parameters     = var.iam_customer_policy_blocked_kms_actions_parameters
       resource_types_scope = ["AWS::IAM::Policy"]
       severity             = "Medium"
@@ -1184,13 +1184,13 @@ locals {
     }
 
     iam-password-policy = {
-      description      = "Checks if the account password policy for IAM users meets the specified requirements indicated in the parameters. This rule is NON_COMPLIANT if the account password policy does not meet the specified requirements."
+      description      = "Checks if the account password policy for AWS Identity and Access Management (IAM) users meets the specified requirements indicated in the parameters. The rule is NON_COMPLIANT if the account password policy does not meet the specified requirements."
       input_parameters = var.iam_password_policy_parameters
       severity         = "Medium"
     }
 
     iam-policy-blacklisted-check = {
-      description          = "Checks if for each IAM resource, a policy ARN in the input parameter is attached to the IAM resource. The rule is NON_COMPLIANT if the policy ARN is attached to the IAM resource. AWS Config marks the resource as COMPLIANT if the IAM resource is part of..."
+      description          = "Checks in each AWS Identity and Access Management (IAM) resource, if a policy Amazon Resource Name (ARN) in the input parameter is attached to the IAM resource. The rule is NON_COMPLIANT if the policy ARN is attached to the IAM resource."
       input_parameters     = var.iam_policy_blacklisted_check_parameters
       resource_types_scope = ["AWS::IAM::User", "AWS::IAM::Group", "AWS::IAM::Role"]
       severity             = "Medium"
@@ -1241,7 +1241,7 @@ locals {
     }
 
     iam-user-no-policies-check = {
-      description          = "Checks if none of your IAM users have policies attached. IAM users must inherit permissions from IAM groups or roles. The rule is NON_COMPLIANT if there is at least one IAM user with policies attached."
+      description          = "Checks if none of your AWS Identity and Access Management (IAM) users have policies attached. IAM users must inherit permissions from IAM groups or roles. The rule is NON_COMPLIANT if there is at least one IAM user with policies attached."
       resource_types_scope = ["AWS::IAM::User"]
       severity             = "Medium"
     }
@@ -1313,7 +1313,7 @@ locals {
     }
 
     lambda-inside-vpc = {
-      description          = "Checks whether an AWS Lambda function is allowed access to an Amazon Virtual Private Cloud. The rule is NON_COMPLIANT if the Lambda function is not VPC enabled."
+      description          = "Checks if a Lambda function is allowed access to a virtual private cloud (VPC). The rule is NON_COMPLIANT if the Lambda function is not VPC enabled."
       input_parameters     = var.lambda_inside_vpc_parameters
       resource_types_scope = ["AWS::Lambda::Function"]
       severity             = "Low"
@@ -1414,7 +1414,7 @@ locals {
     }
 
     no-unrestricted-route-to-igw = {
-      description          = "Checks if route tables have inputs other than these default values: CIDR block of 0.0.0.0/0 as the Destination for IPv4 or ::/0 for IPv6, and igw-id as the Target. The rule is NON_COMPLIANT if you keep defaults."
+      description          = "Checks if there are public routes in the route table to an Internet gateway (IGW). The rule is NON_COMPLIANT if a route to an IGW has a destination CIDR block of 0.0.0.0/0 or ::/0 or if a destination CIDR block does not match the rule parameter."
       input_parameters     = var.no_unrestricted_route_to_igw_parameters
       resource_types_scope = ["AWS::EC2::RouteTable"]
       severity             = "Medium"
@@ -1523,7 +1523,7 @@ locals {
     }
 
     rds-instance-deletion-protection-enabled = {
-      description          = "Checks if an Amazon Relational Database Service (Amazon RDS) instance has deletion protection enabled. This rule is NON_COMPLIANT if an Amazon RDS instance does not have deletion protection enabled i.e deletionProtection is set to false."
+      description          = "Checks if an Amazon Relational Database Service (Amazon RDS) instance has deletion protection enabled. The rule is NON_COMPLIANT if an Amazon RDS instance does not have deletion protection enabled; for example, deletionProtection is set to false."
       input_parameters     = var.rds_instance_deletion_protection_enabled_parameters
       resource_types_scope = ["AWS::RDS::DBInstance"]
       severity             = "Medium"
@@ -1542,7 +1542,7 @@ locals {
     }
 
     rds-in-backup-plan = {
-      description = "Checks if the Amazon RDS resource type is present in a backup plan in AWS Backup. The rule is NON_COMPLIANT if the Amazon RDS resource type is not included in any AWS Backup plan."
+      description = "Checks if Amazon Relational Database Service (Amazon RDS) databases are present in AWS Backup plans. The rule is NON_COMPLIANT if Amazon RDS databases are not included in any AWS Backup plan."
       severity    = "Medium"
     }
 
@@ -1586,7 +1586,7 @@ locals {
     }
 
     rds-storage-encrypted = {
-      description          = "Checks if storage encryption is enabled for your RDS DB instances. The rule is NON_COMPLIANT if storage encryption is not enabled."
+      description          = "Checks if storage encryption is enabled for your Amazon Relational Database Service (Amazon RDS) DB instances. The rule is NON_COMPLIANT if storage encryption is not enabled."
       input_parameters     = var.rds_storage_encrypted_parameters
       resource_types_scope = ["AWS::RDS::DBInstance"]
       severity             = "Medium"
@@ -1667,7 +1667,7 @@ locals {
     }
 
     restricted-common-ports = {
-      description          = "Checks if the security groups in use do not allow unrestricted incoming TCP traffic to the specified ports. The rule is COMPLIANT when the IP addresses for inbound TCP connections are restricted to the specified ports. This rule applies only to IPv4."
+      description          = "Checks if the security groups in use do not allow unrestricted incoming Transmission Control Protocol (TCP) traffic to the specified ports for IPv4. The rule is COMPLIANT if IP addresses for inbound TCP connections are restricted to the specified ports."
       input_parameters     = var.restricted_common_ports_parameters
       resource_types_scope = ["AWS::EC2::SecurityGroup"]
       severity             = "Medium"

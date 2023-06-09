@@ -172,10 +172,10 @@ class AwsConfigRule:
             # Set the parameter as optional if no default value is found.
             if param.get('default', None):
                 result[param_name] = f"optional({param_type}, {self._get_default_param_value(param['default'], param_type)})"
-            elif param.get('optional', False):
-                result[param_name] = f"optional({param_type}, null)"
+            # elif param.get('optional', False):
+            #     result[param_name] = f"optional({param_type}, null)"
             else:
-                result[param_name] = param_type
+                result[param_name] = f"optional({param_type}, null)"
         return f"object({{\n{yaml.dump(result, default_flow_style=False)}}})"
     
     def tf_variable_default_value(self) -> str:
