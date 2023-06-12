@@ -171,7 +171,7 @@ class AwsConfigRule:
             })"""
         result = {}
         for param in self.parameters_data:
-            param_name = self._format_parameter_name(param['name'])
+            param_name = param['name']
             param_type = self._map_param_type(param['type'])
 
             # Set the parameter as optional if no default value is found.
@@ -188,7 +188,7 @@ class AwsConfigRule:
             if param.get('default', None) is None:
                 continue
 
-            param_name = self._format_parameter_name(param['name'])
+            param_name = param['name']
             param_value = self._get_default_param_value(
                 value=param['default'],
                 value_type=self._map_param_type(param['type']))

@@ -70,7 +70,7 @@ class AwsDocsReader:
     
     def parse_parameter_default_value(self, page_element: PageElement) -> str:
         """Extract the parameter default value from a string."""
-        return page_element.string.split('Default:')[-1].strip("(Optional)").strip()
+        return str(page_element.string).split('Default:')[-1].replace('(Optional)', '').strip()
     
     def parse_parameter_description(self, page_element: PageElement) -> str:
         """Extract the parameter description from a string."""
