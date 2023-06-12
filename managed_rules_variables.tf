@@ -12,7 +12,7 @@ variable "access_keys_rotated_parameters" {
 variable "account_part_of_organizations_parameters" {
   description = "Input parameters for the account-part-of-organizations rule."
   type = object({
-    masterAccountId = optional(string, null)
+    MasterAccountId = optional(string, null)
   })
   default = {}
 }
@@ -31,7 +31,7 @@ variable "acm_certificate_expiration_check_parameters" {
 variable "alb_desync_mode_check_parameters" {
   description = "Input parameters for the alb-desync-mode-check rule."
   type = object({
-    desyncMode = string
+    desyncMode = optional(string, null)
   })
   default = {}
 }
@@ -55,7 +55,7 @@ variable "api_gwv2_authorization_type_configured_parameters" {
 variable "api_gw_associated_with_waf_parameters" {
   description = "Input parameters for the api-gw-associated-with-waf rule."
   type = object({
-    webAclArns = optional(string, null)
+    WebAclArns = optional(string, null)
   })
   default = {}
 }
@@ -63,7 +63,7 @@ variable "api_gw_associated_with_waf_parameters" {
 variable "api_gw_endpoint_type_check_parameters" {
   description = "Input parameters for the api-gw-endpoint-type-check rule."
   type = object({
-    endpointConfigurationTypes = string
+    endpointConfigurationTypes = optional(string, null)
   })
   default = {}
 }
@@ -71,10 +71,10 @@ variable "api_gw_endpoint_type_check_parameters" {
 variable "api_gw_execution_logging_enabled_parameters" {
   description = "Input parameters for the api-gw-execution-logging-enabled rule."
   type = object({
-    loggingLevel = optional(string, "ERROR,INF")
+    loggingLevel = optional(string, "ERROR,INFO")
   })
   default = {
-    loggingLevel = "ERROR,INF"
+    loggingLevel = "ERROR,INFO"
   }
 
 }
@@ -82,7 +82,7 @@ variable "api_gw_execution_logging_enabled_parameters" {
 variable "api_gw_ssl_enabled_parameters" {
   description = "Input parameters for the api-gw-ssl-enabled rule."
   type = object({
-    certificateIDs = optional(string, null)
+    CertificateIDs = optional(string, null)
   })
   default = {}
 }
@@ -90,7 +90,7 @@ variable "api_gw_ssl_enabled_parameters" {
 variable "approved_amis_by_id_parameters" {
   description = "Input parameters for the approved-amis-by-id rule."
   type = object({
-    amiIds = string
+    amiIds = optional(string, null)
   })
   default = {}
 }
@@ -140,7 +140,7 @@ variable "aurora_last_backup_recovery_point_created_parameters" {
 variable "aurora_mysql_backtracking_enabled_parameters" {
   description = "Input parameters for the aurora-mysql-backtracking-enabled rule."
   type = object({
-    backtrackWindowInHours = optional(number, null)
+    BacktrackWindowInHours = optional(number, null)
   })
   default = {}
 }
@@ -204,7 +204,7 @@ variable "backup_recovery_point_minimum_retention_check_parameters" {
 variable "clb_desync_mode_check_parameters" {
   description = "Input parameters for the clb-desync-mode-check rule."
   type = object({
-    desyncMode = string
+    desyncMode = optional(string, null)
   })
   default = {}
 }
@@ -220,7 +220,7 @@ variable "clb_multiple_az_parameters" {
 variable "cloudformation_stack_drift_detection_check_parameters" {
   description = "Input parameters for the cloudformation-stack-drift-detection-check rule."
   type = object({
-    cloudformationRoleArn = string
+    cloudformationRoleArn = optional(string, null)
   })
   default = {}
 }
@@ -240,7 +240,7 @@ variable "cloudformation_stack_notification_check_parameters" {
 variable "cloudfront_accesslogs_enabled_parameters" {
   description = "Input parameters for the cloudfront-accesslogs-enabled rule."
   type = object({
-    s3BucketName = optional(string, null)
+    S3BucketName = optional(string, null)
   })
   default = {}
 }
@@ -256,7 +256,7 @@ variable "cloudfront_associated_with_waf_parameters" {
 variable "cloudtrail_s3_dataevents_enabled_parameters" {
   description = "Input parameters for the cloudtrail-s3-dataevents-enabled rule."
   type = object({
-    s3BucketNames = optional(string, null)
+    S3BucketNames = optional(string, null)
   })
   default = {}
 }
@@ -284,8 +284,8 @@ variable "cloudwatch_alarm_action_check_parameters" {
 variable "cloudwatch_alarm_resource_check_parameters" {
   description = "Input parameters for the cloudwatch-alarm-resource-check rule."
   type = object({
-    metricName   = string
-    resourceType = string
+    metricName   = optional(string, null)
+    resourceType = optional(string, null)
   })
   default = {}
 }
@@ -295,7 +295,7 @@ variable "cloudwatch_alarm_settings_check_parameters" {
   type = object({
     comparisonOperator = optional(string, null)
     evaluationPeriods  = optional(number, null)
-    metricName         = string
+    metricName         = optional(string, null)
     period             = optional(number, 300)
     statistic          = optional(string, null)
     threshold          = optional(number, null)
@@ -309,7 +309,7 @@ variable "cloudwatch_alarm_settings_check_parameters" {
 variable "cloudwatch_log_group_encrypted_parameters" {
   description = "Input parameters for the cloudwatch-log-group-encrypted rule."
   type = object({
-    kmsKeyId = optional(string, null)
+    KmsKeyId = optional(string, null)
   })
   default = {}
 }
@@ -322,8 +322,8 @@ variable "cloud_trail_cloud_watch_logs_enabled_parameters" {
   default = {}
 }
 
-variable "cloudtrail_enabled_parameters" {
-  description = "Input parameters for the cloudtrail-enabled rule."
+variable "cloud_trail_enabled_parameters" {
+  description = "Input parameters for the cloud-trail-enabled rule."
   type = object({
     cloudWatchLogsLogGroupArn = optional(string, null)
     s3BucketName              = optional(string, null)
@@ -392,8 +392,8 @@ variable "codepipeline_region_fanout_check_parameters" {
 variable "cw_loggroup_retention_period_check_parameters" {
   description = "Input parameters for the cw-loggroup-retention-period-check rule."
   type = object({
-    logGroupNames    = optional(string, null)
-    minRetentionTime = optional(number, null)
+    LogGroupNames    = optional(string, null)
+    MinRetentionTime = optional(number, null)
   })
   default = {}
 }
@@ -414,7 +414,7 @@ variable "desired_instance_tenancy_parameters" {
   type = object({
     hostId  = optional(string, null)
     imageId = optional(string, null)
-    tenancy = string
+    tenancy = optional(string, null)
   })
   default = {}
 }
@@ -422,7 +422,7 @@ variable "desired_instance_tenancy_parameters" {
 variable "desired_instance_type_parameters" {
   description = "Input parameters for the desired-instance-type rule."
   type = object({
-    instanceType = string
+    instanceType = optional(string, null)
   })
   default = {}
 }
@@ -522,7 +522,7 @@ variable "ebs_resources_protected_by_backup_plan_parameters" {
 variable "ec2_instance_multiple_eni_check_parameters" {
   description = "Input parameters for the ec2-instance-multiple-eni-check rule."
   type = object({
-    networkInterfaceIds = optional(string, null)
+    NetworkInterfaceIds = optional(string, null)
   })
   default = {}
 }
@@ -530,7 +530,7 @@ variable "ec2_instance_multiple_eni_check_parameters" {
 variable "ec2_instance_profile_attached_parameters" {
   description = "Input parameters for the ec2-instance-profile-attached rule."
   type = object({
-    iamInstanceProfileArnList = optional(string, null)
+    IamInstanceProfileArnList = optional(string, null)
   })
   default = {}
 }
@@ -561,7 +561,7 @@ variable "ec2_launch_template_public_ip_disabled_parameters" {
 variable "ec2_managedinstance_applications_blacklisted_parameters" {
   description = "Input parameters for the ec2-managedinstance-applications-blacklisted rule."
   type = object({
-    applicationNames = string
+    applicationNames = optional(string, null)
     platformType     = optional(string, null)
   })
   default = {}
@@ -570,7 +570,7 @@ variable "ec2_managedinstance_applications_blacklisted_parameters" {
 variable "ec2_managedinstance_applications_required_parameters" {
   description = "Input parameters for the ec2-managedinstance-applications-required rule."
   type = object({
-    applicationNames = string
+    applicationNames = optional(string, null)
     platformType     = optional(string, null)
   })
   default = {}
@@ -579,7 +579,7 @@ variable "ec2_managedinstance_applications_required_parameters" {
 variable "ec2_managedinstance_inventory_blacklisted_parameters" {
   description = "Input parameters for the ec2-managedinstance-inventory-blacklisted rule."
   type = object({
-    inventoryNames = string
+    inventoryNames = optional(string, null)
     platformType   = optional(string, null)
   })
   default = {}
@@ -590,7 +590,7 @@ variable "ec2_managedinstance_platform_check_parameters" {
   type = object({
     agentVersion    = optional(string, null)
     platformName    = optional(string, null)
-    platformType    = string
+    platformType    = optional(string, null)
     platformVersion = optional(string, null)
   })
   default = {}
@@ -613,10 +613,10 @@ variable "ec2_resources_protected_by_backup_plan_parameters" {
 variable "ec2_stopped_instance_parameters" {
   description = "Input parameters for the ec2-stopped-instance rule."
   type = object({
-    allowedDays = optional(number, 30)
+    AllowedDays = optional(number, 30)
   })
   default = {
-    allowedDays = 30
+    AllowedDays = 30
   }
 
 }
@@ -649,7 +649,7 @@ variable "ecs_fargate_latest_platform_version_parameters" {
 variable "ecs_no_environment_secrets_parameters" {
   description = "Input parameters for the ecs-no-environment-secrets rule."
   type = object({
-    secretKeys = string
+    secretKeys = optional(string, null)
   })
   default = {}
 }
@@ -657,7 +657,7 @@ variable "ecs_no_environment_secrets_parameters" {
 variable "ecs_task_definition_user_for_host_mode_check_parameters" {
   description = "Input parameters for the ecs-task-definition-user-for-host-mode-check rule."
   type = object({
-    skipInactiveTaskDefinitions = optional(bool, null)
+    SkipInactiveTaskDefinitions = optional(bool, null)
   })
   default = {}
 }
@@ -682,7 +682,7 @@ variable "efs_access_point_enforce_user_identity_parameters" {
 variable "efs_encrypted_check_parameters" {
   description = "Input parameters for the efs-encrypted-check rule."
   type = object({
-    kmsKeyId = optional(string, null)
+    KmsKeyId = optional(string, null)
   })
   default = {}
 }
@@ -719,7 +719,7 @@ variable "efs_resources_protected_by_backup_plan_parameters" {
 variable "eks_cluster_oldest_supported_version_parameters" {
   description = "Input parameters for the eks-cluster-oldest-supported-version rule."
   type = object({
-    oldestVersionSupported = string
+    oldestVersionSupported = optional(string, null)
   })
   default = {}
 }
@@ -727,7 +727,7 @@ variable "eks_cluster_oldest_supported_version_parameters" {
 variable "eks_cluster_supported_version_parameters" {
   description = "Input parameters for the eks-cluster-supported-version rule."
   type = object({
-    oldestVersionSupported = string
+    oldestVersionSupported = optional(string, null)
   })
   default = {}
 }
@@ -770,8 +770,8 @@ variable "elasticache_repl_grp_encrypted_at_rest_parameters" {
 variable "elasticache_supported_engine_version_parameters" {
   description = "Input parameters for the elasticache-supported-engine-version rule."
   type = object({
-    latestMemcachedVersion = string
-    latestRedisVersion     = string
+    latestMemcachedVersion = optional(string, null)
+    latestRedisVersion     = optional(string, null)
   })
   default = {}
 }
@@ -787,8 +787,8 @@ variable "elasticsearch_logs_to_cloudwatch_parameters" {
 variable "elastic_beanstalk_logs_to_cloudwatch_parameters" {
   description = "Input parameters for the elastic-beanstalk-logs-to-cloudwatch rule."
   type = object({
-    deleteOnTerminate = optional(string, null)
-    retentionInDays   = optional(string, null)
+    DeleteOnTerminate = optional(string, null)
+    RetentionInDays   = optional(string, null)
   })
   default = {}
 }
@@ -796,7 +796,7 @@ variable "elastic_beanstalk_logs_to_cloudwatch_parameters" {
 variable "elastic_beanstalk_managed_updates_enabled_parameters" {
   description = "Input parameters for the elastic-beanstalk-managed-updates-enabled rule."
   type = object({
-    updateLevel = optional(string, null)
+    UpdateLevel = optional(string, null)
   })
   default = {}
 }
@@ -804,7 +804,7 @@ variable "elastic_beanstalk_managed_updates_enabled_parameters" {
 variable "elbv2_acm_certificate_required_parameters" {
   description = "Input parameters for the elbv2-acm-certificate-required rule."
   type = object({
-    acmCertificatesAllowed = optional(string, null)
+    AcmCertificatesAllowed = optional(string, null)
   })
   default = {}
 }
@@ -820,7 +820,7 @@ variable "elbv2_multiple_az_parameters" {
 variable "elb_custom_security_policy_ssl_check_parameters" {
   description = "Input parameters for the elb-custom-security-policy-ssl-check rule."
   type = object({
-    sslProtocolsAndCiphers = string
+    sslProtocolsAndCiphers = optional(string, null)
   })
   default = {}
 }
@@ -836,7 +836,7 @@ variable "elb_logging_enabled_parameters" {
 variable "elb_predefined_security_policy_ssl_check_parameters" {
   description = "Input parameters for the elb-predefined-security-policy-ssl-check rule."
   type = object({
-    predefinedPolicyName = string
+    predefinedPolicyName = optional(string, null)
   })
   default = {}
 }
@@ -844,11 +844,11 @@ variable "elb_predefined_security_policy_ssl_check_parameters" {
 variable "emr_kerberos_enabled_parameters" {
   description = "Input parameters for the emr-kerberos-enabled rule."
   type = object({
-    adminServer           = optional(string, null)
-    domain                = optional(string, null)
-    kdcServer             = optional(string, null)
-    realm                 = optional(string, null)
-    ticketLifetimeInHours = optional(number, null)
+    AdminServer           = optional(string, null)
+    Domain                = optional(string, null)
+    KdcServer             = optional(string, null)
+    Realm                 = optional(string, null)
+    TicketLifetimeInHours = optional(number, null)
   })
   default = {}
 }
@@ -868,8 +868,8 @@ variable "fms_shield_resource_policy_check_parameters" {
     fmsManagedToken       = optional(string, null)
     fmsRemediationEnabled = optional(bool, null)
     resourceTags          = optional(string, null)
-    resourceTypes         = string
-    webACLId              = string
+    resourceTypes         = optional(string, null)
+    webACLId              = optional(string, null)
   })
   default = {}
 }
@@ -881,7 +881,7 @@ variable "fms_webacl_resource_policy_check_parameters" {
     fmsManagedToken       = optional(string, null)
     fmsRemediationEnabled = optional(bool, null)
     resourceTags          = optional(string, null)
-    webACLId              = string
+    webACLId              = optional(string, null)
   })
   default = {}
 }
@@ -891,7 +891,7 @@ variable "fms_webacl_rulegroup_association_check_parameters" {
   type = object({
     fmsManagedToken       = optional(string, null)
     fmsRemediationEnabled = optional(bool, null)
-    ruleGroups            = string
+    ruleGroups            = optional(string, null)
   })
   default = {}
 }
@@ -928,7 +928,7 @@ variable "fsx_resources_protected_by_backup_plan_parameters" {
 variable "guardduty_enabled_centralized_parameters" {
   description = "Input parameters for the guardduty-enabled-centralized rule."
   type = object({
-    centralMonitoringAccount = optional(string, null)
+    CentralMonitoringAccount = optional(string, null)
   })
   default = {}
 }
@@ -951,7 +951,7 @@ variable "guardduty_non_archived_findings_parameters" {
 variable "iam_customer_policy_blocked_kms_actions_parameters" {
   description = "Input parameters for the iam-customer-policy-blocked-kms-actions rule."
   type = object({
-    blockedActionsPatterns          = string
+    blockedActionsPatterns          = optional(string, null)
     excludePermissionBoundaryPolicy = optional(bool, null)
   })
   default = {}
@@ -960,7 +960,7 @@ variable "iam_customer_policy_blocked_kms_actions_parameters" {
 variable "iam_inline_policy_blocked_kms_actions_parameters" {
   description = "Input parameters for the iam-inline-policy-blocked-kms-actions rule."
   type = object({
-    blockedActionsPatterns         = string
+    blockedActionsPatterns         = optional(string, null)
     excludeRoleByManagementAccount = optional(bool, null)
   })
   default = {}
@@ -969,22 +969,22 @@ variable "iam_inline_policy_blocked_kms_actions_parameters" {
 variable "iam_password_policy_parameters" {
   description = "Input parameters for the iam-password-policy rule."
   type = object({
-    maxPasswordAge             = optional(number, 90)
-    minimumPasswordLength      = optional(number, 14)
-    passwordReusePrevention    = optional(number, 24)
-    requireLowercaseCharacters = optional(bool, true)
-    requireNumbers             = optional(bool, true)
-    requireSymbols             = optional(bool, true)
-    requireUppercaseCharacters = optional(bool, true)
+    MaxPasswordAge             = optional(number, 90)
+    MinimumPasswordLength      = optional(number, 14)
+    PasswordReusePrevention    = optional(number, 24)
+    RequireLowercaseCharacters = optional(bool, true)
+    RequireNumbers             = optional(bool, true)
+    RequireSymbols             = optional(bool, true)
+    RequireUppercaseCharacters = optional(bool, true)
   })
   default = {
-    maxPasswordAge             = 90
-    minimumPasswordLength      = 14
-    passwordReusePrevention    = 24
-    requireLowercaseCharacters = true
-    requireNumbers             = true
-    requireSymbols             = true
-    requireUppercaseCharacters = true
+    MaxPasswordAge             = 90
+    MinimumPasswordLength      = 14
+    PasswordReusePrevention    = 24
+    RequireLowercaseCharacters = true
+    RequireNumbers             = true
+    RequireSymbols             = true
+    RequireUppercaseCharacters = true
   }
 
 }
@@ -1004,7 +1004,7 @@ variable "iam_policy_blacklisted_check_parameters" {
 variable "iam_policy_in_use_parameters" {
   description = "Input parameters for the iam-policy-in-use rule."
   type = object({
-    policyARN       = string
+    policyARN       = optional(string, null)
     policyUsageType = optional(string, null)
   })
   default = {}
@@ -1029,7 +1029,7 @@ variable "iam_policy_no_statements_with_full_access_parameters" {
 variable "iam_role_managed_policy_check_parameters" {
   description = "Input parameters for the iam-role-managed-policy-check rule."
   type = object({
-    managedPolicyArns = string
+    managedPolicyArns = optional(string, null)
   })
   default = {}
 }
@@ -1053,8 +1053,8 @@ variable "iam_user_unused_credentials_check_parameters" {
 
 }
 
-variable "ec2_instances_in_vpc_parameters" {
-  description = "Input parameters for the ec2-instances-in-vpc rule."
+variable "instances_in_vpc_parameters" {
+  description = "Input parameters for the instances-in-vpc rule."
   type = object({
     vpcId = optional(string, null)
   })
@@ -1064,7 +1064,7 @@ variable "ec2_instances_in_vpc_parameters" {
 variable "internet_gateway_authorized_vpc_only_parameters" {
   description = "Input parameters for the internet-gateway-authorized-vpc-only rule."
   type = object({
-    authorizedVpcIds = optional(string, null)
+    AuthorizedVpcIds = optional(string, null)
   })
   default = {}
 }
@@ -1080,8 +1080,8 @@ variable "kms_cmk_not_scheduled_for_deletion_parameters" {
 variable "lambda_concurrency_check_parameters" {
   description = "Input parameters for the lambda-concurrency-check rule."
   type = object({
-    concurrencyLimitHigh = optional(string, null)
-    concurrencyLimitLow  = optional(string, null)
+    ConcurrencyLimitHigh = optional(string, null)
+    ConcurrencyLimitLow  = optional(string, null)
   })
   default = {}
 }
@@ -1099,7 +1099,7 @@ variable "lambda_function_settings_check_parameters" {
   type = object({
     memorySize = optional(number, 128)
     role       = optional(string, null)
-    runtime    = string
+    runtime    = optional(string, null)
     timeout    = optional(number, 3)
   })
   default = {
@@ -1125,8 +1125,8 @@ variable "lambda_vpc_multi_az_check_parameters" {
   default = {}
 }
 
-variable "multi_region_cloudtrail_enabled_parameters" {
-  description = "Input parameters for the multi-region-cloudtrail-enabled rule."
+variable "multi_region_cloud_trail_enabled_parameters" {
+  description = "Input parameters for the multi-region-cloud-trail-enabled rule."
   type = object({
     cloudWatchLogsLogGroupArn = optional(string, null)
     includeManagementEvents   = optional(bool, null)
@@ -1156,7 +1156,7 @@ variable "netfw_multi_az_enabled_parameters" {
 variable "netfw_policy_default_action_fragment_packets_parameters" {
   description = "Input parameters for the netfw-policy-default-action-fragment-packets rule."
   type = object({
-    statelessFragmentDefaultActions = string
+    statelessFragmentDefaultActions = optional(string, null)
   })
   default = {}
 }
@@ -1164,7 +1164,7 @@ variable "netfw_policy_default_action_fragment_packets_parameters" {
 variable "netfw_policy_default_action_full_packets_parameters" {
   description = "Input parameters for the netfw-policy-default-action-full-packets rule."
   type = object({
-    statelessDefaultActions = string
+    statelessDefaultActions = optional(string, null)
   })
   default = {}
 }
@@ -1289,8 +1289,8 @@ variable "redshift_audit_logging_enabled_parameters" {
 variable "redshift_backup_enabled_parameters" {
   description = "Input parameters for the redshift-backup-enabled rule."
   type = object({
-    maxRetentionPeriod = optional(number, null)
-    minRetentionPeriod = optional(number, null)
+    MaxRetentionPeriod = optional(number, null)
+    MinRetentionPeriod = optional(number, null)
   })
   default = {}
 }
@@ -1370,8 +1370,8 @@ variable "required_tags_parameters" {
 
 }
 
-variable "restricted_common_ports_parameters" {
-  description = "Input parameters for the restricted-common-ports rule."
+variable "restricted_incoming_traffic_parameters" {
+  description = "Input parameters for the restricted-incoming-traffic rule."
   type = object({
     blockedPort1 = optional(number, 20)
     blockedPort2 = optional(number, 21)
@@ -1392,16 +1392,16 @@ variable "restricted_common_ports_parameters" {
 variable "s3_account_level_public_access_blocks_parameters" {
   description = "Input parameters for the s3-account-level-public-access-blocks rule."
   type = object({
-    blockPublicAcls       = optional(string, "True")
-    blockPublicPolicy     = optional(string, "True")
-    ignorePublicAcls      = optional(string, "True")
-    restrictPublicBuckets = optional(string, "True")
+    BlockPublicAcls       = optional(string, "True")
+    BlockPublicPolicy     = optional(string, "True")
+    IgnorePublicAcls      = optional(string, "True")
+    RestrictPublicBuckets = optional(string, "True")
   })
   default = {
-    blockPublicAcls       = "True"
-    blockPublicPolicy     = "True"
-    ignorePublicAcls      = "True"
-    restrictPublicBuckets = "True"
+    BlockPublicAcls       = "True"
+    BlockPublicPolicy     = "True"
+    IgnorePublicAcls      = "True"
+    RestrictPublicBuckets = "True"
   }
 
 }
@@ -1409,10 +1409,10 @@ variable "s3_account_level_public_access_blocks_parameters" {
 variable "s3_account_level_public_access_blocks_periodic_parameters" {
   description = "Input parameters for the s3-account-level-public-access-blocks-periodic rule."
   type = object({
-    blockPublicAcls       = optional(string, null)
-    blockPublicPolicy     = optional(string, null)
-    ignorePublicAcls      = optional(string, null)
-    restrictPublicBuckets = optional(string, null)
+    BlockPublicAcls       = optional(string, null)
+    BlockPublicPolicy     = optional(string, null)
+    IgnorePublicAcls      = optional(string, null)
+    RestrictPublicBuckets = optional(string, null)
   })
   default = {}
 }
@@ -1420,7 +1420,7 @@ variable "s3_account_level_public_access_blocks_periodic_parameters" {
 variable "s3_bucket_blacklisted_actions_prohibited_parameters" {
   description = "Input parameters for the s3-bucket-blacklisted-actions-prohibited rule."
   type = object({
-    blacklistedActionPattern = string
+    blacklistedActionPattern = optional(string, null)
   })
   default = {}
 }
@@ -1465,7 +1465,7 @@ variable "s3_bucket_policy_grantee_check_parameters" {
 variable "s3_bucket_policy_not_more_permissive_parameters" {
   description = "Input parameters for the s3-bucket-policy-not-more-permissive rule."
   type = object({
-    controlPolicy = string
+    controlPolicy = optional(string, null)
   })
   default = {}
 }
@@ -1473,7 +1473,7 @@ variable "s3_bucket_policy_not_more_permissive_parameters" {
 variable "s3_bucket_replication_enabled_parameters" {
   description = "Input parameters for the s3-bucket-replication-enabled rule."
   type = object({
-    replicationType = optional(string, null)
+    ReplicationType = optional(string, null)
   })
   default = {}
 }
@@ -1563,7 +1563,7 @@ variable "sagemaker_endpoint_configuration_kms_key_configured_parameters" {
 variable "sagemaker_notebook_instance_inside_vpc_parameters" {
   description = "Input parameters for the sagemaker-notebook-instance-inside-vpc rule."
   type = object({
-    subnetIds = optional(string, null)
+    SubnetIds = optional(string, null)
   })
   default = {}
 }
@@ -1612,7 +1612,7 @@ variable "secretsmanager_using_cmk_parameters" {
 variable "service_vpc_endpoint_enabled_parameters" {
   description = "Input parameters for the service-vpc-endpoint-enabled rule."
   type = object({
-    serviceName = string
+    serviceName = optional(string, null)
   })
   default = {}
 }
@@ -1720,7 +1720,7 @@ variable "vpc_sg_open_only_to_authorized_ports_parameters" {
 variable "wafv2_logging_enabled_parameters" {
   description = "Input parameters for the wafv2-logging-enabled rule."
   type = object({
-    kinesisFirehoseDeliveryStreamArns = optional(string, null)
+    KinesisFirehoseDeliveryStreamArns = optional(string, null)
   })
   default = {}
 }
@@ -1728,7 +1728,7 @@ variable "wafv2_logging_enabled_parameters" {
 variable "waf_classic_logging_enabled_parameters" {
   description = "Input parameters for the waf-classic-logging-enabled rule."
   type = object({
-    kinesisFirehoseDeliveryStreamArns = optional(string, null)
+    KinesisFirehoseDeliveryStreamArns = optional(string, null)
   })
   default = {}
 }
