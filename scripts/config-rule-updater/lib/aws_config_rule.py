@@ -136,14 +136,13 @@ class AwsConfigRule:
     
     def replace_last_whitespace_char_with_ellipsis(self, input_str: str) -> str:
         """Replace the last whitespace character with '...'."""
-        # Find the last whitespace character.
         last_space = input_str.rfind(' ')
 
-        # Return the modified string if the whitespace char isn't the last char.
-        if last_space != -1:
-            return input_str[:last_space] + '...'
-        else:
-            return input_str
+        # Return an ellipsis if no whitespace character is found.
+        if last_space == -1:
+            return '...'
+
+        return input_str[:last_space] + '...'
 
     def tf_variable_type(self) -> str:
         """Return the type of the variable.
