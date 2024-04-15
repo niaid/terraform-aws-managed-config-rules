@@ -11,4 +11,4 @@ python-terraform==0.10.1
 PyYAML==6.0
 requests==2.30.0
 soupsieve==2.4.1
-urllib3==2.0.2
+urllib3==2.0.7
