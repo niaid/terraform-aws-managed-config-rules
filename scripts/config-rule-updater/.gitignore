@@ -5,3 +5,7 @@ venv
 
 # Temporary files
 *.json
+
+# Testing
+.coverage
+htmlcov

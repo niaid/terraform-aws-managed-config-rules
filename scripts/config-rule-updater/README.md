@@ -17,6 +17,27 @@ pip install -r requirements.txt
 python index.py
 ```
 
+## Testing
+
+```bash
+# From the root of the repository...
+cd scripts/config-rule-updater
+
+# Create a virtual environment and install packages.
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# Run tests.
+coverage run -m unittest discover
+
+# Generate a report.
+coverage report
+
+# Check coverage in an HTML page.
+coverage html
+```
+
 ## How it Works
 
 First, the script scrapes AWS documentation for a list of Rules and the documentation page for each rule is scraped for information describing the rule and its parameters. A Terraform variable is generated with a list of the rule's parameters and any default values, and the `managed_rules` local value is updated with the new rule.
