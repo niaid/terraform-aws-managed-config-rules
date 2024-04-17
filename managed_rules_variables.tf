@@ -28,6 +28,14 @@ variable "acm_certificate_expiration_check_parameters" {
 
 }
 
+variable "acm_pca_root_ca_disabled_parameters" {
+  description = "Input parameters for the acm-pca-root-ca-disabled rule."
+  type = object({
+    exemptedCAArns = optional(string, null)
+  })
+  default = {}
+}
+
 variable "alb_desync_mode_check_parameters" {
   description = "Input parameters for the alb-desync-mode-check rule."
   type = object({
@@ -114,6 +122,14 @@ variable "appsync_associated_with_waf_parameters" {
   default = {}
 }
 
+variable "appsync_authorization_check_parameters" {
+  description = "Input parameters for the appsync-authorization-check rule."
+  type = object({
+    AllowedAuthorizationTypes = optional(string, null)
+  })
+  default = {}
+}
+
 variable "appsync_logging_enabled_parameters" {
   description = "Input parameters for the appsync-logging-enabled rule."
   type = object({
@@ -135,6 +151,16 @@ variable "aurora_last_backup_recovery_point_created_parameters" {
     recoveryPointAgeValue = 1
   }
 
+}
+
+variable "aurora_meets_restore_time_target_parameters" {
+  description = "Input parameters for the aurora-meets-restore-time-target rule."
+  type = object({
+    maxRestoreTime = optional(number, null)
+    resourceId     = optional(string, null)
+    resourceTags   = optional(string, null)
+  })
+  default = {}
 }
 
 variable "aurora_mysql_backtracking_enabled_parameters" {
@@ -427,6 +453,22 @@ variable "desired_instance_type_parameters" {
   default = {}
 }
 
+variable "docdb_cluster_backup_retention_check_parameters" {
+  description = "Input parameters for the docdb-cluster-backup-retention-check rule."
+  type = object({
+    minimumBackupRetentionPeriod = optional(number, null)
+  })
+  default = {}
+}
+
+variable "docdb_cluster_encrypted_parameters" {
+  description = "Input parameters for the docdb-cluster-encrypted rule."
+  type = object({
+    kmsKeyArns = optional(string, null)
+  })
+  default = {}
+}
+
 variable "dynamodb_autoscaling_enabled_parameters" {
   description = "Input parameters for the dynamodb-autoscaling-enabled rule."
   type = object({
@@ -453,6 +495,16 @@ variable "dynamodb_last_backup_recovery_point_created_parameters" {
     recoveryPointAgeValue = 1
   }
 
+}
+
+variable "dynamodb_meets_restore_time_target_parameters" {
+  description = "Input parameters for the dynamodb-meets-restore-time-target rule."
+  type = object({
+    maxRestoreTime = optional(number, null)
+    resourceId     = optional(string, null)
+    resourceTags   = optional(string, null)
+  })
+  default = {}
 }
 
 variable "dynamodb_resources_protected_by_backup_plan_parameters" {
@@ -503,6 +555,16 @@ variable "ebs_last_backup_recovery_point_created_parameters" {
     recoveryPointAgeValue = 1
   }
 
+}
+
+variable "ebs_meets_restore_time_target_parameters" {
+  description = "Input parameters for the ebs-meets-restore-time-target rule."
+  type = object({
+    maxRestoreTime = optional(number, null)
+    resourceId     = optional(string, null)
+    resourceTags   = optional(string, null)
+  })
+  default = {}
 }
 
 variable "ebs_resources_protected_by_backup_plan_parameters" {
@@ -592,6 +654,16 @@ variable "ec2_managedinstance_platform_check_parameters" {
     platformName    = optional(string, null)
     platformType    = optional(string, null)
     platformVersion = optional(string, null)
+  })
+  default = {}
+}
+
+variable "ec2_meets_restore_time_target_parameters" {
+  description = "Input parameters for the ec2-meets-restore-time-target rule."
+  type = object({
+    maxRestoreTime = optional(number, null)
+    resourceId     = optional(string, null)
+    resourceTags   = optional(string, null)
   })
   default = {}
 }
@@ -702,6 +774,16 @@ variable "efs_last_backup_recovery_point_created_parameters" {
 
 }
 
+variable "efs_meets_restore_time_target_parameters" {
+  description = "Input parameters for the efs-meets-restore-time-target rule."
+  type = object({
+    maxRestoreTime = optional(number, null)
+    resourceId     = optional(string, null)
+    resourceTags   = optional(string, null)
+  })
+  default = {}
+}
+
 variable "efs_resources_protected_by_backup_plan_parameters" {
   description = "Input parameters for the efs-resources-protected-by-backup-plan rule."
   type = object({
@@ -716,10 +798,26 @@ variable "efs_resources_protected_by_backup_plan_parameters" {
   default = {}
 }
 
+variable "eks_cluster_log_enabled_parameters" {
+  description = "Input parameters for the eks-cluster-log-enabled rule."
+  type = object({
+    logTypes = optional(string, null)
+  })
+  default = {}
+}
+
 variable "eks_cluster_oldest_supported_version_parameters" {
   description = "Input parameters for the eks-cluster-oldest-supported-version rule."
   type = object({
     oldestVersionSupported = optional(string, null)
+  })
+  default = {}
+}
+
+variable "eks_cluster_secrets_encrypted_parameters" {
+  description = "Input parameters for the eks-cluster-secrets-encrypted rule."
+  type = object({
+    kmsKeyArns = optional(string, null)
   })
   default = {}
 }
@@ -911,6 +1009,16 @@ variable "fsx_last_backup_recovery_point_created_parameters" {
 
 }
 
+variable "fsx_meets_restore_time_target_parameters" {
+  description = "Input parameters for the fsx-meets-restore-time-target rule."
+  type = object({
+    maxRestoreTime = optional(number, null)
+    resourceId     = optional(string, null)
+    resourceTags   = optional(string, null)
+  })
+  default = {}
+}
+
 variable "fsx_resources_protected_by_backup_plan_parameters" {
   description = "Input parameters for the fsx-resources-protected-by-backup-plan rule."
   type = object({
@@ -1069,6 +1177,14 @@ variable "internet_gateway_authorized_vpc_only_parameters" {
   default = {}
 }
 
+variable "kinesis_firehose_delivery_stream_encrypted_parameters" {
+  description = "Input parameters for the kinesis-firehose-delivery-stream-encrypted rule."
+  type = object({
+    kmsKeyArns = optional(string, null)
+  })
+  default = {}
+}
+
 variable "kms_cmk_not_scheduled_for_deletion_parameters" {
   description = "Input parameters for the kms-cmk-not-scheduled-for-deletion rule."
   type = object({
@@ -1133,6 +1249,22 @@ variable "multi_region_cloud_trail_enabled_parameters" {
     readWriteType             = optional(string, null)
     s3BucketName              = optional(string, null)
     snsTopicArn               = optional(string, null)
+  })
+  default = {}
+}
+
+variable "neptune_cluster_backup_retention_check_parameters" {
+  description = "Input parameters for the neptune-cluster-backup-retention-check rule."
+  type = object({
+    minimumBackupRetentionPeriod = optional(number, null)
+  })
+  default = {}
+}
+
+variable "neptune_cluster_encrypted_parameters" {
+  description = "Input parameters for the neptune-cluster-encrypted rule."
+  type = object({
+    KmsKeyArns = optional(string, null)
   })
   default = {}
 }
@@ -1252,6 +1384,16 @@ variable "rds_logging_enabled_parameters" {
   description = "Input parameters for the rds-logging-enabled rule."
   type = object({
     additionalLogs = optional(string, null)
+  })
+  default = {}
+}
+
+variable "rds_meets_restore_time_target_parameters" {
+  description = "Input parameters for the rds-meets-restore-time-target rule."
+  type = object({
+    maxRestoreTime = optional(number, null)
+    resourceId     = optional(string, null)
+    resourceTags   = optional(string, null)
   })
   default = {}
 }
@@ -1378,6 +1520,7 @@ variable "restricted_incoming_traffic_parameters" {
     blockedPort3 = optional(number, 3389)
     blockedPort4 = optional(number, 3306)
     blockedPort5 = optional(number, 4333)
+    blockedPorts = optional(string, null)
   })
   default = {
     blockedPort1 = 20
@@ -1387,6 +1530,14 @@ variable "restricted_incoming_traffic_parameters" {
     blockedPort5 = 4333
   }
 
+}
+
+variable "s3_access_point_public_access_blocks_parameters" {
+  description = "Input parameters for the s3-access-point-public-access-blocks rule."
+  type = object({
+    excludedAccessPoints = optional(string, null)
+  })
+  default = {}
 }
 
 variable "s3_account_level_public_access_blocks_parameters" {
@@ -1526,6 +1677,16 @@ variable "s3_lifecycle_policy_check_parameters" {
     targetPrefix                 = optional(string, null)
     targetTransitionDays         = optional(number, null)
     targetTransitionStorageClass = optional(string, null)
+  })
+  default = {}
+}
+
+variable "s3_meets_restore_time_target_parameters" {
+  description = "Input parameters for the s3-meets-restore-time-target rule."
+  type = object({
+    maxRestoreTime = optional(number, null)
+    resourceId     = optional(string, null)
+    resourceTags   = optional(string, null)
   })
   default = {}
 }
