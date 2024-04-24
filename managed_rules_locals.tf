@@ -176,12 +176,6 @@ locals {
       severity             = "Low"
     }
 
-    autoscaling-launch-config-hop-limit = {
-      description          = "Checks the number of network hops that the metadata token can travel. This rule is NON_COMPLIANT if the Metadata response hop limit is greater than 1."
-      resource_types_scope = ["AWS::AutoScaling::LaunchConfiguration"]
-      severity             = "Low"
-    }
-
     autoscaling-launch-config-public-ip-disabled = {
       description          = "Checks if Amazon EC2 Auto Scaling groups have public IP addresses enabled through Launch Configurations. The rule is NON_COMPLIANT if the Launch Configuration for an Amazon EC2 Auto Scaling group has AssociatePublicIpAddress set to true ."
       resource_types_scope = ["AWS::AutoScaling::LaunchConfiguration"]
@@ -257,13 +251,6 @@ locals {
     cloudformation-stack-drift-detection-check = {
       description          = "Checks if the actual configuration of a Cloud Formation stack differs, or has drifted, from the expected configuration. A stack is considered to have drifted if one or more of its resources differ from their expected configuration. The rule and the..."
       input_parameters     = var.cloudformation_stack_drift_detection_check_parameters
-      resource_types_scope = ["AWS::CloudFormation::Stack"]
-      severity             = "Low"
-    }
-
-    cloudformation-stack-notification-check = {
-      description          = "Checks if your CloudFormation stacks send event notifications to an Amazon SNS topic. Optionally checks if specified Amazon SNS topics are used. The rule is NON_COMPLIANT if CloudFormation stacks do not send notifications."
-      input_parameters     = var.cloudformation_stack_notification_check_parameters
       resource_types_scope = ["AWS::CloudFormation::Stack"]
       severity             = "Low"
     }
@@ -420,13 +407,6 @@ locals {
 
     codebuild-project-artifact-encryption = {
       description          = "Checks if an AWS CodeBuild project has encryption enabled for all of its artifacts. The rule is NON_COMPLIANT if encryptionDisabled is set to true for any primary or secondary (if present) artifact configurations."
-      resource_types_scope = ["AWS::CodeBuild::Project"]
-      severity             = "Medium"
-    }
-
-    codebuild-project-environment-privileged-check = {
-      description          = "Checks if an AWS CodeBuild project environment has privileged mode enabled. The rule is NON_COMPLIANT for a CodeBuild project if privilegedMode is set to true ."
-      input_parameters     = var.codebuild_project_environment_privileged_check_parameters
       resource_types_scope = ["AWS::CodeBuild::Project"]
       severity             = "Medium"
     }
@@ -1924,12 +1904,6 @@ locals {
       input_parameters     = var.sns_encrypted_kms_parameters
       resource_types_scope = ["AWS::SNS::Topic"]
       severity             = "Medium"
-    }
-
-    sns-topic-message-delivery-notification-enabled = {
-      description          = "Checks if Amazon Simple Notification Service (SNS) logging is enabled for the delivery status of notification messages sent to a topic for the endpoints. The rule is NON_COMPLIANT if the delivery status notification for messages is not enabled."
-      resource_types_scope = ["AWS::SNS::Topic"]
-      severity             = "Low"
     }
 
     ssm-document-not-public = {

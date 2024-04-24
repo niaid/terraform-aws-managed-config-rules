@@ -2073,7 +2073,6 @@ packs:
   - cloud-trail-encryption-enabled
   - cloudtrail-s3-dataevents-enabled
   - codebuild-project-artifact-encryption
-  - codebuild-project-environment-privileged-check
   - codebuild-project-envvar-awscred-check
   - codebuild-project-logging-enabled
   - codebuild-project-source-repo-url-check

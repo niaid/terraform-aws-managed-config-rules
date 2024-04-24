@@ -225,18 +225,6 @@ variable "cloudformation_stack_drift_detection_check_parameters" {
   default = {}
 }
 
-variable "cloudformation_stack_notification_check_parameters" {
-  description = "Input parameters for the cloudformation-stack-notification-check rule."
-  type = object({
-    snsTopic1 = optional(string, null)
-    snsTopic2 = optional(string, null)
-    snsTopic3 = optional(string, null)
-    snsTopic4 = optional(string, null)
-    snsTopic5 = optional(string, null)
-  })
-  default = {}
-}
-
 variable "cloudfront_accesslogs_enabled_parameters" {
   description = "Input parameters for the cloudfront-accesslogs-enabled rule."
   type = object({
@@ -328,14 +316,6 @@ variable "cloud_trail_enabled_parameters" {
     cloudWatchLogsLogGroupArn = optional(string, null)
     s3BucketName              = optional(string, null)
     snsTopicArn               = optional(string, null)
-  })
-  default = {}
-}
-
-variable "codebuild_project_environment_privileged_check_parameters" {
-  description = "Input parameters for the codebuild-project-environment-privileged-check rule."
-  type = object({
-    exemptedProjects = optional(string, null)
   })
   default = {}
 }
