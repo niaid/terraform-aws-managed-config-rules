@@ -3,6 +3,10 @@ name: Update Config Rules
 on:
   schedule:
     - cron: '0 0 1,15 * *'
+  pull_request:
+    types:
+      - opened
+      - synchronize
 
 permissions:
   contents: write
