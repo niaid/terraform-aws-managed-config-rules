@@ -31,15 +31,13 @@ jobs:
         uses: tj-actions/changed-files@v44
         with:
           files: |
-            managed_rules_locals.tf
-            managed_rules_variables.tf
+            **/managed_rules_*.tf
       - name: Create Pull Request
         if: steps.get-changes.outputs.any_changed == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
           add-paths: |
-            managed_rules_locals.tf
-            managed_rules_variables.tf
+            **/managed_rules_*.tf
           commit-message: Automatic updates to AWS managed Config Rules
           delete-branch: true
           title: '[Auto] Update AWS Config Rules'
