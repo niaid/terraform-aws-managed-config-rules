@@ -9,7 +9,7 @@ on:
       - synchronize
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   update-rules:
@@ -20,11 +20,33 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - name: Install packages
+      - name: Update rules
+        id: update-rules
         run: |
           cd scripts/config-rule-updater
           pip install -r requirements.txt
           python index.py
+      - name: Get changed files
+        id: get-changes
+        uses: tj-actions/changed-files@v44
+        with:
+          files: |
+            managed_rules_locals.tf
+            managed_rules_variables.tf
+      - name: Create Pull Request
+        if: steps.get-changes.outputs.any_changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          add-paths: |
+            managed_rules_locals.tf
+            managed_rules_variables.tf
+          commit-message: Automatic updates to AWS managed Config Rules
+          delete-branch: true
+          title: '[Auto] Update AWS Config Rules'
+          assignees: bensonce
+          reviewers: |
+            bensonce
+            duraikkannuv2
 
   # get-changes:
   #   name: Get Changed Files
