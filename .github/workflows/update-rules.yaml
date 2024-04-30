@@ -35,6 +35,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
+          base: main
           commit-message: Automatic updates to AWS managed Config Rules
           delete-branch: true
           title: '[Auto] Update AWS Config Rules'
