@@ -8,9 +8,6 @@ on:
       - opened
       - synchronize
 
-# permissions:
-#   contents: write
-
 jobs:
   update-rules:
     name: Update Rules
@@ -33,5 +30,7 @@ jobs:
           commit-message: Automatic updates to AWS managed Config Rules
           delete-branch: true
           title: '[Auto] Update AWS Config Rules'
+          body: |
+            Update the list of AWS managed Config Rules using the [latest documentation](https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html).
           assignees: bensonce
           reviewers: bensonce,duraikkannuv2
