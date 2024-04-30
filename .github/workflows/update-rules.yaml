@@ -8,8 +8,8 @@ on:
       - opened
       - synchronize
 
-permissions:
-  contents: write
+# permissions:
+#   contents: write
 
 jobs:
   update-rules:
