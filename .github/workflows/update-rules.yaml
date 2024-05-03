@@ -15,7 +15,7 @@ jobs:
       - name: Update rules
         id: update-rules
         run: |
-          cd scripts/config-rule-updater
+          cd scripts
           pip install -r requirements.txt
           python index.py
       - name: Create Pull Request

@@ -13,7 +13,7 @@ jobs:
       - name: Update packs
         id: update-packs
         run: |
-          cd scripts/config-rule-updater
+          cd scripts
           pip install -r requirements.txt
           cd lib
           python rule_pack_info_generator.py
