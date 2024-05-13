@@ -1,4 +1,3 @@
-import concurrent.futures
 import json
 
 from pathlib import Path
@@ -140,20 +139,6 @@ class AwsDocsReader:
             return [x.strip() for x in resources_element.next_sibling.split(',')]
         return default
     
-    def parse_rule_docs(self, rule_name):
-        print(f"Parsing {rule_name}")
-        rule_soup = self.get_page_soup(
-            content=self.get_page_content(url=self._root_url + rule_name))
-        main_column = self.get_main_column_content(soup=rule_soup)
-        rule = {'name': rule_name}
-        rule['identifier'] = self.get_rule_identifier(soup=main_column)
-        rule['variable_name'] = self.format_variable_name(name=rule['identifier'])
-        rule['description'] = self.get_rule_description(soup=main_column)
-        rule['parameters'] = self.get_rule_parameters(soup=main_column)
-        rule['resource_types'] = self.get_resource_types(soup=main_column)
-
-        return rule
-    
     def parse_docs(self) -> list:
         """Parse AWS documentation and extract a complete list of AWS-managed
         Config Rules.
@@ -163,41 +148,24 @@ class AwsDocsReader:
         soup = self.get_page_soup(self.get_page_content(url=self._managed_rules_page))
         aws_managed_rules = self.get_config_rules_list(soup=soup)
 
-        results = []
-        with concurrent.futures.ProcessPoolExecutor() as executor:
-            # Submit all tasks to the executor
-            results = list(executor.map(self.parse_rule_docs, aws_managed_rules))
-            # future_to_x = {executor.submit(self.parse_rule_docs, x): x for x in aws_managed_rules}
-
-            # As tasks complete, results are added to the results list
-            # for future in concurrent.futures.as_completed(future_to_x):
-            #     try:
-            #         result = future.result()
-            #         results.append(result)
-            #     except Exception as e:
-            #         print(e)
-        
-        return results
-
-        # result = []
-        # try:
-        #     for i, rule_name in enumerate(aws_managed_rules):
-        #         print(f"({i}/{rules_num} - Parsing {rule_name}")
-        #         rule_soup = self.get_page_soup(
-        #             content=self.get_page_content(url=self._root_url + rule_name))
-        #         main_column = self.get_main_column_content(soup=rule_soup)
-        #         rule = {'name': rule_name}
-        #         rule['identifier'] = self.get_rule_identifier(soup=main_column)
-        #         rule['variable_name'] = self.format_variable_name(name=rule['identifier'])
-        #         rule['description'] = self.get_rule_description(soup=main_column)
-        #         rule['parameters'] = self.get_rule_parameters(soup=main_column)
-        #         rule['resource_types'] = self.get_resource_types(soup=main_column)
-                
-        #         result.append(rule)
-        # except Exception as e:
-        #     print(e)
-        # finally:
-        #     return result
+        result = []
+        try:
+            for rule_name in aws_managed_rules:
+                print(f"Parsing {rule_name}")
+                rule_soup = self.get_page_soup(
+                    content=self.get_page_content(url=self._root_url + rule_name))
+                main_column = self.get_main_column_content(soup=rule_soup)
+                rule = {'name': rule_name}
+                rule['identifier'] = self.get_rule_identifier(soup=main_column)
+                rule['variable_name'] = self.format_variable_name(name=rule['identifier'])
+                rule['description'] = self.get_rule_description(soup=main_column)
+                rule['parameters'] = self.get_rule_parameters(soup=main_column)
+                rule['resource_types'] = self.get_resource_types(soup=main_column)
+                result.append(rule)
+        except Exception as e:
+            print(e)
+        finally:
+            return result
 
 
 def generate_config_rule_data(root_url: str, managed_rules_page: str) -> None:
