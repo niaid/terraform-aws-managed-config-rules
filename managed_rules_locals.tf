@@ -9,14 +9,14 @@ locals {
 
     account-part-of-organizations = {
       description      = "Checks if an AWS account is part of AWS Organizations. The rule is NON_COMPLIANT if an AWS account is not part of AWS Organizations or AWS Organizations master account ID does not match rule parameter MasterAccountId ."
-input_parameters = var.account_part_of_organizations_parameters
+      input_parameters = var.account_part_of_organizations_parameters
       severity         = "Low"
     }
 
     acm-certificate-expiration-check = {
       description          = "Checks if AWS Certificate Manager Certificates in your account are marked for expiration within the specified number of days. Certificates provided by ACM are automatically renewed. ACM does not automatically renew certificates that you import. The rule..."
       input_parameters     = var.acm_certificate_expiration_check_parameters
-                  resource_types_scope = ["AWS::ACM::Certificate"]
+      resource_types_scope = ["AWS::ACM::Certificate"]
       severity             = "Medium"
     }
 
