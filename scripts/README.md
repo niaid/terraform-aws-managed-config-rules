@@ -93,3 +93,10 @@ locals {
 ```
 
 If a rule has no parameters then a `{rule_name}_parameters` variable is not generated and the `input_parameters` attribute is omitted in the `locals` block.
+
+# Rule Pack Info Generator
+
+This script parses the Conformance Packs maintained in the [awslabs/aws-config-rules](https://github.com/awslabs/aws-config-rules) repository to generate two files:
+
+  - A YAML file containing all of the Config Rules associated with each pack
+  - A text file containing only a newline separated list of all the packs

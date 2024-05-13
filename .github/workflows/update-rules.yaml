@@ -1,0 +1,33 @@
+name: Update Config Rules
+
+on:
+  schedule:
+    - cron: '0 0 1,15 * *'
+  workflow_dispatch:
+
+jobs:
+  update-rules:
+    name: Update Rules
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Update rules
+        id: update-rules
+        run: |
+          cd scripts
+          pip install -r requirements.txt
+          python index.py
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
+          branch: auto-update-aws-config-rules
+          commit-message: Automatic updates to AWS managed Config Rules
+          delete-branch: true
+          title: '[Auto] Update AWS Config Rules'
+          body: |
+            Update the list of AWS managed Config Rules using the [latest documentation](https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html).
+          assignees: bensonce
+          reviewers: bensonce,duraikkannuv2
