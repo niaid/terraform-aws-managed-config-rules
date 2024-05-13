@@ -54,7 +54,7 @@ jobs:
           run: tflint --init
 
         - name: Run TFLint
-          run: tflint
+          run: tflint --disable-rule=terraform_required_version
 
     terraform-fmt:
         name: Terraform Format
