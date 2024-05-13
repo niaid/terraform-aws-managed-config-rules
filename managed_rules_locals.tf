@@ -2279,7 +2279,7 @@ locals {
       description          = "Checks if versioning is enabled for your S3 buckets. Optionally, the rule checks if MFA delete is enabled for your S3 buckets."
       input_parameters     = var.s3_bucket_versioning_enabled_parameters
       resource_types_scope = ["AWS::S3::Bucket"]
-      severity             = "Medium"
+      severity             = "Low
     }
 
     s3-default-encryption-kms = {
@@ -2307,7 +2307,7 @@ locals {
       description          = "Checks if a lifecycle rule is configured for an Amazon Simple Storage Service (Amazon S3) bucket. The rule is NON_COMPLIANT if there is no active lifecycle configuration rules or the configuration does not match with the parameter values."
       input_parameters     = var.s3_lifecycle_policy_check_parameters
       resource_types_scope = ["AWS::S3::Bucket"]
-      severity             = "Medium"
+      severity             = "Low"
     }
 
     s3-meets-restore-time-target = {
