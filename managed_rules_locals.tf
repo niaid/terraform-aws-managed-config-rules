@@ -2279,7 +2279,7 @@ locals {
       description          = "Checks if versioning is enabled for your S3 buckets. Optionally, the rule checks if MFA delete is enabled for your S3 buckets."
       input_parameters     = var.s3_bucket_versioning_enabled_parameters
       resource_types_scope = ["AWS::S3::Bucket"]
-      severity             = "Low
+      severity             = "Low"
     }
 
     s3-default-encryption-kms = {
