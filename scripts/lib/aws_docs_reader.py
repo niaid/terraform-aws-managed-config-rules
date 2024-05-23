@@ -1,11 +1,13 @@
 import json
+import logging
+import re
 
 from pathlib import Path
-from typing import List
+from typing import List, Optional, Union
 
 import requests
 
-from bs4 import BeautifulSoup, PageElement
+from bs4 import BeautifulSoup, PageElement, ResultSet
 
 class AwsDocsReader:
     """Parses AWS documentation for a complete list of AWS Config Rules.
@@ -120,7 +122,7 @@ class AwsDocsReader:
                         current_parameter['optional'] = False
                     continue
                 # Set the parameter's description. If we've made it this far in the
-                # list then the next element is either the start ofanother parameter
+                # list then the next element is either the start of another parameter
                 # or it's the last parameter in the list, so we reset the
                 # current_parameter value.
                 elif child.name == 'dd':
@@ -151,7 +153,7 @@ class AwsDocsReader:
         result = []
         try:
             for rule_name in aws_managed_rules:
-                print(f"Parsing {rule_name}")
+                logging.info(f"Parsing {rule_name}")
                 rule_soup = self.get_page_soup(
                     content=self.get_page_content(url=self._root_url + rule_name))
                 main_column = self.get_main_column_content(soup=rule_soup)
@@ -163,19 +165,152 @@ class AwsDocsReader:
                 rule['resource_types'] = self.get_resource_types(soup=main_column)
                 result.append(rule)
         except Exception as e:
-            print(e)
+            logging.error(e)
         finally:
             return result
 
 
+class SecurityHubControl:
+    def __init__(self, soup: ResultSet) -> None:
+        self.soup: ResultSet = soup
+        self.name: str = soup.string
+        self.severity: Optional[str] = None
+        self.rule: Optional[str] = None
+        '''The page element with the control's corresponding AWS Config Rule has
+        inconsistent formatting so we need to handle several cases such as:
+        
+        - "AWS Config Rule: "
+        - "AWS Config rule:"
+        - "AWS configrule"
+
+        We're running `re.compile` here for efficiency.
+        '''
+        self.aws_config_rule_pattern: re.Pattern = re.compile(r'[Aa][Ww][Ss]\s?[Cc]onfig\s?[Rr]ule:\s?')
+        self._no_rule_configured: str = 'NO_CONFIG_RULE_CONFIGURED'
+
+        self.parse(soup=self.soup)
+
+    @property
+    def no_rule_configured(self) -> bool:
+        return self.rule == self._no_rule_configured
+
+    def parse(self, soup: ResultSet) -> None:
+        for sibling in soup.next_siblings:
+            if self.severity and self.rule:
+                break
+            self.parse_sibling(sibling=sibling)
+    
+    def parse_sibling(self, sibling):
+        if not sibling.name == 'p':
+            return
+
+        for child in sibling.children:
+            # Check for severity.
+            if (severity := self.find_severity(tag=child)):
+                self.severity = severity
+                break
+            # Check for rule.
+            if (rule := self.find_rule(child, pattern=self.aws_config_rule_pattern)):
+                self.rule = rule
+                break
+
+    def find_severity(self, tag) -> Optional[str]:
+        if tag.name == 'b' and tag.string == 'Severity:':
+            return tag.next_sibling.strip()
+        return None
+    
+    def find_rule(self, tag, pattern) -> Optional[str]:
+        if tag.name == 'b' and re.match(pattern, tag.string):
+            for child in tag.next_siblings:
+                if child.name == 'a':
+                    return child.string
+                if child.name == 'code':
+                    return child.string
+        if tag.string is not None:
+            if tag.string.strip().startswith('None'):
+                return self._no_rule_configured
+            if re.match(pattern, tag.string):
+                for child in tag.next_siblings:
+                    if child.name == 'a':
+                        return child.string
+                    if child.name == 'code':
+                        return child.string
+        return None
+    
+    def get_aws_config_rule_name(self, tag) -> str:
+        if tag.name == 'a':
+            return tag.string
+        if tag.name == 'code':
+            return tag.string
+        raise ValueError(f"Could not find AWS Config Rule name in {tag}")
+    
+    def to_dict(self) -> dict:
+        return {
+            'severity': self.severity,
+            'rule': self.rule,
+            'control': self.name}
+
+
 def generate_config_rule_data(root_url: str, managed_rules_page: str) -> None:
-    print("Scraping AWS documentation for AWS-managed Config Rules.")
+    logging.info("Scraping AWS documentation for AWS-managed Config Rules.")
     output_file = 'config_rule_data.json'
     reader = AwsDocsReader(
         root_url=root_url,
         managed_rules_page=managed_rules_page)
     result = reader.parse_docs()
 
-    print(f"Writing result to {output_file}.")
+    logging.info(f"Writing result to {output_file}.")
     with Path(output_file).open('w') as f:
         f.write(json.dumps(result, indent=2))
+
+def generate_security_hub_controls_data(
+        root_url: str,
+        controls_ref_page: str,
+        output_file: Union[Path, str]) -> None:
+    controls = parse_security_hub_docs(
+        controls_userguide_root=root_url, controls_ref_page=controls_ref_page)
+    with Path(output_file).open('w') as f:
+        f.write(json.dumps(controls, indent=2))
+
+def parse_security_hub_docs(controls_userguide_root: str, controls_ref_page: str):
+    control_references_url = f"{controls_userguide_root}/{controls_ref_page}"
+    soup = get_page_soup(get_page_content(url=control_references_url))
+    all_controls = get_security_hub_controls(soup=soup)
+    result = []
+
+    for pages in all_controls:
+        page = pages[1].strip('.')
+        page_soup = get_page_soup(
+            content=get_page_content(url=f"{controls_userguide_root}{page}"))
+        page_controls_soup = page_soup.find_all('h2')
+        logging.info(f"Working on controls: {page}")
+        counter = 1
+        controls_length = len(page_controls_soup)
+        for control in page_controls_soup:
+            logging.info(f"Parsing ({counter}/{controls_length})")
+            security_hub_control = SecurityHubControl(soup=control)
+            if security_hub_control.no_rule_configured:
+                logging.error(f"Control {control.string} has no AWS Config Rule configured. Skipping")
+                counter += 1
+                continue
+            if not security_hub_control.severity or not security_hub_control.rule:
+                logging.error(f"Failed to parse control {control.string}")
+                counter += 1
+                continue
+            result.append(security_hub_control.to_dict())
+            counter += 1
+    return result
+
+def get_page_soup(content: str) -> BeautifulSoup:
+    """Parse the content of an HTML page and return beautiful soup."""
+    return BeautifulSoup(content, 'html.parser')
+
+def get_page_content(url: str) -> str:
+    """Return the content of an HTML page."""
+    return requests.get(url=url).content
+
+def get_security_hub_controls(soup: BeautifulSoup) -> List[str]:
+    """Return a list of all AWS Security Hub controls."""
+    topics_header = soup.find('h6', string='Topics').next_sibling
+    topics = topics_header.find_all_next('li')
+    return [(x.string, x.find_next('a').attrs['href']) for x in topics]
