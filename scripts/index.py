@@ -8,9 +8,10 @@ from lib.hcl_reader import read_hcl_file
 
 ROOT_PAGE = 'https://docs.aws.amazon.com/config/latest/developerguide/'
 AWS_MANAGED_RULES_PAGE = ROOT_PAGE + 'managed-rules-by-aws-config.html'
-SOURCE_FILE_NAME = Path('config_rule_data.json')
-LOCALS_FILE_PATH = Path('..', '..', 'managed_rules_locals.tf')
-VARIABLES_FILE_PATH = Path('..', '..', 'managed_rules_variables.tf')
+CURRENT_DIR = Path(__file__).resolve().parent
+SOURCE_FILE_NAME = Path(CURRENT_DIR, 'config_rule_data.json')
+LOCALS_FILE_PATH = Path(CURRENT_DIR, '..', 'managed_rules_locals.tf').resolve()
+VARIABLES_FILE_PATH = Path(CURRENT_DIR, '..', 'managed_rules_variables.tf').resolve()
 
 if __name__ == '__main__':
     # Scrape AWS documentation for the latest Config Rules.
