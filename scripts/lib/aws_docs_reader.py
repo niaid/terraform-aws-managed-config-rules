@@ -290,7 +290,7 @@ def parse_security_hub_docs(controls_userguide_root: str, controls_ref_page: str
             logging.info(f"Parsing ({counter}/{controls_length})")
             security_hub_control = SecurityHubControl(soup=control)
             if security_hub_control.no_rule_configured:
-                logging.error(f"Control {control.string} has no AWS Config Rule configured. Skipping")
+                logging.warning(f"Control {control.string} has no AWS Config Rule configured. Skipping")
                 counter += 1
                 continue
             if not security_hub_control.severity or not security_hub_control.rule:

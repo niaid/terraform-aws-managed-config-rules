@@ -60,11 +60,13 @@ jobs:
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
-        if: ${{ steps.changed-files.outputs.any_changed == 'true' }}
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           base: main
           branch: auto-update-aws-config-rules
+          add-paths: |
+            managed_rules_locals.tf
+            managed_rules_variables.tf
           commit-message: Automatic updates to AWS managed Config Rules
           delete-branch: true
           title: '[Auto] Update AWS Config Rules'

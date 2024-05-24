@@ -53,7 +53,7 @@ if __name__ == '__main__':
         rule = AwsConfigRule(data=rule_data)
         for control in controls:
             if rule.name == control['rule']:
-                logging.info(f"Updating rule '{rule.name}' severity to Security Hub recommended level '{control['severity']}'")
+                logging.info(f"Updating {rule.name} severity -> {control['severity']}")
                 rule.set_severity_level(control['severity'])
                 break
         rules.append(rule)
