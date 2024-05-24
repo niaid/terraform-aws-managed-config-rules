@@ -55,7 +55,14 @@ class AwsDocsReader:
     
     def get_rule_description(self, soup: BeautifulSoup) -> str:
         """Parse the content column and return the rule's description."""
-        description_tag = soup.find_next('p')
+
+        '''Some of the rules have warnings or notes about the rule name not
+        matching its identifier. We need to skip over these elements and find
+        the first <p> tag with the rule description.'''
+        for child in soup.contents:
+            if child.name == 'p':
+                description_tag = child
+                break
         rule_description = description_tag.string
         if rule_description is None:
             return self.clean_string_with_tags(
@@ -85,8 +92,15 @@ class AwsDocsReader:
     
     def get_rule_identifier(self, soup: BeautifulSoup) -> List[str]:
         """Return the AWS rule identifier."""
-        resources_element = soup.find('b', string='Identifier:')
-        return resources_element.next_sibling.strip()
+        '''Some of the rules have identifiers that don't match their rule name.
+        We need to use the rule name, not the actual identifier, for this
+        automation. Warn the user that the two don't match before returning.'''
+        identifier_element = soup.find('b', string='Identifier:').next_sibling.strip()
+        topic_title_element = soup.find('h1', class_='topictitle').attrs['id'].lower()
+        if identifier_element.lower().replace('_', '-') != topic_title_element:
+            logging.warning(f"Rule name '{topic_title_element}' does not match its identifier '{identifier_element}'.")
+            logging.warning(f"Using rule name '{topic_title_element}' as the identifier.")
+        return topic_title_element
     
     def get_rule_parameters(self, soup: BeautifulSoup) -> List[dict]:
         """Parse the rule's parameter list. Returns an empty list if there are no parameters."""
