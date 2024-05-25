@@ -199,7 +199,7 @@ class SecurityHubControl:
 
         We're running `re.compile` here for efficiency.
         '''
-        self.aws_config_rule_pattern: re.Pattern = re.compile(r'[Aa][Ww][Ss]\s?[Cc]onfig\s?[Rr]ule:\s?')
+        self.aws_config_rule_pattern: re.Pattern = re.compile(r'[Aa][Ww][Ss]\s?[Cc]onfig\s?[Rr]ule')
         self._no_rule_configured: str = 'NO_CONFIG_RULE_CONFIGURED'
 
         self.parse(soup=self.soup)
@@ -211,7 +211,7 @@ class SecurityHubControl:
     def parse(self, soup: ResultSet) -> None:
         for sibling in soup.next_siblings:
             if self.severity and self.rule:
-                break
+                return
             self.parse_sibling(sibling=sibling)
     
     def parse_sibling(self, sibling):
@@ -220,25 +220,27 @@ class SecurityHubControl:
 
         for child in sibling.children:
             # Check for severity.
-            if (severity := self.find_severity(tag=child)):
+            severity = self.find_severity(tag=child)
+            if severity is not None and self.severity is None:
                 self.severity = severity
-                break
+                continue
             # Check for rule.
-            if (rule := self.find_rule(child, pattern=self.aws_config_rule_pattern)):
+            rule = self.find_rule(child, pattern=self.aws_config_rule_pattern)
+            if rule is not None and self.rule is None:
                 self.rule = rule
-                break
+                continue
 
     def find_severity(self, tag) -> Optional[str]:
-        if tag.name == 'b' and tag.string == 'Severity:':
+        if tag.name == 'b' and "Severity" in tag.string:
             return tag.next_sibling.strip()
         return None
     
     def find_rule(self, tag, pattern) -> Optional[str]:
         if tag.name == 'b' and re.match(pattern, tag.string):
             for child in tag.next_siblings:
-                if child.name == 'a':
+                if child.name == 'a' and child.string is not None:
                     return child.string
-                if child.name == 'code':
+                if child.name == 'code' and child.string is not None:
                     return child.string
         if tag.string is not None:
             if tag.string.strip().startswith('None'):
