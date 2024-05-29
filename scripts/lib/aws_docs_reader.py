@@ -267,9 +267,8 @@ class SecurityHubControl:
             'control': self.name}
 
 
-def generate_config_rule_data(root_url: str, managed_rules_page: str) -> None:
+def generate_config_rule_data(root_url: str, managed_rules_page: str, output_file: Union[Path, str]) -> None:
     logging.info("Scraping AWS documentation for AWS-managed Config Rules.")
-    output_file = 'config_rule_data.json'
     reader = AwsDocsReader(
         root_url=root_url,
         managed_rules_page=managed_rules_page)
