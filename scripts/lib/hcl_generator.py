@@ -41,10 +41,16 @@ def generate_locals(rules: List[AwsConfigRule], output_file: Path) -> None:
 
     format_hcl()
 
-def load_source_file(file_name: str) -> dict:
+def load_source_file(file_name: Union[Path, str]) -> dict:
     """Return a map of rule definitions."""
+    # Load using JSON or YAML based on the file extension.
     with Path(file_name).open() as f:
-        data = json.loads(f.read())
+        if file_name.suffix in ('.yml', '.yaml',):
+            data = yaml.safe_load(f)
+        elif file_name.suffix == '.json':
+            data = json.loads(f.read())
+        else:
+            raise ValueError(f"Unsupported file extension: {file_name.suffix}")
     return data
 
 def format_hcl() -> None:
