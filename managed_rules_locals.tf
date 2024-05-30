@@ -287,7 +287,7 @@ locals {
       description          = "Checks if the actual configuration of a AWS CloudFormation (AWS CloudFormation) stack differs, or has drifted, from the expected configuration. A stack is considered to have drifted if one or more of its resources differ from their expected..."
       input_parameters     = var.cloudformation_stack_drift_detection_check_parameters
       resource_types_scope = ["AWS::CloudFormation::Stack"]
-      severity             = "Medium"
+      severity             = "Low"
     }
 
     cloudformation-stack-notification-check = {
@@ -398,7 +398,7 @@ locals {
     cloudtrail-s3-bucket-public-access-prohibited = {
       description          = "Checks if the S3 bucket configurations for your AWS CloudTrail logs block public access. The rule is NON_COMPLIANT if at least one S3 bucket for a CloudTrail trail is publicly accessible."
       resource_types_scope = ["AWS::CloudTrail::Trail"]
-      severity             = "Medium"
+      severity             = "High"
     }
 
     cloudtrail-s3-dataevents-enabled = {
@@ -539,14 +539,14 @@ locals {
       description          = "Checks if the first deployment stage of AWS CodePipeline performs more than one deployment. Optionally checks if each of the subsequent remaining stages deploy to more than the specified number of deployments ( deploymentLimit )."
       input_parameters     = var.codepipeline_deployment_count_check_parameters
       resource_types_scope = ["AWS::CodePipeline::Pipeline"]
-      severity             = "Medium"
+      severity             = "Low"
     }
 
     codepipeline-region-fanout-check = {
       description          = "Checks if each stage in the AWS CodePipeline deploys to more than N times the number of the regions the AWS CodePipeline has deployed in all the previous combined stages, where N is the region fanout number. The first deployment stage can deploy to a..."
       input_parameters     = var.codepipeline_region_fanout_check_parameters
       resource_types_scope = ["AWS::CodePipeline::Pipeline"]
-      severity             = "Medium"
+      severity             = "Low"
     }
 
     custom-eventbus-policy-attached = {
@@ -591,14 +591,14 @@ locals {
       description          = "Checks EC2 instances for a tenancy value. Also checks if AMI IDs are specified to be launched from those AMIs or if Host IDs are launched on those Dedicated Hosts. The rule is COMPLIANT if the instance matches a host and an AMI, if specified, in a list."
       input_parameters     = var.desired_instance_tenancy_parameters
       resource_types_scope = ["AWS::EC2::Instance"]
-      severity             = "Medium"
+      severity             = "Low"
     }
 
     desired-instance-type = {
       description          = "Checks if your EC2 instances are of a specific instance type. The rule is NON_COMPLIANT if an EC2 instance is not specified in the parameter list. For a list of supported EC2 instance types, see Instance types in the EC2 User Guide for Linux Instances."
       input_parameters     = var.desired_instance_type_parameters
       resource_types_scope = ["AWS::EC2::Instance"]
-      severity             = "Medium"
+      severity             = "Low"
     }
 
     dms-auto-minor-version-upgrade-check = {
@@ -769,7 +769,7 @@ locals {
     ebs-optimized-instance = {
       description          = "Checks if Amazon EBS optimization is enabled for your Amazon Elastic Compute Cloud (Amazon EC2) instances that can be Amazon EBS-optimized. The rule is NON_COMPLIANT if EBS optimization is not enabled for an Amazon EC2 instance that can be EBS-optimized."
       resource_types_scope = ["AWS::EC2::Instance"]
-      severity             = "Medium"
+      severity             = "Low"
     }
 
     ebs-resources-protected-by-backup-plan = {
@@ -810,7 +810,7 @@ locals {
     ec2-instance-detailed-monitoring-enabled = {
       description          = "Checks if detailed monitoring is enabled for EC2 instances. The rule is NON_COMPLIANT if detailed monitoring is not enabled."
       resource_types_scope = ["AWS::EC2::Instance"]
-      severity             = "Medium"
+      severity             = "Low"
     }
 
     ec2-instance-managed-by-systems-manager = {
@@ -836,7 +836,7 @@ locals {
       description          = "Checks if an EC2 instance has an AWS Identity and Access Management (IAM) profile attached to it. The rule is NON_COMPLIANT if no IAM profile is attached to the EC2 instance."
       input_parameters     = var.ec2_instance_profile_attached_parameters
       resource_types_scope = ["AWS::EC2::Instance"]
-      severity             = "Medium"
+      severity             = "Low"
     }
 
     ec2-last-backup-recovery-point-created = {
@@ -903,7 +903,7 @@ locals {
     ec2-no-amazon-key-pair = {
       description          = "Checks if running Amazon Elastic Compute Cloud (EC2) instances are launched using amazon key pairs. The rule is NON_COMPLIANT if a running EC2 instance is launched with a key pair."
       resource_types_scope = ["AWS::EC2::Instance"]
-      severity             = "Medium"
+      severity             = "Low"
     }
 
     ec2-paravirtual-instance-check = {
@@ -942,7 +942,7 @@ locals {
       description          = "Checks if an Amazon Elastic Compute Cloud (EC2) instance metadata has a specified token hop limit that is below the desired limit. The rule is NON_COMPLIANT for an instance if it has a hop limit value above the intended limit."
       input_parameters     = var.ec2_token_hop_limit_check_parameters
       resource_types_scope = ["AWS::EC2::Instance"]
-      severity             = "Medium"
+      severity             = "Low"
     }
 
     ec2-transit-gateway-auto-vpc-attach-disabled = {
@@ -955,7 +955,7 @@ locals {
       description          = "Checks if EBS volumes are attached to EC2 instances. Optionally checks if EBS volumes are marked for deletion when an instance is terminated."
       input_parameters     = var.ec2_volume_inuse_check_parameters
       resource_types_scope = ["AWS::EC2::Volume"]
-      severity             = "Medium"
+      severity             = "Low"
     }
 
     ecr-private-image-scanning-enabled = {
@@ -1409,7 +1409,7 @@ locals {
     guardduty-eks-protection-runtime-enabled = {
       description          = "Checks if Amazon EKS Runtime Monitoring with automated agent management is enabled for GuardDuty detector in your account. The rule is NON_COMPLIANT if EKS Runtime Monitoring with automated agent management in GuardDuty is not enabled for your account."
       resource_types_scope = ["AWS::GuardDuty::Detector"]
-      severity             = "Medium"
+      severity             = "Low"
     }
 
     guardduty-enabled-centralized = {
@@ -1599,7 +1599,7 @@ locals {
       description          = "Checks if internet gateways are attached to an authorized virtual private cloud (Amazon VPC). The rule is NON_COMPLIANT if internet gateways are attached to an unauthorized VPC."
       input_parameters     = var.internet_gateway_authorized_vpc_only_parameters
       resource_types_scope = ["AWS::EC2::InternetGateway"]
-      severity             = "Medium"
+      severity             = "High"
     }
 
     kinesis-firehose-delivery-stream-encrypted = {
@@ -1633,7 +1633,7 @@ locals {
       description          = "Checks if a Lambda function is configured with a dead-letter queue. The rule is NON_COMPLIANT if the Lambda function is not configured with a dead-letter queue."
       input_parameters     = var.lambda_dlq_check_parameters
       resource_types_scope = ["AWS::Lambda::Function"]
-      severity             = "Medium"
+      severity             = "Low"
     }
 
     lambda-function-public-access-prohibited = {
@@ -2278,7 +2278,7 @@ locals {
       description          = "Checks if S3 buckets have replication rules enabled. The rule is NON_COMPLIANT if an S3 bucket does not have a replication rule or has a replication rule that is not enabled."
       input_parameters     = var.s3_bucket_replication_enabled_parameters
       resource_types_scope = ["AWS::S3::Bucket"]
-      severity             = "Medium"
+      severity             = "Low"
     }
 
     s3-bucket-server-side-encryption-enabled = {
@@ -2339,7 +2339,7 @@ locals {
       description          = "Checks if Amazon Simple Storage Service (Amazon S3) buckets are protected by a backup plan. The rule is NON_COMPLIANT if the Amazon S3 bucket is not covered by a backup plan."
       input_parameters     = var.s3_resources_protected_by_backup_plan_parameters
       resource_types_scope = ["AWS::S3::Bucket"]
-      severity             = "Medium"
+      severity             = "High"
     }
 
     s3-version-lifecycle-policy-check = {
@@ -2492,7 +2492,7 @@ locals {
       description          = "Checks if a recovery point was created for AWS Storage Gateway volumes. The rule is NON_COMPLIANT if the Storage Gateway volume does not have a corresponding recovery point created within the specified time period."
       input_parameters     = var.storagegateway_last_backup_recovery_point_created_parameters
       resource_types_scope = ["AWS::StorageGateway::Volume"]
-      severity             = "Medium"
+      severity             = "High"
     }
 
     storagegateway-resources-protected-by-backup-plan = {
@@ -2518,14 +2518,14 @@ locals {
       description          = "Checks if a recovery point was created for AWS Backup-Gateway VirtualMachines. The rule is NON_COMPLIANT if an AWS Backup-Gateway VirtualMachines does not have a corresponding recovery point created within the specified time period."
       input_parameters     = var.virtualmachine_last_backup_recovery_point_created_parameters
       resource_types_scope = ["AWS::BackupGateway::VirtualMachine"]
-      severity             = "Medium"
+      severity             = "High"
     }
 
     virtualmachine-resources-protected-by-backup-plan = {
       description          = "Checks if AWS Backup-Gateway VirtualMachines are protected by a backup plan. The rule is NON_COMPLIANT if the Backup-Gateway VirtualMachine is not covered by a backup plan."
       input_parameters     = var.virtualmachine_resources_protected_by_backup_plan_parameters
       resource_types_scope = ["AWS::BackupGateway::VirtualMachine"]
-      severity             = "Medium"
+      severity             = "High"
     }
 
     vpc-default-security-group-closed = {
@@ -2551,7 +2551,7 @@ locals {
       description          = "Checks if DNS resolution from accepter/requester VPC to private IP is enabled. The rule is NON_COMPLIANT if DNS resolution from accepter/requester VPC to private IP is not enabled."
       input_parameters     = var.vpc_peering_dns_resolution_check_parameters
       resource_types_scope = ["AWS::EC2::VPCPeeringConnection"]
-      severity             = "Medium"
+      severity             = "High"
     }
 
     vpc-sg-open-only-to-authorized-ports = {
