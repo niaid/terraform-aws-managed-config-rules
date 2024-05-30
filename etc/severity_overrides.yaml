@@ -1,0 +1,43 @@
+overrides:
+  desired-instance-tenancy:
+    severity: Low
+  desired-instance-type:
+    severity: Low
+  cloudformation-stack-drift-detection-check:
+    severity: Low
+  cloudtrail-s3-bucket-public-access-prohibited:
+    severity: High
+  codepipeline-deployment-count-check:
+    severity: Low
+  codepipeline-region-fanout-check:
+    severity: Low
+  ebs-optimized-instance:
+    severity: Low
+  ec2-instance-detailed-monitoring-enabled:
+    severity: Low
+  ec2-instance-profile-attached:
+    severity: Low
+  ec2-no-amazon-key-pair:
+    severity: Low
+  ec2-token-hop-limit-check:
+    severity: Low
+  ec2-volume-inuse-check:
+    severity: Low
+  guardduty-eks-protection-runtime-enabled:
+    severity: Low
+  internet-gateway-authorized-vpc-only:
+    severity: High
+  lambda-dlq-check:
+    severity: Low
+  s3-bucket-replication-enabled:
+    severity: Low
+  s3-resources-protected-by-backup-plan:
+    severity: High
+  storagegateway-last-backup-recovery-point-created:
+    severity: High
+  virtualmachine-last-backup-recovery-point-created:
+    severity: High
+  virtualmachine-resources-protected-by-backup-plan:
+    severity: High
+  vpc-peering-dns-resolution-check:
+    severity: High

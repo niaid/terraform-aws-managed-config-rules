@@ -2,7 +2,7 @@ import json
 import re
 import yaml
 
-from typing import Union, List
+from typing import List, Optional, Union
 
 
 class AwsConfigRuleLocal:
@@ -201,3 +201,9 @@ class AwsConfigRule:
             fixed = self.replace_colons_with_equals(raw_string)
             return f"{{\n{fixed}}}"
         return None
+    
+
+class SeverityOverride:
+    def __init__(self, rule_name: str, data: dict) -> None:
+        self.rule_name: str = rule_name
+        self.severity: Optional[str] = data.get('severity')
