@@ -348,8 +348,8 @@ variable "cloud_trail_cloud_watch_logs_enabled_parameters" {
   default = {}
 }
 
-variable "cloud_trail_enabled_parameters" {
-  description = "Input parameters for the cloud-trail-enabled rule."
+variable "cloudtrail_enabled_parameters" {
+  description = "Input parameters for the cloudtrail-enabled rule."
   type = object({
     cloudWatchLogsLogGroupArn = optional(string, null)
     s3BucketName              = optional(string, null)
@@ -1161,8 +1161,8 @@ variable "iam_user_unused_credentials_check_parameters" {
 
 }
 
-variable "instances_in_vpc_parameters" {
-  description = "Input parameters for the instances-in-vpc rule."
+variable "ec2_instances_in_vpc_parameters" {
+  description = "Input parameters for the ec2-instances-in-vpc rule."
   type = object({
     vpcId = optional(string, null)
   })
@@ -1241,8 +1241,8 @@ variable "lambda_vpc_multi_az_check_parameters" {
   default = {}
 }
 
-variable "multi_region_cloud_trail_enabled_parameters" {
-  description = "Input parameters for the multi-region-cloud-trail-enabled rule."
+variable "multi_region_cloudtrail_enabled_parameters" {
+  description = "Input parameters for the multi-region-cloudtrail-enabled rule."
   type = object({
     cloudWatchLogsLogGroupArn = optional(string, null)
     includeManagementEvents   = optional(bool, null)
@@ -1512,8 +1512,8 @@ variable "required_tags_parameters" {
 
 }
 
-variable "restricted_incoming_traffic_parameters" {
-  description = "Input parameters for the restricted-incoming-traffic rule."
+variable "restricted_common_ports_parameters" {
+  description = "Input parameters for the restricted-common-ports rule."
   type = object({
     blockedPort1 = optional(number, 20)
     blockedPort2 = optional(number, 21)
