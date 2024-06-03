@@ -2069,11 +2069,10 @@ packs:
   - aws-config-process-check
   - backup-recovery-point-encrypted
   - cloud-trail-cloud-watch-logs-enabled
-  - cloud-trail-enabled
+  - cloudtrail-enabled
   - cloud-trail-encryption-enabled
   - cloudtrail-s3-dataevents-enabled
   - codebuild-project-artifact-encryption
-  - codebuild-project-environment-privileged-check
   - codebuild-project-envvar-awscred-check
   - codebuild-project-logging-enabled
   - codebuild-project-source-repo-url-check
@@ -2136,6 +2135,7 @@ packs:
   - iam-user-unused-credentials-check
   - incoming-ssh-disabled
   - instances-in-vpc
+  - lambda-concurrency-check
   - lambda-function-public-access-prohibited
   - lambda-inside-vpc
   - mfa-enabled-for-iam-console-access
@@ -5933,7 +5933,7 @@ packs:
   - autoscaling-launch-config-public-ip-disabled
   - beanstalk-enhanced-health-reporting-enabled
   - cloud-trail-cloud-watch-logs-enabled
-  - cloud-trail-enabled
+  - cloudtrail-enabled
   - cloud-trail-encryption-enabled
   - cloud-trail-log-file-validation-enabled
   - cloudtrail-s3-dataevents-enabled
