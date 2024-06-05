@@ -20,7 +20,7 @@ jobs:
         run: |
           cd scripts
           pip install -r requirements.txt
-          python index.py
+          python index.py update-config-rules
 
       - name: Get changed files
         id: changed-files
