@@ -1,31 +1,44 @@
 name: Update Rule Pack Info
 
 on:
+  schedule:
+    - cron: '0 0 1,15 * *'
   workflow_dispatch:
 
 jobs:
   update-rule-packs:
     name: Update Rule Packs
-    runs-n: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+      
       - name: Update packs
         id: update-packs
         run: |
           cd scripts
           pip install -r requirements.txt
-          cd lib
-          python rule_pack_info_generator.py
+          python index.py update-rule-packs
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          files: "files/*"
+
+      - name: List all changed files
+        run: echo '${{ steps.changed-files.outputs.all_changed_files }}'
+      
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           base: main
-          branch: update-rule-pack-info
-          commit-message: Update Conformance Packs rule info
+          branch: auto-update-rule-pack-info
+          add-paths: files/*
+          commit-message: Automatic updates to Conformance Packs rule info
           delete-branch: true
-          title: 'Update Conformance Packs Rule Info'
+          title: '[Auto] Update Conformance Packs Rule Info'
           body: |
             Update the available list of rules in the Conformance Packs maintained by [awslabs/aws-config-rules](https://github.com/awslabs/aws-config-rules).
           assignees: bensonce
