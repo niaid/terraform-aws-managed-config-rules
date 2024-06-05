@@ -49,10 +49,6 @@ class AwsDocsReader:
         """Return the main column element with all of the rule descriptions."""
         return soup.find('div', id='main-col-body')
     
-    def format_variable_name(self, name: str) -> str:
-        """Format the rule name as the name of the parameters variable in Terraform."""
-        return name.lower().replace('-', '_') + '_parameters'
-    
     def get_rule_description(self, soup: BeautifulSoup) -> str:
         """Parse the content column and return the rule's description."""
 
@@ -96,11 +92,7 @@ class AwsDocsReader:
         We need to use the rule name, not the actual identifier, for this
         automation. Warn the user that the two don't match before returning.'''
         identifier_element = soup.find('b', string='Identifier:').next_sibling.strip()
-        topic_title_element = soup.find('h1', class_='topictitle').attrs['id'].lower()
-        if identifier_element.lower().replace('_', '-') != topic_title_element:
-            logging.warning(f"Rule name '{topic_title_element}' does not match its identifier '{identifier_element}'.")
-            logging.warning(f"Using rule name '{topic_title_element}' as the identifier.")
-        return topic_title_element
+        return identifier_element
     
     def get_rule_parameters(self, soup: BeautifulSoup) -> List[dict]:
         """Parse the rule's parameter list. Returns an empty list if there are no parameters."""
@@ -173,7 +165,6 @@ class AwsDocsReader:
                 main_column = self.get_main_column_content(soup=rule_soup)
                 rule = {'name': rule_name}
                 rule['identifier'] = self.get_rule_identifier(soup=main_column)
-                rule['variable_name'] = self.format_variable_name(name=rule['identifier'])
                 rule['description'] = self.get_rule_description(soup=main_column)
                 rule['parameters'] = self.get_rule_parameters(soup=main_column)
                 rule['resource_types'] = self.get_resource_types(soup=main_column)

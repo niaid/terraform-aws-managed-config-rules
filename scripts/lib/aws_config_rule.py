@@ -13,28 +13,35 @@ class AwsConfigRuleLocal:
 
 class AwsConfigRule:
     def __init__(self, data: dict) -> None:
-        self.tf_variable_name: str = data['variable_name']
-        """The name of the Terraform variable for the rule's parameters."""
         self.tf_variable_description: str = data['description']
         """The Terraform parameters variable description."""
         self.parameters_data: List[str] = data['parameters']
         """A list of the rule's parameters."""
         self.resource_types: List[str] = data.get('resource_types', [])
         """A list of resource types checked by the rule."""
-        self._rule_identifier: str = data['identifier']
+        self.rule_name: str = data['name']
+        """The name of the rule as it appears in the AWS documentation."""
+        self.rule_identifier: str = data['identifier']
         """The rule identifier in AWS."""
+        self.tf_rule_name: str = self._get_tf_rule_name()
         self._rule_severity: str = data.get('severity', 'Medium')
         """The level of severity of noncompliant resources."""
-
+    
     @property
-    def name(self) -> str:
-        """The name of the rule."""
-        return self._rule_identifier.lower().replace('_', '-')
+    def tf_variable_name(self) -> str:
+        """The name of the Terraform variable for the rule's parameters."""
+        return self.tf_rule_name.replace('-', '_') + "_parameters"
 
     @property
     def rule_severity(self) -> str:
         """The level of severity of noncompliant resources."""
         return self._rule_severity
+    
+    def _get_tf_rule_name(self) -> str:
+        normalized_identifier = self.rule_identifier.lower().replace('_', '-')
+        if self.rule_name != normalized_identifier:
+            return self.rule_name
+        return normalized_identifier
 
     def _format_parameter_name(self, param_name: str) -> str:
         """Return the parameter name with the first letter lowercased."""
