@@ -1,5 +1,5 @@
 variable "{{ config.tf_variable_name }}" {
-    description = "Input parameters for the {{ config.name }} rule."
+    description = "Input parameters for the {{ config.tf_rule_name }} rule."
     type        = {{ config.tf_variable_type().replace(':', ' = ') }}
     {%- if config.tf_variable_default_value() %}
     default     = {{ config.tf_variable_default_value().replace("'", '') }}
