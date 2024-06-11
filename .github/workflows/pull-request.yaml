@@ -1,0 +1,96 @@
+name: On Pull Request
+
+on:
+    pull_request:
+        types: [opened, synchronize]
+
+jobs:
+    get-changes:
+        name: Get Changed Files
+        runs-on: ubuntu-latest
+        outputs:
+          any_changed: ${{ steps.changed-files.outputs.any_changed }}
+        steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 1
+
+        - name: Get changed files
+          id: changed-files
+          uses: tj-actions/changed-files@v44
+          with:
+            files: "*.tf"
+
+        - name: List all changed files
+          run: echo '${{ steps.changed-files.outputs.all_changed_files }}'
+
+    tflint:
+        name: Run TFLint
+        runs-on: ubuntu-latest
+        needs:
+        - get-changes
+        steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 1
+
+        - uses: actions/cache@v4
+          name: Cache plugin dir
+          with:
+            path: ~/.tflint.d/plugins
+            key: tflint-${{ hashFiles('.tflint.hcl') }}
+
+        - uses: terraform-linters/setup-tflint@v4
+          name: Setup TFLint
+          with:
+            tflint_version: v0.50.3
+
+        - name: Show version
+          run: tflint --version
+
+        - name: Init TFLint
+          run: tflint --init
+
+        - name: Run TFLint
+          run: tflint --disable-rule=terraform_required_version
+
+    terraform-fmt:
+        name: Terraform Format
+        runs-on: ubuntu-latest
+        needs:
+        - get-changes
+        permissions:
+            contents: write
+            pull-requests: read
+        steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+          with:
+            ref: ${{ github.event.pull_request.head.sha }}
+
+        - uses: hashicorp/setup-terraform@v3
+          with:
+            terraform_version: 1.6.0
+
+        - name: Terraform Format
+          run: terraform fmt --recursive .
+
+        - uses: dorny/paths-filter@v3
+          id: filter
+          with:
+            token: ${{ secrets.GITHUB_TOKEN }}
+            base: HEAD
+            filters: |
+                terraform:
+                - '*.tf'
+
+        - name: Commit changes
+          if: steps.filter.outputs.terraform == 'true'
+          run: |
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git config --global user.name "github-actions[bot]"
+            git add *.tf
+            git commit -m "Auto-format Terraform files"
+            git push origin HEAD:${{ github.event.pull_request.head.ref }}

@@ -42,6 +42,6 @@ locals {
 
   rules_to_apply = {
     for rule, attr in local.final_managed_rules :
-      rule => attr if contains(local.final_rules, rule)
+    rule => attr if contains(local.final_rules, rule)
   }
 }

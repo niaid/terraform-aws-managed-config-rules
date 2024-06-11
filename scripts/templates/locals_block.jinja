@@ -1,7 +1,7 @@
 locals {
     managed_rules = {
         {%- for rule in rules %}
-            {{ rule.name }} = {
+            {{ rule.tf_rule_name }} = {
                 description = "{{ rule.locals_description() }}"
                 {%- if rule.parameters_data %}
                 input_parameters = var.{{ rule.tf_variable_name }}
