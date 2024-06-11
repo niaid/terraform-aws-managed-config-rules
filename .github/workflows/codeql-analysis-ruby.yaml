@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 
-name: "CodeQL Python"
+name: "CodeQL Ruby"
 
 on:
   push:
@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ["python"]
+        language: ["ruby"]
 
     steps:
       - name: Checkout repository
