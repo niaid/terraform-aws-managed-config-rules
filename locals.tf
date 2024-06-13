@@ -38,7 +38,10 @@ locals {
     rule if !contains(local.rules_exclude_collected, rule)
   ]
 
-  final_managed_rules = merge(local.managed_rules, var.rule_overrides)
+  final_managed_rules = {
+    for rule, attr in local.managed_rules :
+    rule => merge(attr, lookup(var.rule_overrides, rule, {}))
+  }
 
   rules_to_apply = {
     for rule, attr in local.final_managed_rules :
