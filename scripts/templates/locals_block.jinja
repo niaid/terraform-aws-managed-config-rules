@@ -3,6 +3,7 @@ locals {
         {%- for rule in rules %}
             {{ rule.tf_rule_name }} = {
                 description = "{{ rule.locals_description() }}"
+                identifier = "{{ rule.rule_identifier }}"
                 {%- if rule.parameters_data %}
                 input_parameters = var.{{ rule.tf_variable_name }}
                 {%- endif %}

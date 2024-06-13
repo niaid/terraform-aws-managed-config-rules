@@ -10,7 +10,7 @@ resource "aws_config_config_rule" "rule" {
 
   source {
     owner             = "AWS"
-    source_identifier = upper(replace(each.key, "-", "_"))
+    source_identifier = each.value["identifier"]
   }
 
   input_parameters = (
