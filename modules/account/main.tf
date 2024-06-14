@@ -10,7 +10,10 @@ resource "aws_config_config_rule" "rule" {
 
   source {
     owner             = "AWS"
-    source_identifier = each.value["identifier"]
+
+    # Custom rules don't have identifiers like AWS managed rules, so we need to
+    # fall back to the key if an identifier is not provided.
+    source_identifier = try(each.value["identifier"], upper(replace(each.key, "-", "_")))
   }
 
   input_parameters = (
