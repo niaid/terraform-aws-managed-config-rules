@@ -424,6 +424,14 @@ variable "cw_loggroup_retention_period_check_parameters" {
   default = {}
 }
 
+variable "datasync_task_logging_enabled_parameters" {
+  description = "Input parameters for the datasync-task-logging-enabled rule."
+  type = object({
+    logLevel = optional(string, null)
+  })
+  default = {}
+}
+
 variable "db_instance_backup_enabled_parameters" {
   description = "Input parameters for the db-instance-backup-enabled rule."
   type = object({
@@ -1185,6 +1193,14 @@ variable "kinesis_firehose_delivery_stream_encrypted_parameters" {
   default = {}
 }
 
+variable "kinesis_stream_backup_retention_check_parameters" {
+  description = "Input parameters for the kinesis-stream-backup-retention-check rule."
+  type = object({
+    minimumBackupRetentionPeriod = optional(string, null)
+  })
+  default = {}
+}
+
 variable "kms_cmk_not_scheduled_for_deletion_parameters" {
   description = "Input parameters for the kms-cmk-not-scheduled-for-deletion rule."
   type = object({
@@ -1394,6 +1410,14 @@ variable "rds_meets_restore_time_target_parameters" {
     maxRestoreTime = optional(number, null)
     resourceId     = optional(string, null)
     resourceTags   = optional(string, null)
+  })
+  default = {}
+}
+
+variable "rds_postgresql_logs_to_cloudwatch_parameters" {
+  description = "Input parameters for the rds-postgresql-logs-to-cloudwatch rule."
+  type = object({
+    logTypes = optional(string, null)
   })
   default = {}
 }

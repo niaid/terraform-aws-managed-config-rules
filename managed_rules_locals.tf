@@ -183,6 +183,13 @@ locals {
       severity             = "Medium"
     }
 
+    athena-workgroup-logging-enabled = {
+      description          = "Checks if Amazon Athena WorkGroup publishes usage metrics to Amazon CloudWatch. The rule is NON_COMPLIANT if an Amazon Athena WorkGroup PublishCloudWatchMetricsEnabled is set to false."
+      identifier           = "ATHENA_WORKGROUP_LOGGING_ENABLED"
+      resource_types_scope = ["AWS::Athena::WorkGroup"]
+      severity             = "Medium"
+    }
+
     aurora-last-backup-recovery-point-created = {
       description          = "Checks if a recovery point was created for Amazon Aurora DB clusters. The rule is NON_COMPLIANT if the Amazon Relational Database Service (Amazon RDS) DB Cluster does not have a corresponding recovery point created within the specified time period."
       identifier           = "AURORA_LAST_BACKUP_RECOVERY_POINT_CREATED"
@@ -596,6 +603,13 @@ locals {
       severity             = "Critical"
     }
 
+    codebuild-report-group-encrypted-at-rest = {
+      description          = "Checks if an AWS CodeBuild report group has encryption at rest setting enabled. The rule is NON_COMPLIANT if EncryptionDisabled is true ."
+      identifier           = "CODEBUILD_REPORT_GROUP_ENCRYPTED_AT_REST"
+      resource_types_scope = ["AWS::CodeBuild::ReportGroup"]
+      severity             = "Medium"
+    }
+
     codedeploy-auto-rollback-monitor-enabled = {
       description          = "Checks if the deployment group is configured with automatic deployment rollback and deployment monitoring with alarms attached. The rule is NON_COMPLIANT if AutoRollbackConfiguration or AlarmConfiguration has not been configured or is not enabled."
       identifier           = "CODEDEPLOY_AUTO_ROLLBACK_MONITOR_ENABLED"
@@ -634,6 +648,13 @@ locals {
       severity             = "Low"
     }
 
+    cognito-user-pool-advanced-security-enabled = {
+      description          = "Checks if an Amazon Cognito user pool has Advanced security enabled. This rule is NON_COMPLIANT if Advanced security is not enabled."
+      identifier           = "COGNITO_USER_POOL_ADVANCED_SECURITY_ENABLED"
+      resource_types_scope = ["AWS::Cognito::UserPool"]
+      severity             = "Medium"
+    }
+
     custom-eventbus-policy-attached = {
       description          = "Checks if Amazon EventBridge custom event buses have a resource-based policy attached. The rule is NON_COMPLIANT if a custom event bus policy does not have an attached resource-based policy."
       identifier           = "CUSTOM_EVENTBUS_POLICY_ATTACHED"
@@ -653,6 +674,14 @@ locals {
       identifier           = "CW_LOGGROUP_RETENTION_PERIOD_CHECK"
       input_parameters     = var.cw_loggroup_retention_period_check_parameters
       resource_types_scope = ["AWS::Logs::LogGroup"]
+      severity             = "Medium"
+    }
+
+    datasync-task-logging-enabled = {
+      description          = "Checks if an AWS DataSync task has Amazon CloudWatch logging enabled. The rule is NON_COMPLIANT if an AWS DataSync task does not have Amazon CloudWatch logging enabled or if the logging level is not equivalent to the logging level that you specify."
+      identifier           = "DATASYNC_TASK_LOGGING_ENABLED"
+      input_parameters     = var.datasync_task_logging_enabled_parameters
+      resource_types_scope = ["AWS::DataSync::Task"]
       severity             = "Medium"
     }
 
@@ -1224,6 +1253,13 @@ locals {
       severity             = "Medium"
     }
 
+    efs-automatic-backups-enabled = {
+      description          = "Checks if an Amazon Elastic File System (Amazon EFS) file system has automatic backups enabled. The rule is NON_COMPLIANT if BackupPolicy.Status is set to DISABLED."
+      identifier           = "EFS_AUTOMATIC_BACKUPS_ENABLED"
+      resource_types_scope = ["AWS::EFS::FileSystem"]
+      severity             = "Medium"
+    }
+
     efs-encrypted-check = {
       description          = "Checks if Amazon Elastic File System (Amazon EFS) is configured to encrypt the file data using AWS Key Management Service (AWS KMS). The rule is NON_COMPLIANT if the encrypted key is set to false on DescribeFileSystems or if the KmsKeyId key on..."
       identifier           = "EFS_ENCRYPTED_CHECK"
@@ -1617,11 +1653,25 @@ locals {
       severity             = "Medium"
     }
 
+    glue-job-logging-enabled = {
+      description          = "Checks if an AWS Glue job has logging enabled. The rule is NON_COMPLIANT if an AWS Glue job does not have Amazon CloudWatch logs enabled."
+      identifier           = "GLUE_JOB_LOGGING_ENABLED"
+      resource_types_scope = ["AWS::Glue::Job"]
+      severity             = "Medium"
+    }
+
+    glue-ml-transform-encrypted-at-rest = {
+      description          = "Checks if an AWS Glue ML Transform has encryption at rest enabled. The rule is NON_COMPLIANT if MLUserDataEncryptionMode is set to DISABLED ."
+      identifier           = "GLUE_ML_TRANSFORM_ENCRYPTED_AT_REST"
+      resource_types_scope = ["AWS::Glue::MLTransform"]
+      severity             = "Medium"
+    }
+
     guardduty-eks-protection-audit-enabled = {
       description          = "Checks if Audit Log Monitoring for Amazon Elastic Kubernetes Service (Amazon EKS) is enabled for an Amazon GuardDuty detector in your account. The rule is NON_COMPLIANT if the EKS Audit Log Monitoring feature is not enabled for your account."
       identifier           = "GUARDDUTY_EKS_PROTECTION_AUDIT_ENABLED"
       resource_types_scope = ["AWS::GuardDuty::Detector"]
-      severity             = "Medium"
+      severity             = "High"
     }
 
     guardduty-eks-protection-runtime-enabled = {
@@ -1642,14 +1692,14 @@ locals {
       description          = "Checks if Lambda Protection is enabled for an Amazon GuardDuty detector in your account. The rule is NON_COMPLIANT if the Lambda Protection feature in Amazon GuardDuty is not enabled for your account."
       identifier           = "GUARDDUTY_LAMBDA_PROTECTION_ENABLED"
       resource_types_scope = ["AWS::GuardDuty::Detector"]
-      severity             = "Medium"
+      severity             = "High"
     }
 
     guardduty-malware-protection-enabled = {
       description          = "Checks if Malware Protection is enabled for an Amazon GuardDuty detector in your account. The rule is NON_COMPLIANT if the Malware Protection feature in Amazon GuardDuty is not enabled for your account."
       identifier           = "GUARDDUTY_MALWARE_PROTECTION_ENABLED"
       resource_types_scope = ["AWS::GuardDuty::Detector"]
-      severity             = "Medium"
+      severity             = "High"
     }
 
     guardduty-non-archived-findings = {
@@ -1663,14 +1713,14 @@ locals {
       description          = "Checks if Amazon Relational Database Service (Amazon RDS) protection is enabled for an Amazon GuardDuty detector in your account. The rule is NON_COMPLIANT if the Amazon RDS protection feature in Amazon GuardDuty is not enabled for you account."
       identifier           = "GUARDDUTY_RDS_PROTECTION_ENABLED"
       resource_types_scope = ["AWS::GuardDuty::Detector"]
-      severity             = "Medium"
+      severity             = "High"
     }
 
     guardduty-s3-protection-enabled = {
       description          = "Checks if S3 Protection is enabled for an Amazon GuardDuty Detector in your account. The rule is NON_COMPLIANT if the S3 Protection feature in Amazon GuardDuty is not enabled for your account."
       identifier           = "GUARDDUTY_S3_PROTECTION_ENABLED"
       resource_types_scope = ["AWS::GuardDuty::Detector"]
-      severity             = "Medium"
+      severity             = "High"
     }
 
     iam-customer-policy-blocked-kms-actions = {
@@ -1786,7 +1836,7 @@ locals {
     }
 
     iam-user-no-policies-check = {
-      description          = "Checks if none of your AWS Identity and Access Management (IAM) users have policies attached. IAM users must inherit permissions from IAM groups or roles. The rule is NON_COMPLIANT if there is at least one IAM user with policies attached."
+      description          = "Checks if none of your AWS Identity and Access Management (IAM) users have policies attached. IAM users must inherit permissions from IAM groups or roles. The rule is NON_COMPLIANT if there is at least one policy that is attached to the IAM user."
       identifier           = "IAM_USER_NO_POLICIES_CHECK"
       resource_types_scope = ["AWS::IAM::User"]
       severity             = "Low"
@@ -1811,28 +1861,28 @@ locals {
       description          = "Checks if Amazon Inspector V2 EC2 scanning is activated for your single or multi-account environment to detect potential vulnerabilities and network reachability issues on your EC2 instances. The rule is NON_COMPLIANT if EC2 scanning is not activated."
       identifier           = "INSPECTOR_EC2_SCAN_ENABLED"
       resource_types_scope = ["AWS::::Account"]
-      severity             = "Medium"
+      severity             = "High"
     }
 
     inspector-ecr-scan-enabled = {
       description          = "Checks if Amazon Inspector V2 ECR scanning is activated for your single or multi-account environment to detect potential software vulnerabilities in your container images. The rule is NON_COMPLIANT if ECR scanning is not activated."
       identifier           = "INSPECTOR_ECR_SCAN_ENABLED"
       resource_types_scope = ["AWS::::Account"]
-      severity             = "Medium"
+      severity             = "High"
     }
 
     inspector-lambda-code-scan-enabled = {
       description          = "Checks if Amazon Inspector V2 Lambda code scanning is activated for your single or multi-account environment to detect potential code vulnerabilities. The rule is NON_COMPLIANT if Lambda code scanning is not activated."
       identifier           = "INSPECTOR_LAMBDA_CODE_SCAN_ENABLED"
       resource_types_scope = ["AWS::::Account"]
-      severity             = "Medium"
+      severity             = "High"
     }
 
     inspector-lambda-standard-scan-enabled = {
       description          = "Checks if Amazon Inspector V2 Lambda standard scanning is activated for your single or multi-account environment to detect potential software vulnerabilities. The rule is NON_COMPLIANT if Lambda standard scanning is not activated."
       identifier           = "INSPECTOR_LAMBDA_STANDARD_SCAN_ENABLED"
       resource_types_scope = ["AWS::::Account"]
-      severity             = "Medium"
+      severity             = "High"
     }
 
     ec2-instances-in-vpc = {
@@ -1856,6 +1906,14 @@ locals {
       identifier           = "KINESIS_FIREHOSE_DELIVERY_STREAM_ENCRYPTED"
       input_parameters     = var.kinesis_firehose_delivery_stream_encrypted_parameters
       resource_types_scope = ["AWS::KinesisFirehose::DeliveryStream"]
+      severity             = "Medium"
+    }
+
+    kinesis-stream-backup-retention-check = {
+      description          = "Checks if an Amazon Kinesis Data Stream has its data record retention period set to a specific number of hours. The rule is NON_COMPLIANT if the property RetentionPeriodHours is set to a value less than the value specified by the parameter."
+      identifier           = "KINESIS_STREAM_BACKUP_RETENTION_CHECK"
+      input_parameters     = var.kinesis_stream_backup_retention_check_parameters
+      resource_types_scope = ["AWS::Kinesis::Stream"]
       severity             = "Medium"
     }
 
@@ -2232,6 +2290,13 @@ locals {
       severity             = "Medium"
     }
 
+    rds-aurora-postgresql-logs-to-cloudwatch = {
+      description          = "Checks if an Amazon Aurora PostgreSQL DB cluster is configured to publish PostgreSQL logs to Amazon CloudWatch Logs. This rule is NON_COMPLIANT if the DB cluster is not configured to publish PostgreSQL logs to Amazon CloudWatch Logs."
+      identifier           = "RDS_AURORA_POSTGRESQL_LOGS_TO_CLOUDWATCH"
+      resource_types_scope = ["AWS::RDS::DBCluster"]
+      severity             = "Medium"
+    }
+
     rds-automatic-minor-version-upgrade-enabled = {
       description          = "Checks if Amazon Relational Database Service (Amazon RDS) database instances are configured for automatic minor version upgrades. The rule is NON_COMPLIANT if the value of autoMinorVersionUpgrade is false."
       identifier           = "RDS_AUTOMATIC_MINOR_VERSION_UPGRADE_ENABLED"
@@ -2361,6 +2426,14 @@ locals {
     rds-multi-az-support = {
       description          = "Checks whether high availability is enabled for your RDS DB instances."
       identifier           = "RDS_MULTI_AZ_SUPPORT"
+      resource_types_scope = ["AWS::RDS::DBInstance"]
+      severity             = "Medium"
+    }
+
+    rds-postgresql-logs-to-cloudwatch = {
+      description          = "Checks if an Amazon PostgreSQL DB instance is configured to publish logs to Amazon CloudWatch Logs. The rule is NON_COMPLIANT if the DB instance is not configured to publish logs to Amazon CloudWatch Logs."
+      identifier           = "RDS_POSTGRESQL_LOGS_TO_CLOUDWATCH"
+      input_parameters     = var.rds_postgresql_logs_to_cloudwatch_parameters
       resource_types_scope = ["AWS::RDS::DBInstance"]
       severity             = "Medium"
     }
@@ -3050,6 +3123,20 @@ locals {
       description          = "Checks if a WAF regional Web ACL contains any WAF rules or rule groups. The rule is NON_COMPLIANT if there are no WAF rules or rule groups present within a Web ACL."
       identifier           = "WAF_REGIONAL_WEBACL_NOT_EMPTY"
       resource_types_scope = ["AWS::WAFRegional::WebACL"]
+      severity             = "Medium"
+    }
+
+    workspaces-root-volume-encryption-enabled = {
+      description          = "Checks if an Amazon WorkSpace volume has the root volume encryption settings set to enabled. This rule is NON_COMPLIANT if the encryption setting is not enabled for the root volume."
+      identifier           = "WORKSPACES_ROOT_VOLUME_ENCRYPTION_ENABLED"
+      resource_types_scope = ["AWS::WorkSpaces::Workspace"]
+      severity             = "Medium"
+    }
+
+    workspaces-user-volume-encryption-enabled = {
+      description          = "Checks if an Amazon WorkSpace volume has the user volume encryption settings set to enabled. This rule is NON_COMPLIANT if the encryption setting is not enabled for the user volume."
+      identifier           = "WORKSPACES_USER_VOLUME_ENCRYPTION_ENABLED"
+      resource_types_scope = ["AWS::WorkSpaces::Workspace"]
       severity             = "Medium"
     }
 
