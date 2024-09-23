@@ -31,8 +31,6 @@ overrides:
     severity: Low
   s3-bucket-replication-enabled:
     severity: Low
-  s3-resources-protected-by-backup-plan:
-    severity: High
   storagegateway-last-backup-recovery-point-created:
     severity: High
   virtualmachine-last-backup-recovery-point-created:
