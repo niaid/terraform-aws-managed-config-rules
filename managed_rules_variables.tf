@@ -171,6 +171,21 @@ variable "aurora_mysql_backtracking_enabled_parameters" {
   default = {}
 }
 
+variable "aurora_resources_in_logically_air_gapped_vault_parameters" {
+  description = "Input parameters for the aurora-resources-in-logically-air-gapped-vault rule."
+  type = object({
+    recoveryPointAgeUnit  = optional(string, "days")
+    recoveryPointAgeValue = optional(number, 1)
+    resourceId            = optional(string, null)
+    resourceTags          = optional(string, null)
+  })
+  default = {
+    recoveryPointAgeUnit  = "days"
+    recoveryPointAgeValue = 1
+  }
+
+}
+
 variable "aurora_resources_protected_by_backup_plan_parameters" {
   description = "Input parameters for the aurora-resources-protected-by-backup-plan rule."
   type = object({
@@ -575,6 +590,21 @@ variable "ebs_meets_restore_time_target_parameters" {
   default = {}
 }
 
+variable "ebs_resources_in_logically_air_gapped_vault_parameters" {
+  description = "Input parameters for the ebs-resources-in-logically-air-gapped-vault rule."
+  type = object({
+    recoveryPointAgeUnit  = optional(string, "days")
+    recoveryPointAgeValue = optional(number, 1)
+    resourceId            = optional(string, null)
+    resourceTags          = optional(string, null)
+  })
+  default = {
+    recoveryPointAgeUnit  = "days"
+    recoveryPointAgeValue = 1
+  }
+
+}
+
 variable "ebs_resources_protected_by_backup_plan_parameters" {
   description = "Input parameters for the ebs-resources-protected-by-backup-plan rule."
   type = object({
@@ -674,6 +704,21 @@ variable "ec2_meets_restore_time_target_parameters" {
     resourceTags   = optional(string, null)
   })
   default = {}
+}
+
+variable "ec2_resources_in_logically_air_gapped_vault_parameters" {
+  description = "Input parameters for the ec2-resources-in-logically-air-gapped-vault rule."
+  type = object({
+    recoveryPointAgeUnit  = optional(string, "days")
+    recoveryPointAgeValue = optional(number, 1)
+    resourceId            = optional(string, null)
+    resourceTags          = optional(string, null)
+  })
+  default = {
+    recoveryPointAgeUnit  = "days"
+    recoveryPointAgeValue = 1
+  }
+
 }
 
 variable "ec2_resources_protected_by_backup_plan_parameters" {
@@ -790,6 +835,21 @@ variable "efs_meets_restore_time_target_parameters" {
     resourceTags   = optional(string, null)
   })
   default = {}
+}
+
+variable "efs_resources_in_logically_air_gapped_vault_parameters" {
+  description = "Input parameters for the efs-resources-in-logically-air-gapped-vault rule."
+  type = object({
+    recoveryPointAgeUnit  = optional(string, "days")
+    recoveryPointAgeValue = optional(number, 1)
+    resourceId            = optional(string, null)
+    resourceTags          = optional(string, null)
+  })
+  default = {
+    recoveryPointAgeUnit  = "days"
+    recoveryPointAgeValue = 1
+  }
+
 }
 
 variable "efs_resources_protected_by_backup_plan_parameters" {
@@ -1715,6 +1775,21 @@ variable "s3_meets_restore_time_target_parameters" {
   default = {}
 }
 
+variable "s3_resources_in_logically_air_gapped_vault_parameters" {
+  description = "Input parameters for the s3-resources-in-logically-air-gapped-vault rule."
+  type = object({
+    recoveryPointAgeUnit  = optional(string, "days")
+    recoveryPointAgeValue = optional(number, 1)
+    resourceId            = optional(string, null)
+    resourceTags          = optional(string, null)
+  })
+  default = {
+    recoveryPointAgeUnit  = "days"
+    recoveryPointAgeValue = 1
+  }
+
+}
+
 variable "s3_resources_protected_by_backup_plan_parameters" {
   description = "Input parameters for the s3-resources-protected-by-backup-plan rule."
   type = object({
@@ -1834,6 +1909,21 @@ variable "storagegateway_last_backup_recovery_point_created_parameters" {
 
 }
 
+variable "storagegateway_resources_in_logically_air_gapped_vault_parameters" {
+  description = "Input parameters for the storagegateway-resources-in-logically-air-gapped-vault rule."
+  type = object({
+    recoveryPointAgeUnit  = optional(string, "days")
+    recoveryPointAgeValue = optional(number, 1)
+    resourceId            = optional(string, null)
+    resourceTags          = optional(string, null)
+  })
+  default = {
+    recoveryPointAgeUnit  = "days"
+    recoveryPointAgeValue = 1
+  }
+
+}
+
 variable "storagegateway_resources_protected_by_backup_plan_parameters" {
   description = "Input parameters for the storagegateway-resources-protected-by-backup-plan rule."
   type = object({
@@ -1850,6 +1940,21 @@ variable "storagegateway_resources_protected_by_backup_plan_parameters" {
 
 variable "virtualmachine_last_backup_recovery_point_created_parameters" {
   description = "Input parameters for the virtualmachine-last-backup-recovery-point-created rule."
+  type = object({
+    recoveryPointAgeUnit  = optional(string, "days")
+    recoveryPointAgeValue = optional(number, 1)
+    resourceId            = optional(string, null)
+    resourceTags          = optional(string, null)
+  })
+  default = {
+    recoveryPointAgeUnit  = "days"
+    recoveryPointAgeValue = 1
+  }
+
+}
+
+variable "virtualmachine_resources_in_logically_air_gapped_vault_parameters" {
+  description = "Input parameters for the virtualmachine-resources-in-logically-air-gapped-vault rule."
   type = object({
     recoveryPointAgeUnit  = optional(string, "days")
     recoveryPointAgeValue = optional(number, 1)

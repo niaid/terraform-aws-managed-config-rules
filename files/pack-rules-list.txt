@@ -51,6 +51,8 @@ Operational-Best-Practices-for-ENISA-Cybersecurity-Guide
 Operational-Best-Practices-for-Encryption-and-Keys
 Operational-Best-Practices-for-FDA-21CFR-Part-11
 Operational-Best-Practices-for-FFIEC
+Operational-Best-Practices-for-FedRAMP-HighPart1
+Operational-Best-Practices-for-FedRAMP-HighPart2
 Operational-Best-Practices-for-FedRAMP-Low
 Operational-Best-Practices-for-FedRAMP
 Operational-Best-Practices-for-Germany-C5

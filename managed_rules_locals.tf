@@ -214,6 +214,14 @@ locals {
       severity             = "Medium"
     }
 
+    aurora-resources-in-logically-air-gapped-vault = {
+      description          = "Checks if Amazon Aurora DB clusters are in a logically air-gapped vault. The rule is NON_COMPLIANT if an Amazon Aurora DB cluster is not in a logically air-gapped vault within the specified time period."
+      identifier           = "AURORA_RESOURCES_IN_LOGICALLY_AIR_GAPPED_VAULT"
+      input_parameters     = var.aurora_resources_in_logically_air_gapped_vault_parameters
+      resource_types_scope = ["AWS::RDS::DBCluster"]
+      severity             = "Medium"
+    }
+
     aurora-resources-protected-by-backup-plan = {
       description          = "Checks if Amazon Aurora DB clusters are protected by a backup plan. The rule is NON_COMPLIANT if the Amazon Relational Database Service (Amazon RDS) Database Cluster is not protected by a backup plan."
       identifier           = "AURORA_RESOURCES_PROTECTED_BY_BACKUP_PLAN"
@@ -659,14 +667,14 @@ locals {
       description          = "Checks if Amazon EventBridge custom event buses have a resource-based policy attached. The rule is NON_COMPLIANT if a custom event bus policy does not have an attached resource-based policy."
       identifier           = "CUSTOM_EVENTBUS_POLICY_ATTACHED"
       resource_types_scope = ["AWS::Events::EventBus"]
-      severity             = "Medium"
+      severity             = "Low"
     }
 
     custom-schema-registry-policy-attached = {
       description          = "Checks if custom Amazon EventBridge schema registries have a resource policy attached. The rule is NON_COMPLIANT for custom schema registries without a resource policy attached."
       identifier           = "CUSTOM_SCHEMA_REGISTRY_POLICY_ATTACHED"
       resource_types_scope = ["AWS::EventSchemas::Registry"]
-      severity             = "Low"
+      severity             = "Medium"
     }
 
     cw-loggroup-retention-period-check = {
@@ -921,6 +929,14 @@ locals {
       severity             = "Low"
     }
 
+    ebs-resources-in-logically-air-gapped-vault = {
+      description          = "Checks if Amazon Elastic Block Store (Amazon EBS) volumes are in a logically air-gapped vault. The rule is NON_COMPLIANT if an Amazon EBS volume is not in a logically air-gapped vault within the specified time period."
+      identifier           = "EBS_RESOURCES_IN_LOGICALLY_AIR_GAPPED_VAULT"
+      input_parameters     = var.ebs_resources_in_logically_air_gapped_vault_parameters
+      resource_types_scope = ["AWS::EC2::Volume"]
+      severity             = "Medium"
+    }
+
     ebs-resources-protected-by-backup-plan = {
       description          = "Checks if Amazon Elastic Block Store (Amazon EBS) volumes are protected by a backup plan. The rule is NON_COMPLIANT if the Amazon EBS volume is not covered by a backup plan."
       identifier           = "EBS_RESOURCES_PROTECTED_BY_BACKUP_PLAN"
@@ -1083,6 +1099,14 @@ locals {
       severity             = "Medium"
     }
 
+    ec2-resources-in-logically-air-gapped-vault = {
+      description          = "Checks if Amazon Elastic Compute Cloud (Amazon EC2) instances are in a logically air-gapped vault. The rule is NON_COMPLIANT if an Amazon EC2 instance is not in a logically air-gapped vault within the specified time period."
+      identifier           = "EC2_RESOURCES_IN_LOGICALLY_AIR_GAPPED_VAULT"
+      input_parameters     = var.ec2_resources_in_logically_air_gapped_vault_parameters
+      resource_types_scope = ["AWS::EC2::Instance"]
+      severity             = "Medium"
+    }
+
     ec2-resources-protected-by-backup-plan = {
       description          = "Checks if Amazon Elastic Compute Cloud (Amazon EC2) instances are protected by a backup plan. The rule is NON_COMPLIANT if the Amazon EC2 instance is not covered by a backup plan."
       identifier           = "EC2_RESOURCES_PROTECTED_BY_BACKUP_PLAN"
@@ -1230,7 +1254,7 @@ locals {
     }
 
     ecs-task-definition-user-for-host-mode-check = {
-      description          = "Checks for unauthorized permissions in your latest active Amazon Elastic Container Service (Amazon ECS) task definitions that have NetworkMode set to host. The rule is NON_COMPLIANT for task definitions with NetworkMode set to host, and container..."
+      description          = "Checks if Amazon ECS task definitions with host network mode have privileged OR nonroot in the container definition. The rule is NON_COMPLIANT if the latest active revision of a task definition has privileged=false (or is null) AND user=root (or is null)."
       identifier           = "ECS_TASK_DEFINITION_USER_FOR_HOST_MODE_CHECK"
       input_parameters     = var.ecs_task_definition_user_for_host_mode_check_parameters
       resource_types_scope = ["AWS::ECS::TaskDefinition"]
@@ -1294,6 +1318,14 @@ locals {
     efs-mount-target-public-accessible = {
       description          = "Checks if an Amazon Elastic File System (Amazon EFS) mount target is not associated with a public subnet. The rule is NON-COMPLIANT if the Amazon EFS mount target is associated with a public subnet."
       identifier           = "EFS_MOUNT_TARGET_PUBLIC_ACCESSIBLE"
+      resource_types_scope = ["AWS::EFS::FileSystem"]
+      severity             = "Medium"
+    }
+
+    efs-resources-in-logically-air-gapped-vault = {
+      description          = "Checks if Amazon Elastic File System (Amazon EFS) File Systems are in a logically air-gapped vault. The rule is NON_COMPLIANT if an Amazon EFS File System is not in a logically air-gapped vault within the specified time period."
+      identifier           = "EFS_RESOURCES_IN_LOGICALLY_AIR_GAPPED_VAULT"
+      input_parameters     = var.efs_resources_in_logically_air_gapped_vault_parameters
       resource_types_scope = ["AWS::EFS::FileSystem"]
       severity             = "Medium"
     }
@@ -2771,6 +2803,14 @@ locals {
       severity             = "Medium"
     }
 
+    s3-resources-in-logically-air-gapped-vault = {
+      description          = "Checks if Amazon Simple Storage Service (Amazon S3) buckets are in a logically air-gapped vault. The rule is NON_COMPLIANT if an Amazon S3 bucket is not in a logically air-gapped vault within the specified time period."
+      identifier           = "S3_RESOURCES_IN_LOGICALLY_AIR_GAPPED_VAULT"
+      input_parameters     = var.s3_resources_in_logically_air_gapped_vault_parameters
+      resource_types_scope = ["AWS::S3::Bucket"]
+      severity             = "Medium"
+    }
+
     s3-resources-protected-by-backup-plan = {
       description          = "Checks if Amazon Simple Storage Service (Amazon S3) buckets are protected by a backup plan. The rule is NON_COMPLIANT if the Amazon S3 bucket is not covered by a backup plan."
       identifier           = "S3_RESOURCES_PROTECTED_BY_BACKUP_PLAN"
@@ -2888,7 +2928,7 @@ locals {
       description          = "Checks if AWS Service Catalog shares portfolios to an organization (a collection of AWS accounts treated as a single unit) when integration is enabled with AWS Organizations. The rule is NON_COMPLIANT if the Type value of a share is ACCOUNT ."
       identifier           = "SERVICE_CATALOG_SHARED_WITHIN_ORGANIZATION"
       resource_types_scope = ["AWS::ServiceCatalog::Portfolio"]
-      severity             = "Medium"
+      severity             = "High"
     }
 
     service-vpc-endpoint-enabled = {
@@ -2956,6 +2996,14 @@ locals {
       severity             = "High"
     }
 
+    storagegateway-resources-in-logically-air-gapped-vault = {
+      description          = "Checks if AWS Storage Gateway volumes are in a logically air-gapped vault. The rule is NON_COMPLIANT if an AWS Storage Gateway volume is not in a logically air-gapped vault within the specified time period."
+      identifier           = "STORAGEGATEWAY_RESOURCES_IN_LOGICALLY_AIR_GAPPED_VAULT"
+      input_parameters     = var.storagegateway_resources_in_logically_air_gapped_vault_parameters
+      resource_types_scope = ["AWS::StorageGateway::Volume"]
+      severity             = "Medium"
+    }
+
     storagegateway-resources-protected-by-backup-plan = {
       description          = "Checks if AWS Storage Gateway volumes are protected by a backup plan. The rule is NON_COMPLIANT if the Storage Gateway volume is not covered by a backup plan."
       identifier           = "STORAGEGATEWAY_RESOURCES_PROTECTED_BY_BACKUP_PLAN"
@@ -2984,6 +3032,14 @@ locals {
       input_parameters     = var.virtualmachine_last_backup_recovery_point_created_parameters
       resource_types_scope = ["AWS::BackupGateway::VirtualMachine"]
       severity             = "High"
+    }
+
+    virtualmachine-resources-in-logically-air-gapped-vault = {
+      description          = "Checks if AWS Backup-Gateway VirtualMachines are in a logically air-gapped vault. The rule is NON_COMPLIANT if an AWS Backup-Gateway VirtualMachines is not in a logically air-gapped vault within the specified time period."
+      identifier           = "VIRTUALMACHINE_RESOURCES_IN_LOGICALLY_AIR_GAPPED_VAULT"
+      input_parameters     = var.virtualmachine_resources_in_logically_air_gapped_vault_parameters
+      resource_types_scope = ["AWS::BackupGateway::VirtualMachine"]
+      severity             = "Medium"
     }
 
     virtualmachine-resources-protected-by-backup-plan = {
