@@ -2816,7 +2816,7 @@ locals {
       identifier           = "S3_RESOURCES_PROTECTED_BY_BACKUP_PLAN"
       input_parameters     = var.s3_resources_protected_by_backup_plan_parameters
       resource_types_scope = ["AWS::S3::Bucket"]
-      severity             = "High"
+      severity             = "Medium"
     }
 
     s3-version-lifecycle-policy-check = {

@@ -81,6 +81,8 @@ Operational-Best-Practices-for-NIST-Privacy-Framework
 Operational-Best-Practices-for-NYDFS-23-NYCRR-500
 Operational-Best-Practices-for-NZISM
 Operational-Best-Practices-for-Networking-Services
+Operational-Best-Practices-for-PCI-DSS-v4.0-excluding-global-resourcetypes
+Operational-Best-Practices-for-PCI-DSS-v4.0-including-global-resourcetypes
 Operational-Best-Practices-for-PCI-DSS
 Operational-Best-Practices-for-Publicly-Accessible-Resources
 Operational-Best-Practices-for-RBI-Basic-Cyber-Security-Framework
