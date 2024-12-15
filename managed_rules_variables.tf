@@ -36,6 +36,14 @@ variable "acm_pca_root_ca_disabled_parameters" {
   default = {}
 }
 
+variable "active_mq_supported_version_parameters" {
+  description = "Input parameters for the active-mq-supported-version rule."
+  type = object({
+    supportedEngineVersion = optional(string, null)
+  })
+  default = {}
+}
+
 variable "alb_desync_mode_check_parameters" {
   description = "Input parameters for the alb-desync-mode-check rule."
   type = object({
@@ -91,6 +99,94 @@ variable "api_gw_ssl_enabled_parameters" {
   description = "Input parameters for the api-gw-ssl-enabled rule."
   type = object({
     CertificateIDs = optional(string, null)
+  })
+  default = {}
+}
+
+variable "appconfig_application_tagged_parameters" {
+  description = "Input parameters for the appconfig-application-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+variable "appconfig_configuration_profile_tagged_parameters" {
+  description = "Input parameters for the appconfig-configuration-profile-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+variable "appconfig_environment_tagged_parameters" {
+  description = "Input parameters for the appconfig-environment-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+variable "appconfig_extension_association_tagged_parameters" {
+  description = "Input parameters for the appconfig-extension-association-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+variable "appmesh_gateway_route_tagged_parameters" {
+  description = "Input parameters for the appmesh-gateway-route-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+variable "appmesh_mesh_tagged_parameters" {
+  description = "Input parameters for the appmesh-mesh-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+variable "appmesh_route_tagged_parameters" {
+  description = "Input parameters for the appmesh-route-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+variable "appmesh_virtual_gateway_tagged_parameters" {
+  description = "Input parameters for the appmesh-virtual-gateway-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+variable "appmesh_virtual_node_tagged_parameters" {
+  description = "Input parameters for the appmesh-virtual-node-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+variable "appmesh_virtual_router_tagged_parameters" {
+  description = "Input parameters for the appmesh-virtual-router-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+variable "appmesh_virtual_service_tagged_parameters" {
+  description = "Input parameters for the appmesh-virtual-service-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
   })
   default = {}
 }
@@ -428,6 +524,14 @@ variable "codepipeline_region_fanout_check_parameters" {
     regionFanoutFactor = 3
   }
 
+}
+
+variable "cognito_user_pool_advanced_security_enabled_parameters" {
+  description = "Input parameters for the cognito-user-pool-advanced-security-enabled rule."
+  type = object({
+    SecurityMode = optional(string, null)
+  })
+  default = {}
 }
 
 variable "cw_loggroup_retention_period_check_parameters" {
@@ -812,6 +916,14 @@ variable "efs_encrypted_check_parameters" {
   default = {}
 }
 
+variable "efs_filesystem_ct_encrypted_parameters" {
+  description = "Input parameters for the efs-filesystem-ct-encrypted rule."
+  type = object({
+    kmsKeyArns = optional(string, null)
+  })
+  default = {}
+}
+
 variable "efs_last_backup_recovery_point_created_parameters" {
   description = "Input parameters for the efs-last-backup-recovery-point-created rule."
   type = object({
@@ -1027,6 +1139,30 @@ variable "encrypted_volumes_parameters" {
   default = {}
 }
 
+variable "evidently_launch_tagged_parameters" {
+  description = "Input parameters for the evidently-launch-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+variable "evidently_project_tagged_parameters" {
+  description = "Input parameters for the evidently-project-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+variable "evidently_segment_tagged_parameters" {
+  description = "Input parameters for the evidently-segment-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
 variable "fms_shield_resource_policy_check_parameters" {
   description = "Input parameters for the fms-shield-resource-policy-check rule."
   type = object({
@@ -1058,6 +1194,38 @@ variable "fms_webacl_rulegroup_association_check_parameters" {
     fmsManagedToken       = optional(string, null)
     fmsRemediationEnabled = optional(bool, null)
     ruleGroups            = optional(string, null)
+  })
+  default = {}
+}
+
+variable "frauddetector_entity_type_tagged_parameters" {
+  description = "Input parameters for the frauddetector-entity-type-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+variable "frauddetector_label_tagged_parameters" {
+  description = "Input parameters for the frauddetector-label-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+variable "frauddetector_outcome_tagged_parameters" {
+  description = "Input parameters for the frauddetector-outcome-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+variable "frauddetector_variable_tagged_parameters" {
+  description = "Input parameters for the frauddetector-variable-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
   })
   default = {}
 }
@@ -1245,6 +1413,46 @@ variable "internet_gateway_authorized_vpc_only_parameters" {
   default = {}
 }
 
+variable "iotsitewise_asset_model_tagged_parameters" {
+  description = "Input parameters for the iotsitewise-asset-model-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+variable "iotsitewise_dashboard_tagged_parameters" {
+  description = "Input parameters for the iotsitewise-dashboard-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+variable "iotsitewise_gateway_tagged_parameters" {
+  description = "Input parameters for the iotsitewise-gateway-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+variable "iotsitewise_portal_tagged_parameters" {
+  description = "Input parameters for the iotsitewise-portal-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+variable "iotsitewise_project_tagged_parameters" {
+  description = "Input parameters for the iotsitewise-project-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
 variable "kinesis_firehose_delivery_stream_encrypted_parameters" {
   description = "Input parameters for the kinesis-firehose-delivery-stream-encrypted rule."
   type = object({
@@ -1409,6 +1617,14 @@ variable "opensearch_logs_to_cloudwatch_parameters" {
   default = {}
 }
 
+variable "rabbit_mq_supported_version_parameters" {
+  description = "Input parameters for the rabbit-mq-supported-version rule."
+  type = object({
+    supportedEngineVersion = optional(string, null)
+  })
+  default = {}
+}
+
 variable "rds_cluster_default_admin_check_parameters" {
   description = "Input parameters for the rds-cluster-default-admin-check rule."
   type = object({
@@ -1492,6 +1708,14 @@ variable "rds_resources_protected_by_backup_plan_parameters" {
     minRetentionDays     = optional(number, null)
     resourceId           = optional(string, null)
     resourceTags         = optional(string, null)
+  })
+  default = {}
+}
+
+variable "rds_sql_server_logs_to_cloudwatch_parameters" {
+  description = "Input parameters for the rds-sql-server-logs-to-cloudwatch rule."
+  type = object({
+    logTypes = optional(string, null)
   })
   default = {}
 }
@@ -1978,6 +2202,15 @@ variable "virtualmachine_resources_protected_by_backup_plan_parameters" {
     minRetentionDays     = optional(number, null)
     resourceId           = optional(string, null)
     resourceTags         = optional(string, null)
+  })
+  default = {}
+}
+
+variable "vpc_endpoint_enabled_parameters" {
+  description = "Input parameters for the vpc-endpoint-enabled rule."
+  type = object({
+    serviceNames = optional(string, null)
+    vpcIds       = optional(string, null)
   })
   default = {}
 }
