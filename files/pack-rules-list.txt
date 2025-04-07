@@ -35,11 +35,6 @@ Operational-Best-Practices-for-CISA-Cyber-Essentials
 Operational-Best-Practices-for-CJIS
 Operational-Best-Practices-for-CMMC-2.0-Level-1
 Operational-Best-Practices-for-CMMC-2.0-Level-2
-Operational-Best-Practices-for-CMMC-Level-1
-Operational-Best-Practices-for-CMMC-Level-2
-Operational-Best-Practices-for-CMMC-Level-3
-Operational-Best-Practices-for-CMMC-Level-4
-Operational-Best-Practices-for-CMMC-Level-5
 Operational-Best-Practices-for-CloudWatch
 Operational-Best-Practices-for-Compute-Services
 Operational-Best-Practices-for-Data-Resiliency
@@ -81,6 +76,8 @@ Operational-Best-Practices-for-NIST-Privacy-Framework
 Operational-Best-Practices-for-NYDFS-23-NYCRR-500
 Operational-Best-Practices-for-NZISM
 Operational-Best-Practices-for-Networking-Services
+Operational-Best-Practices-for-PCI-DSS-v4.0-excluding-global-resourcetypes
+Operational-Best-Practices-for-PCI-DSS-v4.0-including-global-resourcetypes
 Operational-Best-Practices-for-PCI-DSS
 Operational-Best-Practices-for-Publicly-Accessible-Resources
 Operational-Best-Practices-for-RBI-Basic-Cyber-Security-Framework
