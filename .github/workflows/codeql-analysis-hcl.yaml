@@ -1,0 +1,90 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: "CodeQL HCL"
+
+on:
+  push:
+    branches: ["master", "main"]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: ["master", "main"]
+  schedule:
+    - cron: "28 14 * * 5"
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  iac_scan:
+    permissions:
+      contents: read # for actions/checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+      
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    name: checkov-action
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so follow-up steps can access it
+      - uses: actions/checkout@v4
+
+      - name: Checkov GitHub Action
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          # This will add both a CLI output to the console and create a results.sarif file
+          output_format: cli,sarif
+          output_file_path: console,results.sarif
+          # directory: example/
+          # file: example/tfplan.json # optional: provide the path for resource to be scanned. This will override the directory if both are provided.
+          # check: MEDIUM,HIGH,CRITICAL #CKV_AWS_1 # optional: run only a specific check_id. can be comma separated list
+          # skip_check: CKV_AWS_2 # optional: skip a specific check_id. can be comma separated list
+          quiet: true # optional: display only failed checks
+          soft_fail: true # optional: do not return an error code if there are failed checks
+          framework: cloudformation,terraform,kubernetes,dockerfile,ansible,argo_workflows,helm # optional: run only on a specific infrastructure {cloudformation,terraform,kubernetes,all}
+          skip_framework: github_actions # optional: skip a specific infrastructure {cloudformation,terraform,kubernetes,all}
+          # skip_cve_package: CVE_2019_8331 # optional: skip a specific CVE package in SCA scans, can be comma separated list
+          # output_format: sarif # optional: the output format, one of: cli, json, junitxml, github_failed_only, or sarif. Default: sarif
+          # output_file_path: reports/results.sarif # folder and name of results file
+          # output_bc_ids: true # optional: output Bridgecrew platform IDs instead of checkov IDs
+          # download_external_modules: true # optional: download external terraform modules from public git repositories and terraform registry
+          # repo_root_for_plan_enrichment: example/ #optional: Directory containing the hcl code used to generate a given terraform plan file. Use together with `file`
+          # var_file: ./testdir/gocd.yaml # optional: variable files to load in addition to the default files. Currently only supported for source Terraform and Helm chart scans.
+          # log_level: DEBUG # optional: set log level. Default WARNING
+          # config_file: path/this_file
+          # baseline: cloudformation/.checkov.baseline # optional: Path to a generated baseline file. Will only report results not in the baseline.
+          # container_user: 1000 # optional: Define what UID and / or what GID to run the container under to prevent permission issues
+          # use_enforcement_rules: true # optional - use enforcement rule configs from the platform
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        
+        # Results are generated only on a success or failure
+        # this is required since GitHub by default won't run the next step
+        # when the previous one has failed. Security checks that do not pass will 'fail'.
+        # An alternative is to add `continue-on-error: true` to the previous step
+        # Or 'soft_fail: true' to checkov.
+        if: success() || failure()
+        with:
+          sarif_file: results.sarif
+
+      # - name: Run Terrascan
+      #   # id: terrascan
+      #   uses: tenable/terrascan-action@main
+      #   # uses: ghasctl/terrascan-action@main
+      #   with:
+      #     iac_type: 'terraform'
+      #     iac_version: 'v14'
+      #     policy_type: 'aws'
+      #     only_warn: true
+      #     sarif_upload: true
+      #     #non_recursive:
+      #     #iac_dir:
+      #     #policy_path:
+      #     #skip_rules:
+      #     #config_path:
+      #     #webhook_url:
+      #     #webhook_token:
+
