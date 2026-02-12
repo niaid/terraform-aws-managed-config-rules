@@ -10,9 +10,9 @@ import (
 
 // genConformancePackResources generates a CloudFormation-style resources map
 // with random Source/SourceIdentifier entries that reference the given config rules.
-func genConformancePackResources(t *rapid.T, configRules []ConfigRule) map[string]interface{} {
+func genConformancePackResources(t *rapid.T, configRules []ConfigRule) map[string]any {
 	numResources := rapid.IntRange(1, 10).Draw(t, "numResources")
-	resources := make(map[string]interface{})
+	resources := make(map[string]any)
 
 	for i := 0; i < numResources; i++ {
 		resName := rapid.StringMatching(`[A-Z][a-zA-Z0-9]{2,20}`).Draw(t, "resourceName")
@@ -20,9 +20,9 @@ func genConformancePackResources(t *rapid.T, configRules []ConfigRule) map[strin
 
 		if hasSource && len(configRules) > 0 {
 			ruleIdx := rapid.IntRange(0, len(configRules)-1).Draw(t, "ruleIdx")
-			resources[resName] = map[string]interface{}{
-				"Properties": map[string]interface{}{
-					"Source": map[string]interface{}{
+			resources[resName] = map[string]any{
+				"Properties": map[string]any{
+					"Source": map[string]any{
 						"Owner":            "AWS",
 						"SourceIdentifier": configRules[ruleIdx].RuleIdentifier,
 					},
@@ -30,8 +30,8 @@ func genConformancePackResources(t *rapid.T, configRules []ConfigRule) map[strin
 			}
 		} else {
 			// Resource without Source property
-			resources[resName] = map[string]interface{}{
-				"Properties": map[string]interface{}{
+			resources[resName] = map[string]any{
+				"Properties": map[string]any{
 					"ConfigRuleName": resName,
 				},
 			}

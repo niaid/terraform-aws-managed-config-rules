@@ -41,5 +41,5 @@ func (s *SecurityHubControl) ToRawData() RawSecurityHubControlData {
 // RawConformancePackData is the intermediate structure for conformance pack YAML.
 type RawConformancePackData struct {
 	Name    string
-	Content map[string]interface{}
+	Content map[string]any
 }

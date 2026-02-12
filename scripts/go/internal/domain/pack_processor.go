@@ -18,7 +18,7 @@ type PackProcessor struct{}
 // and an excluded packs list. It returns a ConformancePack with sorted rule names.
 func (pp *PackProcessor) Process(
 	packName string,
-	resources map[string]interface{},
+	resources map[string]any,
 	configRules []ConfigRule,
 	excludedPacks []string,
 ) (ConformancePack, error) {
@@ -30,15 +30,15 @@ func (pp *PackProcessor) Process(
 
 	var ruleNames []string
 	for _, attr := range resources {
-		attrMap, ok := attr.(map[string]interface{})
+		attrMap, ok := attr.(map[string]any)
 		if !ok {
 			continue
 		}
-		props, ok := attrMap["Properties"].(map[string]interface{})
+		props, ok := attrMap["Properties"].(map[string]any)
 		if !ok {
 			continue
 		}
-		source, ok := props["Source"].(map[string]interface{})
+		source, ok := props["Source"].(map[string]any)
 		if !ok {
 			// Skip resources with no Source property (Requirement 8.2)
 			continue

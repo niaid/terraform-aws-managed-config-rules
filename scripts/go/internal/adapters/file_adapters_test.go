@@ -138,7 +138,7 @@ func TestYamlFileConformancePackSource_Load(t *testing.T) {
 	if !ok {
 		t.Fatal("expected 'Resources' key in content")
 	}
-	resMap, ok := resources.(map[string]interface{})
+	resMap, ok := resources.(map[string]any)
 	if !ok {
 		t.Fatal("expected Resources to be a map")
 	}

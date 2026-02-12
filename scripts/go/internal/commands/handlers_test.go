@@ -88,15 +88,15 @@ func genConfigRule(t *rapid.T) domain.ConfigRule {
 func genConformancePackData(t *rapid.T, configRules []domain.ConfigRule) domain.RawConformancePackData {
 	packName := rapid.StringMatching(`[a-z][a-z0-9-]{2,20}`).Draw(t, "packName")
 	numResources := rapid.IntRange(1, 5).Draw(t, "numResources")
-	resources := make(map[string]interface{})
+	resources := make(map[string]any)
 
 	for i := 0; i < numResources; i++ {
 		resName := rapid.StringMatching(`[A-Z][a-zA-Z0-9]{2,20}`).Draw(t, "resourceName")
 		if len(configRules) > 0 {
 			ruleIdx := rapid.IntRange(0, len(configRules)-1).Draw(t, "ruleIdx")
-			resources[resName] = map[string]interface{}{
-				"Properties": map[string]interface{}{
-					"Source": map[string]interface{}{
+			resources[resName] = map[string]any{
+				"Properties": map[string]any{
+					"Source": map[string]any{
 						"Owner":            "AWS",
 						"SourceIdentifier": configRules[ruleIdx].RuleIdentifier,
 					},
@@ -107,7 +107,7 @@ func genConformancePackData(t *rapid.T, configRules []domain.ConfigRule) domain.
 
 	return domain.RawConformancePackData{
 		Name: packName,
-		Content: map[string]interface{}{
+		Content: map[string]any{
 			"Resources": resources,
 		},
 	}

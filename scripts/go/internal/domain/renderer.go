@@ -32,7 +32,7 @@ func (hr *HCLRenderer) RenderLocals(rules []ConfigRule, templateStr string) (str
 	}
 
 	var buf bytes.Buffer
-	err = tmpl.Execute(&buf, map[string]interface{}{
+	err = tmpl.Execute(&buf, map[string]any{
 		"Rules": rules,
 	})
 	if err != nil {
@@ -52,7 +52,7 @@ func (hr *HCLRenderer) RenderVariables(rules []ConfigRule, templateStr string) (
 	var results []string
 	for i := range rules {
 		var buf bytes.Buffer
-		err = tmpl.Execute(&buf, map[string]interface{}{
+		err = tmpl.Execute(&buf, map[string]any{
 			"Config": &rules[i],
 		})
 		if err != nil {

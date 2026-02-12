@@ -208,7 +208,7 @@ func updateRulePacks(projectRoot string) error {
 	return nil
 }
 
-func writeJSON(path string, v interface{}) error {
+func writeJSON(path string, v any) error {
 	data, err := json.MarshalIndent(v, "", "  ")
 	if err != nil {
 		return err

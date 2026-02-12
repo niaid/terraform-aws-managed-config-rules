@@ -66,7 +66,7 @@ func (c *ProcessRulePacksCommand) Execute(
 	var packNames []string
 
 	for _, packData := range packsData {
-		resources, ok := packData.Content["Resources"].(map[string]interface{})
+		resources, ok := packData.Content["Resources"].(map[string]any)
 		if !ok {
 			continue
 		}

@@ -92,7 +92,7 @@ func (s *YamlFileConformancePackSource) Load() ([]domain.RawConformancePackData,
 		if err != nil {
 			return nil, err
 		}
-		var content map[string]interface{}
+		var content map[string]any
 		if err := yaml.Unmarshal(data, &content); err != nil {
 			return nil, err
 		}
