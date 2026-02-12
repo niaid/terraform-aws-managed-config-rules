@@ -1,0 +1,17 @@
+locals {
+    managed_rules = {
+        {{- range .Rules}}
+            {{.TfRuleName}} = {
+                description = "{{localsDesc .}}"
+                identifier = "{{.RuleIdentifier}}"
+                {{- if .ParametersData}}
+                input_parameters = var.{{.TfVariableName}}
+                {{- end}}
+                {{- if .ResourceTypes}}
+                resource_types_scope = {{formatResourceTypes .ResourceTypes}}
+                {{- end}}
+                severity = "{{.RuleSeverity}}"
+            }
+        {{end}}
+    }
+}

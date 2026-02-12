@@ -1,0 +1,5 @@
+# Temporary JSON files
+*.json
+
+# Go binary
+generator
