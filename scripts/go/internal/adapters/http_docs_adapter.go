@@ -6,11 +6,14 @@ import (
 	"net/http"
 	"regexp"
 	"strings"
+	"sync"
 
 	"scripts/go/internal/domain"
 
 	"github.com/PuerkitoBio/goquery"
 )
+
+const defaultConcurrency = 10
 
 // HttpConfigRuleDataSource scrapes AWS documentation for Config Rule data.
 type HttpConfigRuleDataSource struct {
@@ -25,26 +28,47 @@ func (s *HttpConfigRuleDataSource) Load() ([]domain.RawConfigRuleData, error) {
 	}
 
 	ruleNames := getConfigRulesList(doc)
-	var result []domain.RawConfigRuleData
+	result := make([]domain.RawConfigRuleData, len(ruleNames))
+	errors := make([]error, len(ruleNames))
 
-	for _, ruleName := range ruleNames {
-		log.Printf("Parsing %s", ruleName)
-		ruleDoc, err := fetchDocument(s.RootURL + ruleName)
-		if err != nil {
-			log.Printf("Error fetching rule %s: %v", ruleName, err)
-			continue
-		}
-		mainCol := ruleDoc.Find("div#main-col-body")
-		rule := domain.RawConfigRuleData{
-			Name:          ruleName,
-			Identifier:    getRuleIdentifier(mainCol),
-			Description:   getRuleDescription(mainCol),
-			Parameters:    getRuleParameters(mainCol),
-			ResourceTypes: getResourceTypes(mainCol),
-		}
-		result = append(result, rule)
+	sem := make(chan struct{}, defaultConcurrency)
+	var wg sync.WaitGroup
+
+	for i, ruleName := range ruleNames {
+		wg.Add(1)
+		go func(idx int, name string) {
+			defer wg.Done()
+			sem <- struct{}{}
+			defer func() { <-sem }()
+
+			log.Printf("Parsing %s", name)
+			ruleDoc, err := fetchDocument(s.RootURL + name)
+			if err != nil {
+				log.Printf("Error fetching rule %s: %v", name, err)
+				errors[idx] = err
+				return
+			}
+			mainCol := ruleDoc.Find("div#main-col-body")
+			result[idx] = domain.RawConfigRuleData{
+				Name:          name,
+				Identifier:    getRuleIdentifier(mainCol),
+				Description:   getRuleDescription(mainCol),
+				Parameters:    getRuleParameters(mainCol),
+				ResourceTypes: getResourceTypes(mainCol),
+			}
+		}(i, ruleName)
 	}
-	return result, nil
+
+	wg.Wait()
+
+	// Filter out failed fetches (zero-value entries).
+	var filtered []domain.RawConfigRuleData
+	for i, r := range result {
+		if errors[i] == nil {
+			filtered = append(filtered, r)
+		}
+	}
+	return filtered, nil
 }
 
 // HttpSecurityHubDataSource scrapes AWS documentation for Security Hub control data.
@@ -61,16 +85,32 @@ func (s *HttpSecurityHubDataSource) Load() ([]domain.RawSecurityHubControlData, 
 	}
 
 	controlPages := getSecurityHubControlPages(doc)
-	var result []domain.RawSecurityHubControlData
+	pageResults := make([][]domain.RawSecurityHubControlData, len(controlPages))
 
-	for _, page := range controlPages {
-		pageURL := s.RootURL + strings.TrimPrefix(page, ".")
-		pageDoc, err := fetchDocument(pageURL)
-		if err != nil {
-			log.Printf("Error fetching control page %s: %v", page, err)
-			continue
-		}
-		controls := parseSecurityHubControlPage(pageDoc)
+	sem := make(chan struct{}, defaultConcurrency)
+	var wg sync.WaitGroup
+
+	for i, page := range controlPages {
+		wg.Add(1)
+		go func(idx int, pg string) {
+			defer wg.Done()
+			sem <- struct{}{}
+			defer func() { <-sem }()
+
+			pageURL := s.RootURL + strings.TrimPrefix(pg, ".")
+			pageDoc, err := fetchDocument(pageURL)
+			if err != nil {
+				log.Printf("Error fetching control page %s: %v", pg, err)
+				return
+			}
+			pageResults[idx] = parseSecurityHubControlPage(pageDoc)
+		}(i, page)
+	}
+
+	wg.Wait()
+
+	var result []domain.RawSecurityHubControlData
+	for _, controls := range pageResults {
 		result = append(result, controls...)
 	}
 	return result, nil
