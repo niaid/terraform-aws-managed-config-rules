@@ -23,7 +23,7 @@ jobs:
       - name: Update rules
         id: update-rules
         run: |
-          go build -o scripts/go/generator ./scripts/go/cmd/generator
+          go build -C scripts/go -o generator ./cmd/generator
           ./scripts/go/generator update-config-rules
           ./scripts/go/generator update-rule-packs
 
