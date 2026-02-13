@@ -1,0 +1,9 @@
+variable "{{.Config.TfVariableName}}" {
+    description = "Input parameters for the {{.Config.TfRuleName}} rule."
+    type        = {{.Config.TfVariableTypeHCL}}
+    {{- if .Config.HasDefaults}}
+    default     = {{.Config.TfVariableDefaultValueHCL}}
+    {{else}}
+    default    = {}
+    {{- end}}
+}
