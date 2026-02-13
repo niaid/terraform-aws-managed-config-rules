@@ -221,7 +221,7 @@ func GetDefaultParamValue(value string, valueType string) string {
 	case "number":
 		return value
 	case "bool":
-		return value
+		return strings.ToLower(value)
 	default:
 		return value
 	}
