@@ -1,4 +1,4 @@
-generated_on: "2026-02-13T15:49:30Z"
+generated_on: "2026-03-15T00:05:56Z"
 packs:
     AWS-Control-Tower-Detective-Guardrails:
         - autoscaling-launch-config-public-ip-disabled

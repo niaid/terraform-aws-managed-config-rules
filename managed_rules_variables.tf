@@ -94,6 +94,15 @@ variable "alb_waf_enabled_parameters" {
 }
 
 
+variable "amplify_app_platform_check_parameters" {
+  description = "Input parameters for the amplify-app-platform-check rule."
+  type = object({
+    approvedPlatform = optional(string, null)
+  })
+  default = {}
+}
+
+
 variable "amplify_app_tagged_parameters" {
   description = "Input parameters for the amplify-app-tagged rule."
   type = object({
@@ -103,10 +112,28 @@ variable "amplify_app_tagged_parameters" {
 }
 
 
+variable "amplify_branch_framework_configured_parameters" {
+  description = "Input parameters for the amplify-branch-framework-configured rule."
+  type = object({
+    approvedFrameworks = optional(string, null)
+  })
+  default = {}
+}
+
+
 variable "amplify_branch_tagged_parameters" {
   description = "Input parameters for the amplify-branch-tagged rule."
   type = object({
     requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "apigateway_domain_name_tls_check_parameters" {
+  description = "Input parameters for the apigateway-domain-name-tls-check rule."
+  type = object({
+    allowedSecurityPolicies = optional(string, null)
   })
   default = {}
 }
@@ -257,6 +284,24 @@ variable "appflow_flow_trigger_type_check_parameters" {
 }
 
 
+variable "appintegrations_application_approved_origins_check_parameters" {
+  description = "Input parameters for the appintegrations-application-approved-origins-check rule."
+  type = object({
+    allowedApprovedOrigins = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "appintegrations_application_tagged_parameters" {
+  description = "Input parameters for the appintegrations-application-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
 variable "appintegrations_event_integration_tagged_parameters" {
   description = "Input parameters for the appintegrations-event-integration-tagged rule."
   type = object({
@@ -270,6 +315,15 @@ variable "appmesh_gateway_route_tagged_parameters" {
   description = "Input parameters for the appmesh-gateway-route-tagged rule."
   type = object({
     requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "appmesh_mesh_ip_pref_check_parameters" {
+  description = "Input parameters for the appmesh-mesh-ip-pref-check rule."
+  type = object({
+    ipPreference = optional(string, null)
   })
   default = {}
 }
@@ -787,6 +841,15 @@ variable "cloudtrail_enabled_parameters" {
 }
 
 
+variable "codeartifact_repository_tagged_parameters" {
+  description = "Input parameters for the codeartifact-repository-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
 variable "codebuild_project_environment_privileged_check_parameters" {
   description = "Input parameters for the codebuild-project-environment-privileged-check rule."
   type = object({
@@ -810,6 +873,15 @@ variable "codebuild_project_s3_logs_encrypted_parameters" {
   description = "Input parameters for the codebuild-project-s3-logs-encrypted rule."
   type = object({
     exemptedProjects = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "codebuild_project_tagged_parameters" {
+  description = "Input parameters for the codebuild-project-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
   })
   default = {}
 }
@@ -990,6 +1062,33 @@ variable "desired_instance_type_parameters" {
   description = "Input parameters for the desired-instance-type rule."
   type = object({
     instanceType = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "devicefarm_instance_profile_tagged_parameters" {
+  description = "Input parameters for the devicefarm-instance-profile-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "devicefarm_project_tagged_parameters" {
+  description = "Input parameters for the devicefarm-project-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "devicefarm_test_grid_project_tagged_parameters" {
+  description = "Input parameters for the devicefarm-test-grid-project-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
   })
   default = {}
 }
@@ -1244,6 +1343,15 @@ variable "ec2_instance_profile_attached_parameters" {
   description = "Input parameters for the ec2-instance-profile-attached rule."
   type = object({
     IamInstanceProfileArnList = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "ec2_ipamscope_tagged_parameters" {
+  description = "Input parameters for the ec2-ipamscope-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
   })
   default = {}
 }
@@ -1871,6 +1979,24 @@ variable "encrypted_volumes_parameters" {
 }
 
 
+variable "eventschemas_discoverer_tagged_parameters" {
+  description = "Input parameters for the eventschemas-discoverer-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "eventschemas_registry_tagged_parameters" {
+  description = "Input parameters for the eventschemas-registry-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
 variable "event_data_store_cmk_encryption_enabled_parameters" {
   description = "Input parameters for the event-data-store-cmk-encryption-enabled rule."
   type = object({
@@ -2095,6 +2221,33 @@ variable "glue_spark_job_supported_version_parameters" {
 }
 
 
+variable "groundstation_config_tagged_parameters" {
+  description = "Input parameters for the groundstation-config-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "groundstation_dataflowendpointgroup_tagged_parameters" {
+  description = "Input parameters for the groundstation-dataflowendpointgroup-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "groundstation_missionprofile_tagged_parameters" {
+  description = "Input parameters for the groundstation-missionprofile-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
 variable "guardduty_enabled_centralized_parameters" {
   description = "Input parameters for the guardduty-enabled-centralized rule."
   type = object({
@@ -2120,6 +2273,15 @@ variable "guardduty_non_archived_findings_parameters" {
 }
 
 
+variable "healthlake_fhirdatastore_tagged_parameters" {
+  description = "Input parameters for the healthlake-fhirdatastore-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
 variable "iam_customer_policy_blocked_kms_actions_parameters" {
   description = "Input parameters for the iam-customer-policy-blocked-kms-actions rule."
   type = object({
@@ -2135,6 +2297,15 @@ variable "iam_inline_policy_blocked_kms_actions_parameters" {
   type = object({
     blockedActionsPatterns         = optional(string, null)
     excludeRoleByManagementAccount = optional(bool, null)
+  })
+  default = {}
+}
+
+
+variable "iam_oidc_provider_client_id_list_check_parameters" {
+  description = "Input parameters for the iam-oidc-provider-client-id-list-check rule."
+  type = object({
+    allowedClientIds = optional(string, null)
   })
   default = {}
 }
@@ -2259,6 +2430,42 @@ variable "iam_user_unused_credentials_check_parameters" {
     maxCredentialUsageAge = 90
   }
 
+}
+
+
+variable "imagebuilder_distributionconfiguration_tagged_parameters" {
+  description = "Input parameters for the imagebuilder-distributionconfiguration-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "imagebuilder_imagepipeline_tagged_parameters" {
+  description = "Input parameters for the imagebuilder-imagepipeline-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "imagebuilder_imagerecipe_tagged_parameters" {
+  description = "Input parameters for the imagebuilder-imagerecipe-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "imagebuilder_infrastructureconfiguration_tagged_parameters" {
+  description = "Input parameters for the imagebuilder-infrastructureconfiguration-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
 }
 
 
@@ -2487,6 +2694,24 @@ variable "ivs_recording_configuration_tagged_parameters" {
 }
 
 
+variable "kinesisvideo_signalingchannel_tagged_parameters" {
+  description = "Input parameters for the kinesisvideo-signalingchannel-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "kinesisvideo_stream_tagged_parameters" {
+  description = "Input parameters for the kinesisvideo-stream-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
 variable "kinesis_firehose_delivery_stream_encrypted_parameters" {
   description = "Input parameters for the kinesis-firehose-delivery-stream-encrypted rule."
   type = object({
@@ -2551,6 +2776,15 @@ variable "lambda_dlq_check_parameters" {
 }
 
 
+variable "lambda_function_application_log_level_check_parameters" {
+  description = "Input parameters for the lambda-function-application-log-level-check rule."
+  type = object({
+    logLevel = optional(string, null)
+  })
+  default = {}
+}
+
+
 variable "lambda_function_settings_check_parameters" {
   description = "Input parameters for the lambda-function-settings-check rule."
   type = object({
@@ -2564,6 +2798,15 @@ variable "lambda_function_settings_check_parameters" {
     timeout    = 3
   }
 
+}
+
+
+variable "lambda_function_system_log_level_check_parameters" {
+  description = "Input parameters for the lambda-function-system-log-level-check rule."
+  type = object({
+    logLevel = optional(string, null)
+  })
+  default = {}
 }
 
 
@@ -2616,6 +2859,33 @@ variable "mariadb_publish_logs_to_cloudwatch_logs_parameters" {
   description = "Input parameters for the mariadb-publish-logs-to-cloudwatch-logs rule."
   type = object({
     logTypes = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "mediapackage_packagingconfiguration_tagged_parameters" {
+  description = "Input parameters for the mediapackage-packagingconfiguration-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "mediatailor_playbackconfiguration_tagged_parameters" {
+  description = "Input parameters for the mediatailor-playbackconfiguration-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "memorydb_subnetgroup_tagged_parameters" {
+  description = "Input parameters for the memorydb-subnetgroup-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
   })
   default = {}
 }
@@ -2751,12 +3021,33 @@ variable "opensearch_logs_to_cloudwatch_parameters" {
 }
 
 
+variable "panorama_package_tagged_parameters" {
+  description = "Input parameters for the panorama-package-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
 variable "rabbit_mq_supported_version_parameters" {
   description = "Input parameters for the rabbit-mq-supported-version rule."
   type = object({
     supportedEngineVersion = optional(string, null)
   })
   default = {}
+}
+
+
+variable "rds_cluster_backup_retention_check_parameters" {
+  description = "Input parameters for the rds-cluster-backup-retention-check rule."
+  type = object({
+    minimumBackupRetentionPeriod = optional(number, 7)
+  })
+  default = {
+    minimumBackupRetentionPeriod = 7
+  }
+
 }
 
 
@@ -2782,6 +3073,15 @@ variable "rds_event_subscription_tagged_parameters" {
   description = "Input parameters for the rds-event-subscription-tagged rule."
   type = object({
     requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "rds_global_cluster_aurora_mysql_supported_version_parameters" {
+  description = "Input parameters for the rds-global-cluster-aurora-mysql-supported-version rule."
+  type = object({
+    minSupportedEngineVersion = optional(string, null)
   })
   default = {}
 }
@@ -3019,6 +3319,24 @@ variable "required_tags_parameters" {
 }
 
 
+variable "resiliencehub_app_tagged_parameters" {
+  description = "Input parameters for the resiliencehub-app-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "resiliencehub_resiliencypolicy_tagged_parameters" {
+  description = "Input parameters for the resiliencehub-resiliencypolicy-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
 variable "restricted_common_ports_parameters" {
   description = "Input parameters for the restricted-common-ports rule."
   type = object({
@@ -3058,6 +3376,51 @@ variable "route53_hosted_zone_tagged_parameters" {
 }
 
 
+variable "route53_recovery_control_cluster_tagged_parameters" {
+  description = "Input parameters for the route53-recovery-control-cluster-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "route53_recovery_readiness_cell_tagged_parameters" {
+  description = "Input parameters for the route53-recovery-readiness-cell-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "route53_recovery_readiness_readiness_check_tagged_parameters" {
+  description = "Input parameters for the route53-recovery-readiness-readiness-check-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "route53_recovery_readiness_recovery_group_tagged_parameters" {
+  description = "Input parameters for the route53-recovery-readiness-recovery-group-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "route53_recovery_readiness_resource_set_tagged_parameters" {
+  description = "Input parameters for the route53-recovery-readiness-resource-set-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
 variable "route53_resolver_firewall_domain_list_tagged_parameters" {
   description = "Input parameters for the route53-resolver-firewall-domain-list-tagged rule."
   type = object({
@@ -3078,6 +3441,15 @@ variable "route53_resolver_firewall_rule_group_association_tagged_parameters" {
 
 variable "route53_resolver_firewall_rule_group_tagged_parameters" {
   description = "Input parameters for the route53-resolver-firewall-rule-group-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "route53_resolver_resolver_endpoint_tagged_parameters" {
+  description = "Input parameters for the route53-resolver-resolver-endpoint-tagged rule."
   type = object({
     requiredKeyTags = optional(string, null)
   })
@@ -3381,6 +3753,15 @@ variable "sagemaker_image_tagged_parameters" {
 }
 
 
+variable "sagemaker_inferenceexperiment_tagged_parameters" {
+  description = "Input parameters for the sagemaker-inferenceexperiment-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
 variable "sagemaker_notebook_instance_inside_vpc_parameters" {
   description = "Input parameters for the sagemaker-notebook-instance-inside-vpc rule."
   type = object({
@@ -3458,6 +3839,15 @@ variable "service_vpc_endpoint_enabled_parameters" {
   description = "Input parameters for the service-vpc-endpoint-enabled rule."
   type = object({
     serviceName = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "signer_signingprofile_tagged_parameters" {
+  description = "Input parameters for the signer-signingprofile-tagged rule."
+  type = object({
+    requiredKeyTags = optional(string, null)
   })
   default = {}
 }
@@ -3560,6 +3950,33 @@ variable "transfer_certificate_tagged_parameters" {
   description = "Input parameters for the transfer-certificate-tagged rule."
   type = object({
     requiredKeyTags = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "transfer_connector_as2_encryption_algorithm_check_parameters" {
+  description = "Input parameters for the transfer-connector-as2-encryption-algorithm-check rule."
+  type = object({
+    approvedEncryptionAlgorithms = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "transfer_connector_as2_mdn_signing_algorithm_check_parameters" {
+  description = "Input parameters for the transfer-connector-as2-mdn-signing-algorithm-check rule."
+  type = object({
+    approvedMdnSigningAlgorithms = optional(string, null)
+  })
+  default = {}
+}
+
+
+variable "transfer_connector_as2_signing_algorithm_check_parameters" {
+  description = "Input parameters for the transfer-connector-as2-signing-algorithm-check rule."
+  type = object({
+    approvedSigningAlgorithms = optional(string, null)
   })
   default = {}
 }
