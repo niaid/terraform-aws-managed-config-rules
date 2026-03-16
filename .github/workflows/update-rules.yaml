@@ -5,12 +5,17 @@ on:
     - cron: '0 0 1,15 * *'
   workflow_dispatch:
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   update-rules:
     name: Update Rules
     runs-on: ubuntu-latest
     outputs:
       any_changed: ${{ steps.changed-files.outputs.any_changed }}
+      pull_request_operation: ${{ steps.create-pull-request.outputs.pull-request-operation }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -43,34 +48,9 @@ jobs:
       - name: List all changed files
         run: echo '${{ steps.changed-files.outputs.all_changed_files }}'
 
-      - uses: actions/cache@v4
-        name: Cache plugin dir
-        with:
-          path: ~/.tflint.d/plugins
-          key: tflint-${{ hashFiles('.tflint.hcl') }}
-      
-      - uses: terraform-linters/setup-tflint@v4
-        name: Setup TFLint
-        with:
-          tflint_version: v0.61.0
-
-      - name: Show version
-        run: tflint --version
-  
-      - name: Init TFLint
-        run: tflint --init
-  
-      - name: Run TFLint
-        run: tflint --disable-rule=terraform_required_version
-
-      - uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: 1.14.3
-  
-      - name: Terraform Format
-        run: terraform fmt --recursive .
-
       - name: Create Pull Request
+        id: create-pull-request
+        if: steps.changed-files.outputs.any_changed == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -86,3 +66,13 @@ jobs:
             Update the list of AWS managed Config Rules using the [latest documentation](https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html).
           assignees: bensonce
           reviewers: bensonce,duraikkannuv2
+
+  terraform-checks:
+    name: Terraform Checks
+    needs: update-rules
+    if: needs.update-rules.outputs.pull_request_operation != ''
+    uses: ./.github/workflows/terraform-checks.yaml
+    with:
+      ref: auto-update-aws-config-rules
+      push_branch: auto-update-aws-config-rules
+    secrets: inherit
