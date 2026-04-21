@@ -24,7 +24,7 @@ overrides:
   ec2-volume-inuse-check:
     severity: Low
   guardduty-eks-protection-runtime-enabled:
-    severity: Low
+    severity: Medium
   internet-gateway-authorized-vpc-only:
     severity: High
   lambda-dlq-check:
@@ -39,3 +39,11 @@ overrides:
     severity: High
   vpc-peering-dns-resolution-check:
     severity: High
+  guardduty-malware-protection-enabled:
+    severity: Medium
+  guardduty-runtime-monitoring-enabled:
+    severity: Medium
+  guardduty-s3-protection-enabled:
+    severity: Medium
+  guardduty-eks-protection-audit-enabled:
+    severity: Medium
